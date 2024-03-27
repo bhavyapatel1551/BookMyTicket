@@ -68,76 +68,81 @@
                             <div class="card-body px-0 py-0">
 
                                 <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
-                                        <thead class="bg-gray-100">
-                                            <tr>
-                                                <th class="align-middle text-center  ">Name</th>
-                                                <th class="align-middle text-center ">Vanue</th>
-                                                <th class="align-middle text-center ">Time</th>
-                                                <th class="align-middle text-center ">Date</th>
-                                                <th class="align-middle text-center ">Price</th>
-                                                <th class="align-middle text-center ">Action</th>
-                                                <th class="align-middle text-center ">View</th>
+                                    @if ($events->isEmpty())
+                                        <p class="text-center p-5">No Events Available</p>
+                                    @else
+                                        <table class="table align-items-center mb-0">
+                                            <thead class="bg-gray-100">
+                                                <tr>
+                                                    <th class="align-middle text-center  ">Name</th>
+                                                    <th class="align-middle text-center ">Vanue</th>
+                                                    <th class="align-middle text-center ">Time</th>
+                                                    <th class="align-middle text-center ">Date</th>
+                                                    <th class="align-middle text-center ">Price</th>
+                                                    <th class="align-middle text-center ">Action</th>
+                                                    <th class="align-middle text-center ">View</th>
 
 
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($events as $event)
-                                                <tr class="justify-content-center">
-                                                    <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark  mb-0">{{ $event->name }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark max-width-100  mb-0"
-                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                            {{ $event->venue }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark  mb-0">{{ $event->time }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark  mb-0">{{ $event->date }}
-
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark  mb-0">₹{{ $event->price }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark  mb-0">
-                                                            <a
-                                                                href="/event/update/{{ $event->id }}"class="text-secondary font-weight-bold  me-2">
-                                                                <i class="fa-solid fa-pen"></i>
-                                                            </a>
-
-                                                            <a href="#" class="text-secondary font-weight-bold  ">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </a>
-                                                        </p>
-
-
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark  mb-0">
-                                                            <a href="#"
-                                                                class="text-secondary font-weight-bold  me-2">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </a>
-                                                        </p>
-
-                                                    </td>
                                                 </tr>
-                                            @endforeach
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($events as $event)
+                                                    <tr class="justify-content-center">
+                                                        <td class="align-middle text-center p-3">
+                                                            <p class="text-sm text-dark  mb-0">{{ $event->name }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3">
+                                                            <p class="text-sm text-dark max-width-100  mb-0"
+                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                {{ $event->venue }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">{{ $event->time }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">{{ $event->date }}
 
-                                        </tbody>
-                                    </table>
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">₹{{ $event->price }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                <a
+                                                                    href="/event/update/{{ $event->id }}"class="text-secondary font-weight-bold  me-2">
+                                                                    <i class="fa-solid fa-pen"></i>
+                                                                </a>
+
+                                                                <a href="#"
+                                                                    class="text-secondary font-weight-bold  ">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
+                                                            </p>
+
+
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                <a href="#"
+                                                                    class="text-secondary font-weight-bold  me-2">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </a>
+                                                            </p>
+
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    @endif
                                 </div>
 
                             </div>
