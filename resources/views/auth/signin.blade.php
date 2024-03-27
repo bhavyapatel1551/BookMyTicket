@@ -40,8 +40,8 @@
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
                                                 placeholder="Enter your email address"
-                                                value="{{ old('email') ? old('email') : '' }}"
-                                                aria-label="Email" aria-describedby="email-addon">
+                                                value="{{ old('email') ? old('email') : '' }}" aria-label="Email"
+                                                aria-describedby="email-addon">
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
@@ -51,15 +51,8 @@
                                                 aria-describedby="password-addon">
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <div class="form-check form-check-info text-left mb-0">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                                <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
-                                                    Remember for 14 days
-                                                </label>
-                                            </div>
                                             <a href="{{ route('password.request') }}"
-                                                class="text-xs font-weight-bold ms-auto">Forgot
+                                                class="text-xs font-weight-bold align-items-center">Forgot
                                                 password?</a>
                                         </div>
                                         <div class="text-center">
@@ -88,8 +81,10 @@
                                     style="background-image:url('../assets/img/image-sign-in.jpg')">
                                     <div
                                         class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4">
-                                        <h2 class="mt-3 text-dark font-weight-bold">Laravel Project Of Online Ticket Booking System</h2>
-                                        <h6 class="text-dark text-sm mt-5">Copyright © 2024 by Devnani & Sons Pvt. Ltd.</h6>
+                                        <h2 class="mt-3 text-dark font-weight-bold">Book My Tickets</h2>
+                                        <p class="mb-0">Book. Click. Enjoy.</p>
+                                        <h6 class="text-dark text-sm mt-5">Copyright © 2024 by bookmyticket.com
+                                        </h6>
                                     </div>
                                 </div>
                             </div>

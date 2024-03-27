@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->create([
-            'name' => 'Alec Thompson',
-            'email' => 'admin@corporateui.com',
-            'password' => Hash::make('secret'),
-            'about' => "Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).",
-        ]);
+        // User::factory()->create([
+        //     'id' => 0,
+        //     'name' => 'Admin',
+        //     'email' => 'admin@gmail.com',
+        //     'password' => Hash::make('admin123'),
+        // ]);
     }
 }

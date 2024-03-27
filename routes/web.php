@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,21 +32,31 @@ Route::post('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::get('/tables', function () {
-    return view('tables');
-})->name('tables')->middleware('auth');
+Route::get('/event', function () {
+    return view('events.event');
+})->name('event')->middleware('auth');
 
-Route::get('/wallet', function () {
-    return view('wallet');
-})->name('wallet')->middleware('auth');
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart')->middleware('auth');
 
-Route::get('/RTL', function () {
-    return view('RTL');
-})->name('RTL')->middleware('auth');
+Route::get('/userticket', function () {
+    return view('userticket');
+})->name('userticket')->middleware('auth');
+
+Route::get('/ticketinfo', function () {
+    return view('ticketinfo');
+})->name('ticketinfo')->middleware('auth');
 
 Route::get('/profile', function () {
     return view('account-pages.profile');
 })->name('profile')->middleware('auth');
+
+Route::get('/event/create', function () {
+    return view('events.createevent');
+})->name('create.event')->middleware('auth');
+
+Route::post('/event/create', [EventController::class, 'create'])->name('create.event')->middleware('auth');
 
 Route::get('/signin', function () {
     return view('account-pages.signin');
@@ -70,7 +81,7 @@ Route::get('/sign-in', [LoginController::class, 'create'])
 Route::post('/sign-in', [LoginController::class, 'store'])
     ->middleware('guest');
 
-Route::post('/logout', [LoginController::class, 'destroy'])
+Route::get('/logout', [LoginController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
@@ -89,11 +100,15 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create']
 Route::post('/reset-password', [ResetPasswordController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/laravel-examples/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
-Route::put('/laravel-examples/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
-Route::get('/laravel-examples/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+Route::get('/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
+Route::put('/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
+Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
 
-Route::get('/new', function(){
+
+Route::get('/user-update-profilephoto', [ProfileController::class, 'showprofilephotoform'])->name('update.profilephoto')->middleware('auth');
+Route::post('/user-update-profilephoto', [ProfileController::class, 'updateprofilephoto'])->name('update.profilephoto')->middleware('auth');
+
+Route::get('/new', function () {
     return view('new');
 });
 
@@ -102,9 +117,6 @@ Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('sho
 Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
 
 //.kznvkzd
-Route::get('/mailform', function(){
+Route::get('/mailform', function () {
     return view('mail.test');
 });
-
-
-

@@ -37,13 +37,6 @@
                                                 aria-label="Password" aria-describedby="password-addon">
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <div class="form-check form-check-info text-left mb-0">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                                <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
-                                                    Remember for 14 days
-                                                </label>
-                                            </div>
                                             <a href="javascript:;" class="text-xs font-weight-bold ms-auto">Forgot
                                                 password</a>
                                         </div>

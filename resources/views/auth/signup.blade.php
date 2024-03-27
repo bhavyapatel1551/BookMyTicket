@@ -18,7 +18,8 @@
                                     style="background-image:url('../assets/img/image-sign-up.jpg')">
                                     <div class="my-auto text-start max-width-350 ms-7">
                                         <h1 class="mt-3 text-white font-weight-bolder">Start your <br> new journey.</h1>
-                                        <p class="text-white text-lg mt-4 mb-4">Use these awesome platform to buy or organize an event of your choice!</p>
+                                        <p class="text-white text-lg mt-4 mb-4">Use these awesome platform to buy or
+                                            organize an event of your choice!</p>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-group d-flex">
                                                 <a href="javascript:;" class="avatar avatar-sm rounded-circle"
@@ -47,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="text-start position-absolute fixed-bottom ms-7">
-                                        <h6 class="text-white text-sm mb-5">Copyright © 2024 by Devnani & Sons Pvt. Ltd.</h6>
+                                        <h6 class="text-white text-sm mb-5">Copyright © 2024 by bookmyticket.com</h6>
                                     </div>
                                 </div>
                             </div>
@@ -64,8 +65,8 @@
                                         <label>Name</label>
                                         <div class="mb-3">
                                             <input type="text" id="name" name="name" class="form-control"
-                                                placeholder="Enter your name" value="{{old("name")}}" aria-label="Name"
-                                                aria-describedby="name-addon">
+                                                placeholder="Enter your name" value="{{ old('name') }}"
+                                                aria-label="Name" aria-describedby="name-addon">
                                             @error('name')
                                                 <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -102,14 +103,14 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign up</button>
                                             {{-- <a href="{{ route('send-otp') }}" class="btn btn-primary w-100 mt-4 mb-3">Send OTP</a> --}}
-                                            <button type="button" class="btn btn-white btn-icon w-100 mb-3">
+                                            {{-- <button type="button" class="btn btn-white btn-icon w-100 mb-3">
                                                 <span class="btn-inner--icon me-1">
                                                     <img class="w-5" src="../assets/img/logos/google-logo.svg"
                                                         alt="google-logo" />
                                                 </span>
                                                 <span class="btn-inner--text">Sign up with Google</span>
-                                                
-                                            </button>
+
+                                            </button> --}}
                                         </div>
                                     </form>
                                 </div>

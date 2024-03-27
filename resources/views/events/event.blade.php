@@ -19,10 +19,10 @@
                                 <span class="btn-inner--icon">
 
                                 </span>
-                                <span class="btn-inner--text">Watch more</span>
+                                <span class="btn-inner--text">Create Event</span>
                             </button>
                             <img src="{{ asset('eventmanage.png') }}" alt="Event"
-                                class="position-absolute top-0 end-1 w-30 mb-0 max-width-300 mt-0 d-sm-block d-none" />
+                                class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
                         </div>
                     </div>
                 </div>
@@ -37,13 +37,14 @@
                                     <p class="text-sm">See information about all Events</p>
                                 </div>
                                 <div class="ms-auto d-flex">
-                                    {{-- <button type="button" class="btn btn-sm btn-white me-2">
-                                        View all
-                                    </button> --}}
-                                    <button type="button" class="btn btn-dark btn-icon d-flex align-items-center me-2">
-                                        <i class="fa-solid fa-calendar-days me-2"></i>
-                                        <span class="btn-inner--text">Create Event</span>
-                                    </button>
+
+                                    <a href="{{ route('create.event') }} " style="text-decoration: none;">
+                                        <button type="button"
+                                            class="btn btn-dark btn-icon d-flex align-items-center me-2">
+                                            <i class="fa-solid fa-calendar-days me-2"></i>
+                                            <span class="btn-inner--text">Create Event</span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +76,10 @@
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center p-3">
-                                                    <p class="text-sm text-dark font-weight-semibold mb-0">Ahemdabad
+                                                    <p class="text-sm text-dark font-weight-semibold mb-0"
+                                                        style="width: 200px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                        Sola Bridg SG
+                                                        Highway Ahemdabad
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center p-3 ">
@@ -94,9 +98,10 @@
                                                 <td class="align-middle text-center p-3 ">
                                                     <p class="text-sm text-dark font-weight-semibold mb-0">
                                                         <a href="#"class="text-secondary font-weight-bold  me-2">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                            <i class="fa-solid fa-pen"></i>
                                                         </a>
-                                                        <a href="#" class="text-secondary font-weight-bold  me-2">
+
+                                                        <a href="#" class="text-secondary font-weight-bold  ">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </a>
                                                     </p>

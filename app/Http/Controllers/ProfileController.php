@@ -12,7 +12,7 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
 
-        return view('laravel-examples.user-profile', compact('user'));
+        return view('userProfile.user-profile', compact('user'));
     }
 
     public function update(Request $request)
@@ -43,5 +43,30 @@ class ProfileController extends Controller
         ]);
 
         return back()->with('success', 'Profile updated successfully.');
+    }
+    public function showprofilephotoform()
+    {
+
+        return view('userProfile.updateprofilephoto');
+    }
+    public function updateprofilephoto(Request $request)
+    {
+        // return response($id);
+        $data = $request->validate([
+            'photo' => 'mimes:jpeg,png,jpg,gif|max:10240',
+        ]);
+        if ($request->hasFile('photo')) {
+            $imagepath = $request->file('photo')->getClientOriginalName();
+            $request->file('photo')->storeAs('pfp', $imagepath, 'public');
+            $imagepath = 'pfp/' . $imagepath; // Update the image path to include the 'pfp' folder
+        } else {
+            $imagepath = null;
+        }
+
+        $user = User::find(Auth::id());
+        $user->update([
+            'pfp' => $imagepath
+        ]);
+        return redirect('user-profile');
     }
 }

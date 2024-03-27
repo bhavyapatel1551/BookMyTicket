@@ -12,17 +12,11 @@
                         <div class="card-body text-start p-4 w-100">
                             <h3 class="text-white mb-2">Book. Click. Enjoy 🔥</h3>
                             <p class="mb-4 font-weight-semibold">
-                                Create your own Evnets
+                                Check your Purchase Ticket
                             </p>
-                            <button type="button"
-                                class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0">
-                                <span class="btn-inner--icon">
 
-                                </span>
-                                <span class="btn-inner--text">Watch more</span>
-                            </button>
-                            <img src="{{ asset('eventmanage.png') }}" alt="Event"
-                                class="position-absolute top-0 end-1 w-30 mb-0 max-width-300 mt-0 d-sm-block d-none" />
+                            <img src="{{ asset('ticket-header.png') }}" alt="Event"
+                                class="position-absolute top-0 end-1 w-15 mb-0 max-width-250 mt-3 d-sm-block d-none" />
                         </div>
                     </div>
                 </div>
@@ -33,8 +27,8 @@
                         <div class="card-header border-bottom pb-0">
                             <div class="d-sm-flex align-items-center">
                                 <div>
-                                    <h6 class="font-weight-semibold text-lg mb-0">Event list</h6>
-                                    <p class="text-sm">See information about all Events</p>
+                                    <h6 class="font-weight-semibold text-lg mb-0">Purchase Tickets list</h6>
+                                    <p class="text-sm">See information about all Purchased Tickets</p>
                                 </div>
                                 <div class="ms-auto d-flex">
                                     {{-- <button type="button" class="btn btn-sm btn-white me-2">
@@ -58,7 +52,7 @@
                                             <th class="align-middle text-center ">Time</th>
                                             <th class="align-middle text-center ">Date</th>
                                             <th class="align-middle text-center ">Price</th>
-                                            <th class="align-middle text-center ">Action</th>
+                                            <th class="align-middle text-center ">Quantity</th>
                                             <th class="align-middle text-center ">View</th>
 
 
@@ -93,12 +87,7 @@
                                                 </td>
                                                 <td class="align-middle text-center p-3 ">
                                                     <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                        <a href="#"class="text-secondary font-weight-bold  me-2">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </a>
-                                                        <a href="#" class="text-secondary font-weight-bold  me-2">
-                                                            <i class="fa-solid fa-trash-can"></i>
-                                                        </a>
+                                                        2
                                                     </p>
 
 
