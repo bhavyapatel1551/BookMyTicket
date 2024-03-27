@@ -14,17 +14,22 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="card ">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-                            class="card-img-top mx-auto d-block max-width-500" alt="Hollywood Sign on The Hill" />
+                        @if ($ticket->image)
+                            <img src="{{ asset('storage/' . $ticket->image) }}"
+                                class="card-img-top mx-auto d-block max-width-500" alt="Ticket Image" />
+                        @else
+                            <div>
+                                No Image Available
+                            </div>
+                        @endif
 
                         <div class="card-body ms-5">
-                            <h5 class="card-title  ">Event Name</h5>
-                            <p class="card-text">Event description goes here. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.</p>
+                            <h5 class="card-title  ">{{ $ticket->name }}</h5>
+                            <p class="card-text">{{ $ticket->about }}</p>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Date : March 25, 2024</li>
-                                <li class="list-group-item">Time : 7:00 PM</li>
-                                <li class="list-group-item">Venue : Example Venue</li>
+                                <li class="list-group-item">Date : {{ $ticket->date }}</li>
+                                <li class="list-group-item">Time : {{ $ticket->time }}</li>
+                                <li class="list-group-item">Venue : {{ $ticket->ve }}</li>
                                 <li class="list-group-item">Price : $50</li>
                             </ul>
                             <a href="#" class="btn btn-primary" id="buy">Purchase</a>

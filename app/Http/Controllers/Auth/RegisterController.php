@@ -71,14 +71,14 @@ class RegisterController extends Controller
 
         Session::put('registration_in_progress', true);
 
-        return Redirect::route('showOtpForm');
+        return Redirect()->route('showOtpForm');
     }
 
 
     public function showOtpForm()
     {
         if (Session::get('registration_in_progress')) {
-            return view('otp');
+            return view('auth.otp');
         }
         return redirect('/sign-up');
     }

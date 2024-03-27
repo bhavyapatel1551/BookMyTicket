@@ -1,5 +1,5 @@
 .payment-info {
-    background: rgb(125, 125, 171);
+    /* background: rgb(125, 125, 171); */
     padding: 10px;
     border-radius: 6px;
     color: #fff;
@@ -18,7 +18,7 @@ body {
 }
 
 .cart {
-    background-color: rgb(224, 220, 220);
+    /* background-color: rgb(224, 220, 220); */
 }
 
 .p-about {

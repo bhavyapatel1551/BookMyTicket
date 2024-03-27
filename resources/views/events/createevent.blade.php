@@ -23,9 +23,8 @@
                     </div>
                 </div>
             </div>
-            <form action={{ route('create.event') }} method="POST">
+            <form action={{ route('event.create') }} method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
 
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
@@ -52,31 +51,35 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="name">Event Name</label>
-                                        <input type="text" name="name" id="name" class="form-control">
+                                        <input type="text" name="name" id="name" class="form-control"
+                                            value="{{ old('name') }}">
                                         @error('name')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="email">Event Vanue</label>
-                                        <input type="text" name="vanue" id="vanue" class="form-control">
-                                        @error('vanue')
+                                        <label for="venue">Event Venue</label>
+                                        <input type="text" name="venue" id="venue" class="form-control"
+                                            value="{{ old('venue') }}">
+                                        @error('venue')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="location">Event Location</label>
-                                        <input type="text" name="location" id="location" class="form-control">
-                                        @error('location')
+                                        <label for="image">Event Photo</label>
+                                        <input type="file" name="image" id="image" class="form-control"
+                                            value="{{ old('image') }}">
+                                        @error('image')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="col-6">
                                         <label for="price">Event Price</label>
-                                        <input type="text" name="price" id="price" class="form-control">
+                                        <input type="text" name="price" id="price" class="form-control"
+                                            value="{{ old('price') }}">
                                         @error('price')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
@@ -84,31 +87,27 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="event_date">Event Date</label>
-                                        <input type="text" name="event_date" id="event_date" class="form-control">
-                                        @error('event_date')
+                                        <label for="date">Event Date</label>
+                                        <input type="text" name="date" id="date" class="form-control"
+                                            value="{{ old('date') }}">
+                                        @error('date')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="event_time">Event Time</label>
-                                        <input type="text" name="event_time" id="event_time" class="form-control">
-                                        @error('event_time')
+                                        <label for="time">Event Time</label>
+                                        <input type="text" name="time" id="time" class="form-control"
+                                            value="{{ old('time') }}">
+                                        @error('time')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row p-2">
-                                    <label for="event_image">Event Photo</label>
-                                    <input type="file" name="event_image" id="event_image" class="form-control">
-                                    @error('event_image')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+
 
                                 <div class="row p-2">
                                     <label for="about">Event Description</label>
-                                    <textarea name="about" id="about" rows="3" class="form-control"></textarea>
+                                    <textarea name="about" id="about" rows="3" class="form-control">{{ old('about') }}</textarea>
                                     @error('about')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
@@ -127,12 +126,12 @@
     <script>
         $(document).ready(function() {
             // Initialize datepicker
-            $('#event_date').datepicker({
+            $('#date').datepicker({
                 showOtherMonths: true
             });
 
             // Initialize timepicker
-            $('#event_time').timepicker({
+            $('#time').timepicker({
                 showMeridian: false,
                 defaultTime: false
             });

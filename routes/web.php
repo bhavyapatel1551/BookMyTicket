@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,104 +20,117 @@ use App\Http\Controllers\EventController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Home Page
 Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Events Related Routes --------------------------------------------------------------------------------------------------------
 
-Route::post('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Show Event in my Event page
 
-Route::get('/event', function () {
-    return view('events.event');
-})->name('event')->middleware('auth');
+Route::prefix('event')->group(function () {
+    Route::get('/', [EventController::class, 'ShowAllEvents'])->name('event')->middleware('auth');
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart')->middleware('auth');
+    // Show Event Statistics
+    Route::get('/statistic', [EventController::class, 'ShowStatisticPage'])->name('event.statistic')->middleware('auth');
 
+    // Add New Event
+    Route::get('/create', [EventController::class, 'ShowCreateEventPage'])->name('event.create')->middleware('auth');
+    Route::post('/create', [EventController::class, 'createEvent'])->name('event.create')->middleware('auth');
+
+    // Show Update Page
+    Route::get('/update/{id}', [EventController::class, 'ShowUpdateEventPage'])->name('events.update')->middleware('auth');
+    Route::post('/update/{id}', [EventController::class, 'UpdateEvent'])->name('events.update')->middleware('auth');
+});
+
+
+
+// Tickets Related Routes -------------------------------------------------------------------------------------------------------
+
+// Show All Tickets in Dashboard
+Route::get('/dashboard', [TicketController::class, 'ShowAllTickets'])->name('dashboard')->middleware('auth');
+
+// Show Purchased Ticket of User
 Route::get('/userticket', function () {
-    return view('userticket');
+    return view('tickets.userticket');
 })->name('userticket')->middleware('auth');
 
-Route::get('/ticketinfo', function () {
-    return view('ticketinfo');
-})->name('ticketinfo')->middleware('auth');
+// Show Single Ticket Info
+Route::get('/ticketinfo/{id}', [TicketController::class, 'TicketInfo'])->name('ticketinfo')->middleware('auth');
 
-Route::get('/profile', function () {
-    return view('account-pages.profile');
-})->name('profile')->middleware('auth');
 
-Route::get('/event/create', function () {
-    return view('events.createevent');
-})->name('create.event')->middleware('auth');
 
-Route::post('/event/create', [EventController::class, 'create'])->name('create.event')->middleware('auth');
 
-Route::get('/signin', function () {
-    return view('account-pages.signin');
-})->name('signin');
+// User Profile Related Route----------------------------------------------------------------------------------------------------
 
-Route::get('/signup', function () {
-    return view('account-pages.signup');
-})->name('signup')->middleware('guest');
+// Show User PRofile
+Route::get('/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
 
+// Update User Profile
+Route::put('/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
+
+// Upload Profile Photo
+Route::get('/user-update-profilephoto', [ProfileController::class, 'showprofilephotoform'])->name('update.profilephoto')->middleware('auth');
+Route::post('/user-update-profilephoto', [ProfileController::class, 'updateprofilephoto'])->name('update.profilephoto')->middleware('auth');
+
+// Show Add To Cart Page
+Route::get('/cart', function () {
+    return view('userProfile.cart');
+})->name('cart')->middleware('auth');
+
+
+
+
+
+// Auth Related Routes ----------------------------------------------------------------------------------------------------------
+
+// Sign up page
 Route::get('/sign-up', [RegisterController::class, 'create'])
     ->middleware('guest')
     ->name('sign-up');
-
 Route::post('/sign-up', [RegisterController::class, 'store'])
     ->middleware('guest');
 
-
+// Sign in Page
 Route::get('/sign-in', [LoginController::class, 'create'])
     ->middleware('guest')
     ->name('sign-in');
-
 Route::post('/sign-in', [LoginController::class, 'store'])
     ->middleware('guest');
 
+// Log out route
 Route::get('/logout', [LoginController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
+// Show Forget Password Page
 Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])
     ->middleware('guest')
     ->name('password.request');
-
 Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.email');
 
+// Show Reset Password Page 
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])
     ->middleware('guest')
     ->name('password.reset');
-
 Route::post('/reset-password', [ResetPasswordController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
-Route::put('/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
-Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
-
-
-Route::get('/user-update-profilephoto', [ProfileController::class, 'showprofilephotoform'])->name('update.profilephoto')->middleware('auth');
-Route::post('/user-update-profilephoto', [ProfileController::class, 'updateprofilephoto'])->name('update.profilephoto')->middleware('auth');
-
-Route::get('/new', function () {
-    return view('new');
-});
-
+// Show OTP Verification PAge
 Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('showOtpForm');
-
 Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
 
-//.kznvkzd
+
+
+
+
+// Testing Route-----------------------------------------------------------------------------------------------------------------
 Route::get('/mailform', function () {
     return view('mail.test');
 });
+
+// Show all user for admin 
+Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
