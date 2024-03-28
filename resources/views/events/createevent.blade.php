@@ -5,7 +5,8 @@
         <div class="container-fluid ">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-background card-background-after-none align-items-start mt-4 mb-5">
+                    <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                        id="zoomin">
                         <div class="full-background"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
                         </div>

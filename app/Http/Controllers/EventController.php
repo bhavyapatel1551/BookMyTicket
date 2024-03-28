@@ -86,7 +86,7 @@ class EventController extends Controller
                 'image' => $imagepath,
             ]);
         }
-        $date = Carbon::createFromFormat('d/m/Y', $request['date'])->format('Y-m-d');
+        $date = Carbon::createFromFormat('m/d/Y', $request['date'])->format('Y-m-d');
         Events::where('id', $id)->update([
             "name" => $request['name'],
             "venue" => $request['venue'],

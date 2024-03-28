@@ -5,7 +5,8 @@
         <div class="container-fluid py-4 px-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-background card-background-after-none align-items-start mt-4 mb-5">
+                    <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                        id="zoomin">
                         <div class="full-background"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
                         </div>
@@ -33,8 +34,8 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
-                        <div
-                            class="bg-gray-300 text-dark rounded d-flex align-items-center justify-content-between p-4">
+                        <div id="zoomin"
+                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-line fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Sale</p>
@@ -43,8 +44,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div
-                            class="bg-gray-300 text-dark rounded d-flex align-items-center justify-content-between p-4">
+                        <div id="zoomin"
+                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-bar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Sale</p>
@@ -53,8 +54,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div
-                            class="bg-gray-300 text-dark rounded d-flex align-items-center justify-content-between p-4">
+                        <div id="zoomin"
+                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Revenue</p>
@@ -63,8 +64,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div
-                            class="bg-gray-300 text-dark rounded d-flex align-items-center justify-content-between p-4">
+                        <div id="zoomin"
+                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Revenue</p>
@@ -78,36 +79,79 @@
 
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="bg-light text-center rounded p-4">
+                <div class="bg-gray-200 text-center border-radius-lg p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
+                        <h6 class="mb-0">Recent Sales</h6>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-items-center  table-bordered table-hover mb-0">
-                            <thead class="bg-gray-400">
-                                <tr class="text-dark">
-                                    <th scope="col" class="align-middle text-center ">Date</th>
-                                    <th scope="col" class="align-middle text-center ">Event</th>
-                                    <th scope="col" class="align-middle text-center ">Customer</th>
-                                    <th scope="col" class="align-middle text-center ">Amount</th>
-                                    <th scope="col" class="align-middle text-center ">Quentity</th>
-                                    <th scope="col" class="align-middle text-center ">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for ($i = 0; $i < 10; $i++)
+                    <div class="card-body px-0 py-0">
+
+                        <div class="table p-0">
+
+                            <table class="table align-items-center mb-0 w-100">
+                                <thead class="bg-gray-200">
                                     <tr>
-                                        <td class="align-middle text-center ">01 Jan 2045</td>
-                                        <td class="align-middle text-center ">Event Name</td>
-                                        <td class="align-middle text-center ">Jhon Doe</td>
-                                        <td class="align-middle text-center ">$123</td>
-                                        <td class="align-middle text-center ">2</td>
-                                        <td class="align-middle text-center "><a class="btn btn-sm btn-primary"
-                                                href="">Details</a></td>
+                                        <th class="align-middle ps-5 ">Name</th>
+                                        <th class="align-middle text-center ">Vanue</th>
+                                        <th class="align-middle text-center ">Time</th>
+                                        <th class="align-middle text-center ">Date</th>
+                                        <th class="align-middle text-center ">Price</th>
+                                        <th class="align-middle text-center ">Quantity</th>
+                                        <th class="align-middle text-center ">View</th>
+
+
+
+
                                     </tr>
-                                @endfor
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @for ($i = 0; $i < 10; $i++)
+                                        <tr class="justify-content-center" id="zoomin">
+                                            <td class="align-middle p-3">
+                                                <p class="text-sm text-dark ms-3 mb-0">Event Name
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center p-3">
+                                                <p class="text-sm text-dark max-width-100  mb-0"
+                                                    style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                    Vanue
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center p-3 ">
+                                                <p class="text-sm text-dark  mb-0">Time
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center p-3 ">
+                                                <p class="text-sm text-dark  mb-0">Date
+
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center p-3 ">
+                                                <p class="text-sm text-dark  mb-0">₹ Price
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center p-3 ">
+                                                <p class="text-sm text-dark  mb-0">
+                                                    15
+                                                </p>
+
+
+                                            </td>
+                                            <td class="align-middle text-center p-3 ">
+                                                <p class="text-sm text-dark  mb-0">
+                                                    <a href="#" class="text-secondary font-weight-bold  me-2">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </a>
+                                                </p>
+
+                                            </td>
+                                        </tr>
+                                    @endfor
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
                     </div>
                 </div>
             </div>

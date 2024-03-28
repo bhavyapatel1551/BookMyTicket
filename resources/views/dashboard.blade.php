@@ -2,12 +2,13 @@
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
-        <link rel="stylesheet" href="{{ asset('assets/css/card.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('assets/css/card.css') }}"> --}}
         <section class="h-100 h-custom ">
             <div class="container-fluid py-4 px-5">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-5">
+                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                            id="zoomin">
                             <div class="full-background"
                                 style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
                             </div>
@@ -26,7 +27,7 @@
                                         <span class="btn-inner--text">Your Order</span>
                                     </button>
                                 </a>
-                                <img src="{{ asset('event.png') }}" alt="Event"
+                                <img src="{{ asset('event.png') }}" alt="Event" id="Dashboardheaderimg"
                                     class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
 
                             </div>
@@ -34,10 +35,10 @@
                     </div>
                 </div>
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
-                <section class="light">
+                <section class="">
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)
-                            <article class="postcard light blue">
+                            <article class="postcard TicketCard blue" id="TicketCard">
                                 <a class="postcard__img_link" href="#">
                                     <img class="postcard__img" src="{{ asset('storage/' . $ticket->image) }}"
                                         alt="Image Title" />

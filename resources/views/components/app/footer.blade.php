@@ -18,7 +18,7 @@
                     <a href="#" class="nav-link text-m text-muted" target="_blank">Book my Ticket</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-m text-muted" target="_blank">UPDIVISION</a>
+                    <a href="#" class="nav-link text-m text-muted" target="_blank">Terms & Conditions</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-m text-muted" target="_blank">About Us</a>

@@ -11,8 +11,10 @@
                                 <div class="row">
 
                                     <div class="col-lg-7 ">
-                                        <h5 class="mb-3"><a href="{{ route('dashboard') }}" class="text-body"><i
-                                                    class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a>
+                                        <h5 class="mb-3"><a href="{{ route('dashboard') }}"
+                                                style="text-decoration: none" class="text-body">
+                                                <i class="fas fa-long-arrow-alt-left me-2">
+                                                </i>Continue shopping</a>
                                         </h5>
                                         <hr>
 
@@ -25,7 +27,7 @@
                                         </div>
 
                                         @for ($i = 0; $i < 4; $i++)
-                                            <div class="card mb-3 bg-gray-200">
+                                            <div class="card mb-3 bg-gray-200" id="zoomin">
                                                 <div class="card-body">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex flex-row align-items-center">

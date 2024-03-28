@@ -6,7 +6,8 @@
             <div class="container-fluid py-4 px-5">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-5">
+                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                            id="zoomin">
                             <div class="full-background"
                                 style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
                             </div>
@@ -67,11 +68,11 @@
                             </div>
                             <div class="card-body px-0 py-0">
 
-                                <div class="table-responsive p-0">
+                                <div class="table p-0">
                                     @if ($events->isEmpty())
                                         <p class="text-center p-5">No Events Available</p>
                                     @else
-                                        <table class="table align-items-center mb-0">
+                                        <table class="table align-items-center mb-0 w-100">
                                             <thead class="bg-gray-100">
                                                 <tr>
                                                     <th class="align-middle ps-5 ">Name</th>
@@ -89,7 +90,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($events as $event)
-                                                    <tr class="justify-content-center">
+                                                    <tr class="justify-content-center" id="zoomin">
                                                         <td class="align-middle p-3">
                                                             <p class="text-sm text-dark ms-3 mb-0">{{ $event->name }}
                                                             </p>

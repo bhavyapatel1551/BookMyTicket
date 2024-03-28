@@ -8,7 +8,7 @@
                     <div class="col-lg-9 col-12">
                         <div class="card card-body"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );"
-                            id="profile">
+                            id="zoomin">
 
                             <div class="row z-index-2 justify-content-start align-items-center">
 
