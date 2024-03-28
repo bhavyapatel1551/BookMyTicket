@@ -1,14 +1,13 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start" id="sidenav-main">
     <div class="sidenav-header">
-        <a class="navbar-brand d-flex align-items-center h-auto w-auto m-0 justify-content-center"
-            href="https://demos.creative-tim.com/corporate-ui-dashboard/pages/dashboard.html" target="_blank">
+        <a class="navbar-brand d-flex align-items-center h-auto w-auto m-0 justify-content-center" target="_blank">
             <img src="{{ asset('Logowhite.png') }}" alt="Your Logo" width="100%" height="100%" />
         </a>
     </div>
     <div class="collapse navbar-collapse px-4 w-auto mt-5 h-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item ps-2 d-flex flex-column align-items-center mb-3">
-                <a href="{{ route('users.profile') }}" class="nav-link text-body p-0">
+                <a href="{{ route('user.profile') }}" class="nav-link text-body p-0">
                     @if (auth()->user()->pfp)
                         <img src="{{ url('storage/' . auth()->user()->pfp) }}" alt="Profile Photo"
                             class="w-50 h-50 mx-auto mb-2 object-fit-cover border-radius-2xl shadow-sm" id="preview">
@@ -51,7 +50,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.profile') }}">
+                <a class="nav-link" href="{{ route('user.profile') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <i class="fa-regular fa-user"></i>

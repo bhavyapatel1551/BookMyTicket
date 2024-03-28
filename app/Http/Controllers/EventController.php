@@ -58,4 +58,49 @@ class EventController extends Controller
         ]);
         return redirect()->route("event")->with('success', 'Event created successfully!');
     }
+    public function ShowUpdateEventPage($id)
+    {
+        $event = Events::findOrFail($id);
+        $date = $event->date;
+        $time = $event->time;
+        $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
+        $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
+        return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
+    }
+    public function UpdateEvent($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:3',
+            'venue' => 'required|min:3',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'price' => 'required|numeric',
+            'about' => '',
+            'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
+        ]);
+        if ($request->hasFile('image')) {
+            $imagepath = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('event', $imagepath, 'public');
+            $imagepath = 'event/' . $imagepath; // Update the image path to include the 'pfp' folder
+            Events::where('id', $id)->update([
+                'image' => $imagepath,
+            ]);
+        }
+        $date = Carbon::createFromFormat('d/m/Y', $request['date'])->format('Y-m-d');
+        Events::where('id', $id)->update([
+            "name" => $request['name'],
+            "venue" => $request['venue'],
+            "time" => $request['time'],
+            "date" => $date,
+            "price" => $request['price'],
+            "about" => $request['about'],
+        ]);
+        return redirect()->route("event")->with('success', 'Event Updated successfully!');
+    }
+
+    public function deleteEvent($id)
+    {
+        Events::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Event Deleted successfully!');
+    }
 }

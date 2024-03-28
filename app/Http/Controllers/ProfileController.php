@@ -12,9 +12,13 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
 
-        return view('userProfile.user-profile', compact('user'));
+        return view('userProfile.UserProfile', compact('user'));
     }
 
+    public function ShowCart()
+    {
+        return view('userProfile.Cart');
+    }
     public function update(Request $request)
     {
         $request->validate([
@@ -43,7 +47,7 @@ class ProfileController extends Controller
     public function showprofilephotoform()
     {
 
-        return view('userProfile.updateprofilephoto');
+        return view('userProfile.UpdateProfilePhoto');
     }
     public function updateprofilephoto(Request $request)
     {
@@ -63,6 +67,6 @@ class ProfileController extends Controller
         $user->update([
             'pfp' => $imagepath
         ]);
-        return redirect('user-profile')->with('success', 'Photo uploaded!!');
+        return redirect('/user/profile')->with('success', 'Photo uploaded!!');
     }
 }

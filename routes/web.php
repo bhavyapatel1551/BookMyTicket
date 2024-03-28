@@ -29,20 +29,23 @@ Route::get('/', function () {
 
 // Show Event in my Event page
 
-Route::prefix('event')->group(function () {
-    Route::get('/', [EventController::class, 'ShowAllEvents'])->name('event')->middleware('auth');
 
-    // Show Event Statistics
-    Route::get('/statistic', [EventController::class, 'ShowStatisticPage'])->name('event.statistic')->middleware('auth');
+Route::get('/event', [EventController::class, 'ShowAllEvents'])->name('event')->middleware('auth');
 
-    // Add New Event
-    Route::get('/create', [EventController::class, 'ShowCreateEventPage'])->name('event.create')->middleware('auth');
-    Route::post('/create', [EventController::class, 'createEvent'])->name('event.create')->middleware('auth');
+// Show Event Statistics
+Route::get('/event/statistic', [EventController::class, 'ShowStatisticPage'])->name('event.statistic')->middleware('auth');
 
-    // Show Update Page
-    Route::get('/update/{id}', [EventController::class, 'ShowUpdateEventPage'])->name('events.update')->middleware('auth');
-    Route::post('/update/{id}', [EventController::class, 'UpdateEvent'])->name('events.update')->middleware('auth');
-});
+// Add New Event
+Route::get('/event/create', [EventController::class, 'ShowCreateEventPage'])->name('event.create')->middleware('auth');
+Route::post('/event/create', [EventController::class, 'createEvent'])->name('event.create')->middleware('auth');
+
+// Show Update Event  Page
+Route::get('/eventUpdate/{id}', [EventController::class, 'ShowUpdateEventPage'])->name('events.update')->middleware('auth');
+Route::post('/eventUpdate/{id}', [EventController::class, 'UpdateEvent'])->name('events.update')->middleware('auth');
+
+// Delete The Event
+
+Route::get('/eventDelete/{id}', [EventController::class, 'deleteEvent'])->name('eventDelete')->middleware('auth');
 
 
 
@@ -51,13 +54,15 @@ Route::prefix('event')->group(function () {
 // Show All Tickets in Dashboard
 Route::get('/dashboard', [TicketController::class, 'ShowAllTickets'])->name('dashboard')->middleware('auth');
 
-// Show Purchased Ticket of User
-Route::get('/userticket', function () {
-    return view('tickets.userticket');
-})->name('userticket')->middleware('auth');
+Route::prefix('ticket')->group(function () {
 
-// Show Single Ticket Info
-Route::get('/ticketinfo/{id}', [TicketController::class, 'TicketInfo'])->name('ticketinfo')->middleware('auth');
+    // Show Purchased Ticket of User
+    Route::get('/order', [TicketController::class, 'UserTicketOrder'])->name('ticket.order')->middleware('auth');
+
+    // Show Single Ticket Info
+
+    Route::get('/{id}', [TicketController::class, 'TicketInfo'])->name('ticket.info')->middleware('auth');
+});
 
 
 
@@ -65,19 +70,22 @@ Route::get('/ticketinfo/{id}', [TicketController::class, 'TicketInfo'])->name('t
 // User Profile Related Route----------------------------------------------------------------------------------------------------
 
 // Show User PRofile
-Route::get('/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
 
-// Update User Profile
-Route::put('/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
 
-// Upload Profile Photo
-Route::get('/user-update-profilephoto', [ProfileController::class, 'showprofilephotoform'])->name('update.profilephoto')->middleware('auth');
-Route::post('/user-update-profilephoto', [ProfileController::class, 'updateprofilephoto'])->name('update.profilephoto')->middleware('auth');
+Route::prefix('user')->group(function () {
+    // Update User Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile')->middleware('auth');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('user.update')->middleware('auth');
+
+    // Upload Profile Photo
+    Route::get('/PhotoUpdate', [ProfileController::class, 'showprofilephotoform'])->name('user.PhotoUpdate')->middleware('auth');
+    Route::post('/PhotoUpdate', [ProfileController::class, 'updateprofilephoto'])->name('user.PhotoUpdate')->middleware('auth');
+    Route::get('/cart', [ProfileController::class, 'ShowCart'])->name('cart')->middleware('auth');
+});
+
+
 
 // Show Add To Cart Page
-Route::get('/cart', function () {
-    return view('userProfile.cart');
-})->name('cart')->middleware('auth');
 
 
 
@@ -121,7 +129,7 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store'])
 
 // Show OTP Verification PAge
 Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('showOtpForm');
-Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
+Route::post('/verify-otp', [RegisterController::class, 'verifyOtp'])->name('verifyOtp');
 
 
 
@@ -131,6 +139,16 @@ Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
 Route::get('/mailform', function () {
     return view('mail.test');
 });
+
+Route::get('/test', function () {
+    return view('tickets.TicketInfo');
+});
+
+
+
+
+
+
 
 // Show all user for admin 
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');

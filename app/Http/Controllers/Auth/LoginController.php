@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -29,24 +29,26 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+        if (Session::get('registration_in_progress')) {
+            return redirect()->route('verifyOtp');
+        } else {
+            $credentials = $request->only('email', 'password');
 
-        $credentials = $request->only('email', 'password');
+            $rememberMe = $request->rememberMe ? true : false;
 
-        $rememberMe = $request->rememberMe ? true : false;
+            if (Auth::attempt($credentials, $rememberMe)) {
+                $request->session()->regenerate();
 
-        if (Auth::attempt($credentials, $rememberMe)) {
-            $request->session()->regenerate();
+                return redirect()->intended('/dashboard');
+            }
 
-            return redirect()->intended('/dashboard');
+
+
+            return back()->withErrors([
+                'message' => 'The provided credentials do not match our records.',
+            ])->withInput($request->only('email'));
         }
-
-
-
-        return back()->withErrors([
-            'message' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
     }
-
 
 
     /**

@@ -13,7 +13,7 @@ class UserController extends Controller
         $user = Auth::user();
         if ($user && $user->id === 0) {
             $users = User::all();
-            return view('laravel-examples.users-management', compact('users'));
+            return view('Admin.UserManagement', compact('users'));
         } else {
             abort(403, 'Unauthorized');
         }

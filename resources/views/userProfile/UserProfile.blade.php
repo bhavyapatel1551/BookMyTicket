@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid ">
-            <form action={{ route('users.update') }} method="POST">
+            <form action={{ route('user.update') }} method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">
@@ -13,17 +13,17 @@
                             <div class="row z-index-2 justify-content-start align-items-center">
 
                                 <div class="col-sm-auto col-4">
-                                    <div class="avatar avatar-xl position-relative">
-                                        <a href="{{ route('update.profilephoto') }}"
+                                    <div class="avatar avatar-2xl position-relative">
+                                        <a href="{{ route('user.PhotoUpdate') }}"
                                             onclick="return confirm('Do you want to update the Profile photo?')">
                                             @if (auth()->user()->pfp)
                                                 <img src="{{ url('storage/' . auth()->user()->pfp) }}"
                                                     alt="Profile Photo"
-                                                    class="w-100 h-100 object-fit-cover border-radius-lg shadow-sm"
+                                                    class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
                                                     id="preview">
                                             @else
                                                 <img src="{{ asset('profileimg.png') }}" alt="Default Profile Photo"
-                                                    class="w-100 h-100 object-fit-cover border-radius-lg shadow-sm"
+                                                    class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
                                                     id="preview">
                                             @endif
                                         </a>
@@ -33,13 +33,14 @@
                                 </div>
                                 <div class="col-sm-auto col-8 my-auto">
                                     <div class="h-100">
-                                        <h5 class="mb-1 font-weight-bolder">
+                                        <h2 class="  font-weight-bolder">
                                             {{ auth()->user()->name }}
-
-                                        </h5>
+                                        </h2>
+                                        <p>{{ auth()->user()->email }}</p>
 
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

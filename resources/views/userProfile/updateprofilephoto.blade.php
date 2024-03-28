@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid ">
-            <form action={{ route('update.profilephoto') }} method="POST" enctype="multipart/form-data">
+            <form action={{ route('user.PhotoUpdate') }} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mt-2 mb-5 mt-lg-7 row justify-content-center">
                     <div class="col-lg-9 col-12">
@@ -12,7 +12,7 @@
                             <div class="row z-index-2 justify-content-start align-items-center">
                                 <div class="col-sm-auto col-4">
                                     <div class="avatar avatar-xl position-relative">
-                                        <a href="{{ route('update.profilephoto') }}"
+                                        <a href="{{ route('user.PhotoUpdate') }}"
                                             onclick="return confirm('Do you want to update the Profile photo?')">
                                             @if (auth()->user()->pfp)
                                                 <img src="{{ url('storage/' . auth()->user()->pfp) }}"

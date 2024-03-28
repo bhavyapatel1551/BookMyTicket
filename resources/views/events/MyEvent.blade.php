@@ -74,7 +74,7 @@
                                         <table class="table align-items-center mb-0">
                                             <thead class="bg-gray-100">
                                                 <tr>
-                                                    <th class="align-middle text-center  ">Name</th>
+                                                    <th class="align-middle ps-5 ">Name</th>
                                                     <th class="align-middle text-center ">Vanue</th>
                                                     <th class="align-middle text-center ">Time</th>
                                                     <th class="align-middle text-center ">Date</th>
@@ -90,8 +90,8 @@
                                             <tbody>
                                                 @foreach ($events as $event)
                                                     <tr class="justify-content-center">
-                                                        <td class="align-middle text-center p-3">
-                                                            <p class="text-sm text-dark  mb-0">{{ $event->name }}
+                                                        <td class="align-middle p-3">
+                                                            <p class="text-sm text-dark ms-3 mb-0">{{ $event->name }}
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3">
@@ -116,11 +116,12 @@
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">
                                                                 <a
-                                                                    href="/event/update/{{ $event->id }}"class="text-secondary font-weight-bold  me-2">
+                                                                    href="/eventUpdate/{{ $event->id }}"class="text-secondary font-weight-bold  me-2">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </a>
 
-                                                                <a href="#"
+                                                                <a href=""
+                                                                    onclick="deleteEvent('{{ $event->id }}')"
                                                                     class="text-secondary font-weight-bold  ">
                                                                     <i class="fa-solid fa-trash-can"></i>
                                                                 </a>

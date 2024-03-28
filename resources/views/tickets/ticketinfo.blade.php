@@ -1,43 +1,27 @@
 <x-app-layout>
-    <style>
-        #buy {
-            background-color: blue;
-            color: white;
-        }
 
-        #buy:hover {
-            background-color: green
-        }
-    </style>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div class="container-fluid py-4 px-5">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="card ">
-                        @if ($ticket->image)
-                            <img src="{{ asset('storage/' . $ticket->image) }}"
-                                class="card-img-top mx-auto d-block max-width-500" alt="Ticket Image" />
-                        @else
-                            <div>
-                                No Image Available
-                            </div>
-                        @endif
-
-                        <div class="card-body ms-5">
-                            <h5 class="card-title  ">{{ $ticket->name }}</h5>
-                            <p class="card-text">{{ $ticket->about }}</p>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Date : {{ $ticket->date }}</li>
-                                <li class="list-group-item">Time : {{ $ticket->time }}</li>
-                                <li class="list-group-item">Venue : {{ $ticket->ve }}</li>
-                                <li class="list-group-item">Price : $50</li>
-                            </ul>
-                            <a href="#" class="btn btn-primary" id="buy">Purchase</a>
-                        </div>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        {{-- <x-app.navbar /> --}}
+        <section class="about-info-area section-gap">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 info-left">
+                        <img class="img-fluid" src="{{ asset('event.png') }}" alt="">
+                    </div>
+                    <div class="col-lg-6 info-right">
+                        <h6>About Us</h6>
+                        <h1>Who We Are?</h1>
+                        <p>
+                            Here, I focus on a range of items and features that we use in life without giving them a
+                            second thought. such as Coca Cola. Dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco.
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <x-app.footer />
     </main>
-    <script src="{{ asset('assets/js/cart.js') }}"></script>
+
 </x-app-layout>

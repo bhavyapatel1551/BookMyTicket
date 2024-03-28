@@ -16,6 +16,10 @@ class TicketController extends Controller
     public function TicketInfo($id)
     {
         $ticket = Events::where('id', $id)->first();
-        return view('tickets.ticketinfo', compact('ticket'));
+        return view('tickets.TicketInfo', compact('ticket'));
+    }
+    public function UserTicketOrder()
+    {
+        return view('tickets.UserTicketOrder');
     }
 }

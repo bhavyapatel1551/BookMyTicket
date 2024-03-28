@@ -63,7 +63,7 @@ class RegisterController extends Controller
         $otp = rand(1000, 9999);
         session(['otp' => $otp]);
 
-        Mail::to($email)->send(new TestMail($otp));
+        Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
         Session::put('email', $email);
         Session::put('otp', $otp);
         Session::put('name', $name);
@@ -81,22 +81,34 @@ class RegisterController extends Controller
         }
         return redirect('/sign-up');
     }
+
     public function verifyOtp(Request $request)
     {
-        $otp = session('otp');
-        $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
+        $email = session('email');
 
-        if ($otp == $userotp) {
-            $email = session('email');
-            $user = User::where('email', $email)->first();
-            Auth::login($user);
+        if ($request->input('action') === 'resend') {
+            $rotp = rand(999, 9999);
+            session(['otp' => $rotp]);
 
-            Session::forget('registration_in_progress');
+            $otp = $rotp;
 
+            Mail::to($email)->send(new TestMail($otp, 'New OTP!'));
 
-            return redirect(RouteServiceProvider::HOME);
+            return Redirect()->route('showOtpForm');
         } else {
-            return back()->with('error', 'Invalid OTP. Please try again.');
+            $otp = session('otp');
+            $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
+
+            if ($otp == $userotp) {
+                $user = User::where('email', $email)->first();
+                Auth::login($user);
+
+                Session::forget('registration_in_progress');
+
+                return redirect(RouteServiceProvider::HOME);
+            } else {
+                return back()->with('error', 'Invalid OTP. Please try again.');
+            }
         }
     }
 }

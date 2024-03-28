@@ -17,7 +17,7 @@
                                     Check all the Events and choose the best.
                                 </p>
 
-                                <a href="{{ route('userticket') }}">
+                                <a href="{{ route('ticket.order') }}">
                                     <button type="button"
                                         class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0 p-2">
                                         <span class="btn-inner--icon me-2">
@@ -33,49 +33,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="container ">
-                    <div class="row">
-
-                        <div class="container">
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-
-                                @foreach ($tickets as $ticket)
-                                    <div class="col ">
-                                        <a href="/ticketinfo/{{ $ticket->id }}">
-                                            <div class="card h-100">
-                                                @if ($ticket->image)
-                                                    <img src="{{ asset('storage/' . $ticket->image) }}"
-                                                        class="card-img-top" alt="Ticket Images" />
-                                                @else
-                                                    <div class="card-img-top">No Image Available!</div>
-                                                @endif
-
-                                                <div class="card-body">
-                                                    <a class="card-action" href="{{ route('cart') }}"><i
-                                                            class="fa-solid fa-cart-shopping"></i></a>
-                                                    <div class="card-heading">
-                                                        {{ $ticket->name }}
-                                                    </div>
-                                                    <div class="card-text">
-                                                        {{ $ticket->venue }}
-                                                    </div>
-                                                    <div class="card-text ">
-                                                        {{ $ticket->date }}
-                                                    </div>
-                                                    <div class="card-text">
-                                                        {{ $ticket->price }}₹
-                                                    </div>
-                                                    <a href="#" class="card-button"> Purchase</a>
-                                                </div>
-                                            </div>
-                                        </a>
+                <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
+                <section class="light">
+                    <div class="container py-2">
+                        @foreach ($tickets as $ticket)
+                            <article class="postcard light blue">
+                                <a class="postcard__img_link" href="#">
+                                    <img class="postcard__img" src="{{ asset('storage/' . $ticket->image) }}"
+                                        alt="Image Title" />
+                                </a>
+                                <div class="postcard__text t-dark">
+                                    <h1 class="postcard__title blue"><a href="#"> {{ $ticket->name }}</a></h1>
+                                    <div class="postcard__subtitle small">
+                                        <time datetime="2020-05-25 12:00:00">
+                                            <i class="fas fa-calendar-alt me-2"></i> {{ $ticket->date }}
+                                        </time>
                                     </div>
-                                @endforeach
-                            </div>
-                        </div>
+                                    <div class="postcard__bar"></div>
+                                    <div class="postcard__preview-txt">{{ $ticket->about }}
+                                        <h6 class="mt-3">Price : {{ $ticket->price }}</h6>
+                                        <h6 class="">Time : {{ $ticket->time }}</h6>
+                                    </div>
 
+
+                                    <ul class="postcard__tagbox">
+
+                                        <li class="tag__item play blue">
+                                            <a href="{{ route('cart') }}"><i
+                                                    class="fa-solid fa-sm fa-cart-shopping me-2"></i>Add To
+                                                Cart</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </article>
+                        @endforeach
                     </div>
-                </div>
+                </section>
             </div>
         </section>
         <x-app.footer />
