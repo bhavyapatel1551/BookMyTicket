@@ -2,7 +2,6 @@
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
-        {{-- <link rel="stylesheet" href="{{ asset('assets/css/card.css') }}"> --}}
         <section class="h-100 h-custom ">
             <div class="container-fluid py-4 px-5">
                 <div class="row">
