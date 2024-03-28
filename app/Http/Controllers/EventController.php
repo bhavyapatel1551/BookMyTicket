@@ -9,22 +9,27 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    // Show All the event of the user
     public function ShowAllEvents()
     {
         $id = Auth::id();
         $events = Events::where('organizer_id', $id)->get();
         return view('events.MyEvent', compact('events'));
     }
+
+    // Show Statistic Page for user
     public function ShowStatisticPage()
     {
         return view('events.EventStatistic');
     }
 
+    // Show Create Event From
     public function ShowCreateEventPage()
     {
         return view('events.CreateEvent');
     }
 
+    // Store Event Data to the Database
     public function createEvent(Request $request)
     {
         $request->validate([
@@ -58,6 +63,7 @@ class EventController extends Controller
         ]);
         return redirect()->route("event")->with('success', 'Event created successfully!');
     }
+    // Show Edit Event Form
     public function ShowUpdateEventPage($id)
     {
         $event = Events::findOrFail($id);
@@ -67,6 +73,8 @@ class EventController extends Controller
         $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
         return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
     }
+
+    // Update the Event Data 
     public function UpdateEvent($id, Request $request)
     {
         $request->validate([
@@ -98,6 +106,7 @@ class EventController extends Controller
         return redirect()->route("event")->with('success', 'Event Updated successfully!');
     }
 
+    // Delete the Event of user 
     public function deleteEvent($id)
     {
         Events::where('id', $id)->delete();

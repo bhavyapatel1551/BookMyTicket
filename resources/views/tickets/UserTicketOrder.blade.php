@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom">
@@ -16,7 +15,6 @@
                                 <p class="mb-4 font-weight-semibold">
                                     Check your Purchase Ticket
                                 </p>
-
                                 <img src="{{ asset('ticket-header.png') }}" alt="Event"
                                     class="position-absolute top-0 end-1 w-15 mb-0 max-width-250 mt-3 d-sm-block d-none" />
                             </div>
@@ -32,7 +30,6 @@
                                         <h6 class="font-weight-semibold text-lg mb-0">Purchase Tickets list</h6>
                                         <p class="text-sm">See information about all Purchased Tickets</p>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
@@ -47,10 +44,6 @@
                                                 <th class="align-middle text-center ">Price</th>
                                                 <th class="align-middle text-center ">Quantity</th>
                                                 <th class="align-middle text-center ">View</th>
-
-
-
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -72,7 +65,6 @@
                                                     <td class="align-middle text-center p-3 ">
                                                         <p class="text-sm text-dark font-weight-semibold mb-0">
                                                             15/06/2003
-
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center p-3 ">
@@ -83,8 +75,6 @@
                                                         <p class="text-sm text-dark font-weight-semibold mb-0">
                                                             2
                                                         </p>
-
-
                                                     </td>
                                                     <td class="align-middle text-center p-3 ">
                                                         <p class="text-sm text-dark font-weight-semibold mb-0">
@@ -93,15 +83,12 @@
                                                                 <i class="fa-solid fa-eye"></i>
                                                             </a>
                                                         </p>
-
                                                     </td>
                                                 </tr>
                                             @endfor
-
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -110,5 +97,4 @@
         </section>
         <x-app.footer />
     </main>
-
 </x-app-layout>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    // Show Profile Page of the user
     public function index()
     {
         $user = User::find(Auth::id());
@@ -15,10 +16,13 @@ class ProfileController extends Controller
         return view('userProfile.UserProfile', compact('user'));
     }
 
+    // Show Add to Cart Page
     public function ShowCart()
     {
         return view('userProfile.Cart');
     }
+
+    // Update the User Data
     public function update(Request $request)
     {
         $request->validate([
@@ -44,11 +48,15 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Profile updated successfully.');
     }
+
+    // Show Upload Profile Photo page
     public function showprofilephotoform()
     {
 
         return view('userProfile.UpdateProfilePhoto');
     }
+
+    // Upload the Profile Photo
     public function updateprofilephoto(Request $request)
     {
         // return response($id);
