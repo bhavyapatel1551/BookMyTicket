@@ -55,7 +55,6 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
 
         $name = $request->input('name');
 
