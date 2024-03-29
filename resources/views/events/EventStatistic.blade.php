@@ -39,7 +39,7 @@
                             <i class="fa fa-chart-line fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">{{ $Todaysale }}</h6>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                             <i class="fa fa-chart-bar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">{{ $Totalsale }}</h6>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">₹{{ $Todayprice }}</h6>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                             <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">₹{{ $Totalprice }}</h6>
                             </div>
                         </div>
                     </div>
@@ -90,12 +90,11 @@
                             <table class="table align-items-center mb-0 w-100">
                                 <thead class="bg-gray-200">
                                     <tr>
-                                        <th class="align-middle ps-5 ">Name</th>
-                                        <th class="align-middle text-center ">Vanue</th>
-                                        <th class="align-middle text-center ">Time</th>
-                                        <th class="align-middle text-center ">Date</th>
-                                        <th class="align-middle text-center ">Price</th>
+                                        <th class="align-middle ps-5 ">Customer Name</th>
+                                        <th class="align-middle text-center ">Event Name</th>
                                         <th class="align-middle text-center ">Quantity</th>
+                                        <th class="align-middle text-center ">Price</th>
+                                        <th class="align-middle text-center ">Purchase Date</th>
                                         <th class="align-middle text-center ">View</th>
 
 
@@ -104,38 +103,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < 10; $i++)
+                                    @foreach ($orders as $order)
                                         <tr class="justify-content-center" id="zoomin">
                                             <td class="align-middle p-3">
-                                                <p class="text-sm text-dark ms-3 mb-0">Event Name
+                                                <p class="text-sm text-dark ms-3 mb-0">{{ $order->user->name }}</p>
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3">
                                                 <p class="text-sm text-dark max-width-100  mb-0"
                                                     style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                    Vanue
+                                                    {{ $order->event->name }}
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0">Time
+                                                <p class="text-sm text-dark  mb-0">{{ $order->quantity }}
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0">Date
+                                                <p class="text-sm text-dark  mb-0">₹{{ $order->price }}
 
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0">₹ Price
+                                                <p class="text-sm text-dark  mb-0"> {{ $order->created_at }}
                                                 </p>
                                             </td>
-                                            <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0">
-                                                    15
-                                                </p>
 
-
-                                            </td>
                                             <td class="align-middle text-center p-3 ">
                                                 <p class="text-sm text-dark  mb-0">
                                                     <a href="#" class="text-secondary font-weight-bold  me-2">
@@ -145,7 +138,7 @@
 
                                             </td>
                                         </tr>
-                                    @endfor
+                                    @endforeach
 
                                 </tbody>
                             </table>

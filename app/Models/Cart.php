@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
     protected $table = 'cart';
-    protected $fillable = ['user_id', 'event_id', 'quantity', 'price', 'total_price'];
+    protected $fillable = ['user_id', 'event_id', 'organizer_id', 'quantity', 'price', 'total_price'];
 
     public function user()
     {

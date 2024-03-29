@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TicketController;
 
 /*
@@ -35,8 +36,6 @@ Route::get('/', function () {
 
 Route::get('/event', [EventController::class, 'ShowAllEvents'])->name('event')->middleware('auth');
 
-// Show Event Statistics
-Route::get('/event/statistic', [EventController::class, 'ShowStatisticPage'])->name('event.statistic')->middleware('auth');
 
 // Add New Event
 Route::get('/event/create', [EventController::class, 'ShowCreateEventPage'])->name('event.create')->middleware('auth');
@@ -59,15 +58,18 @@ Route::get('/dashboard', [TicketController::class, 'ShowAllTickets'])->name('das
 
 Route::prefix('ticket')->group(function () {
 
-    // Show Purchased Ticket of User
-    Route::get('/order', [TicketController::class, 'UserTicketOrder'])->name('ticket.order')->middleware('auth');
-
     // Show Single Ticket Info
     Route::get('/{id}', [TicketController::class, 'TicketInfo'])->name('ticket.info')->middleware('auth');
 });
 
 
 
+// Order Related route -------------------------------------------------------------------------------------------------------
+
+Route::get('/userPurchaseOrder', [OrderController::class, 'UserPurchaseOrder'])->name('userPurchaseOrder')->middleware('auth');
+
+// Show Event Statistics
+Route::get('/organizerOrderDetails', [OrderController::class, 'OrganizerOrderDetails'])->name('OrganizerOrderDetails')->middleware('auth');
 
 // User Profile Related Route----------------------------------------------------------------------------------------------------
 

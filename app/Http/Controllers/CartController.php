@@ -37,7 +37,7 @@ class CartController extends Controller
 
         $event = Events::findOrFail($id);
         $price = $event->price;
-
+        $organizer_id = $event->organizer_id;
         //  Check if the item is already in the user's cart, then update quantity else create a new one
         $cartItem = Cart::where('user_id', $user_id)
             ->where('event_id', $id)
@@ -52,6 +52,7 @@ class CartController extends Controller
             Cart::create([
                 'user_id' => $user_id,
                 'event_id' => $id,
+                'organizer_id' => $organizer_id,
                 'quantity' => 1,
                 'price' => $price,
                 'total_price' => $price,
@@ -79,6 +80,7 @@ class CartController extends Controller
             Order::create([
                 'user_id' => $item->user_id,
                 'event_id' => $item->event_id,
+                'organizer_id' => $item->organizer_id,
                 'quantity' => $item->quantity,
                 'price' => $item->event->price, // Assuming event price is stored in the event table
                 'total_price' => $item->total_price,

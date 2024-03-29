@@ -16,7 +16,7 @@
                                 <p class="mb-4 font-weight-semibold">
                                     Create your own Evnets
                                 </p>
-                                <a href="{{ route('event.statistic') }}" style="text-decoration: none;">
+                                <a href="{{ route('OrganizerOrderDetails') }}" style="text-decoration: none;">
                                     <button type="button"
                                         class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0 p-2">
                                         <span class="btn-inner--icon me-2">

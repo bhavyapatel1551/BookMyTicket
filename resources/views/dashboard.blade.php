@@ -17,7 +17,7 @@
                                     Check all the Events and choose the best.
                                 </p>
 
-                                <a href="{{ route('ticket.order') }}">
+                                <a href="{{ route('userPurchaseOrder') }}">
                                     <button type="button"
                                         class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0 p-2">
                                         <span class="btn-inner--icon me-2">

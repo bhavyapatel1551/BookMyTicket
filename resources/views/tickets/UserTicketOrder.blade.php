@@ -43,37 +43,46 @@
                                                 <th class="align-middle text-center ">Date</th>
                                                 <th class="align-middle text-center ">Price</th>
                                                 <th class="align-middle text-center ">Quantity</th>
+                                                <th class="align-middle text-center ">Purchase Time</th>
                                                 <th class="align-middle text-center ">View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @for ($i = 1; $i < 10; $i++)
+                                            @foreach ($orders as $order)
                                                 <tr class="justify-content-center" id="zoomin">
                                                     <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">Stand Up
-                                                            Comedy
+                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            {{ $order->event->name }}
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">Ahemdabad
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">08:30 Pm
+                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            {{ $order->event->venue }}
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center p-3 ">
                                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            15/06/2003
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">1500 ₹
+                                                            {{ $order->event->time }}
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center p-3 ">
                                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            2
+                                                            {{ $order->event->date }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="align-middle text-center p-3 ">
+                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            ₹{{ $order->price }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="align-middle text-center p-3 ">
+                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            {{ $order->quantity }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="align-middle text-center p-3 ">
+                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            {{ $order->created_at }}
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center p-3 ">
@@ -85,7 +94,7 @@
                                                         </p>
                                                     </td>
                                                 </tr>
-                                            @endfor
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
