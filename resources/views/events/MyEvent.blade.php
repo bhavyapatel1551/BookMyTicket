@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mb-2">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
                             <div class="alert alert-danger" role="alert" id="alert">

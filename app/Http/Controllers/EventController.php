@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Events;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -109,7 +110,13 @@ class EventController extends Controller
     // Delete the Event of user 
     public function deleteEvent($id)
     {
+        // $cart = Cart::where('event_id', $id)->first();
+        // if ($cart) {
+
+        //     return redirect()->back()->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
+        // } else {
         Events::where('id', $id)->delete();
-        return redirect()->back()->with('success', 'Event Deleted successfully!');
+        return redirect()->back()->with('error', 'Event Deleted successfully!');
+        // }
     }
 }

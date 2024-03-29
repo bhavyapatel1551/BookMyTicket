@@ -17,4 +17,13 @@ class Events extends Model
     {
         return $this->belongsTo(User::class, 'organizer_id');
     }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+    public function order()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

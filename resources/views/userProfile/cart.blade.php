@@ -1,79 +1,106 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
-        <section class="h-100 h-custom bg-gray-200">
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body p-4">
 
+        <section class="h-100 h-custom bg-gray-200">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body p-4">
+
+                            <div class="row">
                                 <div class="row">
 
                                     <div class="col-lg-7 ">
                                         <h5 class="mb-3"><a href="{{ route('dashboard') }}"
                                                 style="text-decoration: none" class="text-body">
-                                                <i class="fas fa-long-arrow-alt-left me-2">
-                                                </i>Continue shopping</a>
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a>
                                         </h5>
                                         <hr>
 
                                         <div class="d-flex justify-content-between align-items-center mb-4  ">
                                             <div>
                                                 <p class="mb-1">Shopping cart</p>
-                                                <p class="mb-0">You have 4 items in your cart</p>
+                                                <p class="mb-0">You have {{ $TotalItem }} items in your cart
+                                                </p>
                                             </div>
-
                                         </div>
 
-                                        @for ($i = 0; $i < 4; $i++)
-                                            <div class="card mb-3 bg-gray-200" id="zoomin">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row align-items-center">
-                                                            <div>
-                                                                <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-                                                                    class="img-fluid rounded-3" alt="Shopping item"
-                                                                    style="width: 80px;">
-                                                            </div>
-                                                            <div class="ms-3">
-                                                                <h5>Stand Up Comedy</h5>
-                                                                <p class="small mb-0"> <span
-                                                                        class="me-2">Ahemdabad</span>
-                                                                    <span class="me-2">15/06/2003</span> <span
-                                                                        class="me-2">08:30 PM</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex flex-row align-items-center ">
-                                                            <div style="width: 50px;" class="me-2">
-                                                                <div class="quantity-selector d-flex">
-                                                                    <a href="#" class="me-2"
-                                                                        onclick="updateQuantity('decrease')">
-                                                                        <i class="fa fa-minus fa-sm text-dark"></i>
-                                                                    </a>
-                                                                    <span id="quantity" class="quantity ">1</span>
-                                                                    <a href="#" class="ms-2"
-                                                                        onclick="updateQuantity('increase')">
-                                                                        <i class="fa fa-plus fa-sm text-dark"></i>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-9 col-12">
+                                                @if (session('error'))
+                                                    <div class="alert alert-danger" role="alert" id="alert">
+                                                        {{ session('error') }}
+                                                    </div>
+                                                @endif
+                                                @if (session('success'))
+                                                    <div class="alert alert-success" role="alert" id="alert">
+                                                        {{ session('success') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        @if ($cartItems->isEmpty())
+                                            <p class="text-center p-5 pb-0">No Item Available</p>
+                                            <p class="text-center">Buy Now</p>
+                                        @else
+                                            @foreach ($cartItems as $item)
+                                                <div class="card mb-3 bg-gray-200" id="zoomin">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="d-flex flex-row align-items-center">
+                                                                <div>
+                                                                    @if ($item->event->image)
+                                                                        <img src="{{ asset('storage/' . $item->event->image) }}"
+                                                                            class="img-fluid rounded-3"
+                                                                            alt="Shopping item" style="width: 80px;">
+                                                                    @else
+                                                                        <div class="img-fluid rounded-3"
+                                                                            style="width: 80px;">No Image Available
+                                                                        </div>
+                                                                    @endif
 
-                                                                    </a>
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <h5>{{ $item->event->name }}</h5>
+                                                                    <p class="small mb-0"> <span
+                                                                            class="me-2">{{ $item->event->venue }}</span>
+                                                                        <span
+                                                                            class="me-2">{{ $item->event->date }}</span>
+                                                                        <span
+                                                                            class="me-2">{{ $item->event->time }}</span>
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                            <div style="width: 80px;">
-                                                                <h5 class="mb-0">$900</h5>
+                                                            <div class="d-flex flex-row align-items-center ">
+                                                                <div style="width: 50px;" class="me-2">
+                                                                    <div class="quantity-selector d-flex">
+                                                                        <a href="#" class="me-2"
+                                                                            onclick="updateQuantity('decrease')">
+                                                                            <i class="fa fa-minus fa-sm text-dark"></i>
+                                                                        </a>
+                                                                        <span id="quantity"
+                                                                            class="quantity ">{{ $item->quantity }}</span>
+                                                                        <a href="#" class="ms-2"
+                                                                            onclick="updateQuantity('increase')">
+                                                                            <i class="fa fa-plus fa-sm text-dark"></i>
+
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width: 80px;">
+                                                                    <h5 class="mb-0">₹{{ $item->price }}</h5>
+                                                                </div>
+                                                                <a href=""
+                                                                    onclick="deleteCartItem('{{ $item->id }}')">
+                                                                    <i class="fa-solid fa-trash-can text-dark"></i>
+                                                                </a>
                                                             </div>
-                                                            <a href="#!">
-                                                                <i class="fa-solid fa-trash-can text-dark"></i>
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endfor
-
-
-
+                                            @endforeach
+                                        @endif
                                     </div>
                                     <div class="col-lg-5">
 
@@ -148,28 +175,29 @@
 
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Tickets</p>
-                                                        <p class="mb-2">15</p>
+                                                        <p class="mb-2">{{ $ticket }}</p>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Subtotal</p>
-                                                        <p class="mb-2">₹1500</p>
+                                                        <p class="mb-2">₹{{ $SubTotal }}</p>
                                                     </div>
-
+                                                    <hr>
                                                     <div class="d-flex justify-content-between mb-4">
-                                                        <p class="mb-2">Total(Incl. taxes)</p>
-                                                        <p class="mb-2">₹1500</p>
+                                                        <h5 class="mb-2">Total(Incl. taxes)</h5>
+                                                        <h5 class="mb-2">₹{{ $SubTotal }}</h5>
                                                     </div>
                                                 </div>
-
-                                                <button type="button"
-                                                    class="btn btn-success bg-gradient btn-block btn-lg">
-                                                    <div class="d-flex justify-content-between">
-                                                        <span>₹1500</span>
-                                                        <span>Checkout <i
-                                                                class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                                    </div>
-                                                </button>
+                                                <a href="/Checkoutorder/{{ auth()->user()->id }}">
+                                                    <button type="button"
+                                                        class="btn btn-success bg-gradient btn-block btn-lg">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>₹{{ $SubTotal }}</span>
+                                                            <span>Checkout <i
+                                                                    class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                        </div>
+                                                    </button>
+                                                </a>
 
                                             </div>
                                         </div>

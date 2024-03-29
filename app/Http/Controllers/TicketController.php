@@ -10,7 +10,7 @@ class TicketController extends Controller
     // Show all the ticket to the user Dashboard
     public function ShowAllTickets()
     {
-        $tickets = Events::all();
+        $tickets = Events::latest()->get();
         return view('dashboard', compact('tickets'));
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketController;
 
@@ -80,15 +81,16 @@ Route::prefix('user')->group(function () {
     // Upload Profile Photo
     Route::get('/PhotoUpdate', [ProfileController::class, 'showprofilephotoform'])->name('user.PhotoUpdate')->middleware('auth');
     Route::post('/PhotoUpdate', [ProfileController::class, 'updateprofilephoto'])->name('user.PhotoUpdate')->middleware('auth');
-    Route::get('/cart', [ProfileController::class, 'ShowCart'])->name('cart')->middleware('auth');
 });
 
 
 
-// Show Add To Cart Page
+// Cart Related Routes --------------------------------------------------------------------------------------------------------
 
-
-
+Route::get('/cart', [CartController::class, 'ShowCart'])->name('cart')->middleware('auth');
+Route::get('/addtoCart/{id}', [CartController::class, 'AddtoCart'])->name('addtocart')->middleware('auth');
+Route::get('/deleteFromCart/{id}', [CartController::class, 'DeleteFromCart'])->name('deleteFromCart')->middleware('auth');
+Route::get('/Checkoutorder/{id}', [CartController::class, 'CheckOutOrder'])->name('CheckOutOrder')->middleware('auth');
 
 
 // Auth Related Routes ----------------------------------------------------------------------------------------------------------

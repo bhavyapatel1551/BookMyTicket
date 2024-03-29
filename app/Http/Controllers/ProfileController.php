@@ -16,11 +16,7 @@ class ProfileController extends Controller
         return view('userProfile.UserProfile', compact('user'));
     }
 
-    // Show Add to Cart Page
-    public function ShowCart()
-    {
-        return view('userProfile.Cart');
-    }
+
 
     // Update the User Data
     public function update(Request $request)

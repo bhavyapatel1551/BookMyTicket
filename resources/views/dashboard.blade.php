@@ -33,14 +33,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-12">
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert" id="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert" id="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
                 <section class="">
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)
                             <article class="postcard TicketCard blue" id="TicketCard">
                                 <a class="postcard__img_link" href="#">
-                                    <img class="postcard__img" src="{{ asset('storage/' . $ticket->image) }}"
-                                        alt="Image Title" />
+                                    @if ($ticket->image)
+                                        <img class="postcard__img" src="{{ asset('storage/' . $ticket->image) }}"
+                                            alt="Image Title" />
+                                    @else
+                                        <div class="postcard__img"> No Image Available</div>
+                                    @endif
+
                                 </a>
                                 <div class="postcard__text t-dark">
                                     <h1 class="postcard__title blue"><a href="#"> {{ $ticket->name }}</a></h1>
@@ -59,7 +78,7 @@
                                     <ul class="postcard__tagbox">
 
                                         <li class="tag__item play blue">
-                                            <a href="{{ route('cart') }}"><i
+                                            <a href="" onclick="addtoCart('{{ $ticket->id }}')"><i
                                                     class="fa-solid fa-sm fa-cart-shopping me-2"></i>Add To
                                                 Cart</a>
                                         </li>
