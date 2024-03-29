@@ -26,6 +26,8 @@ Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
+
+
 // Events Related Routes --------------------------------------------------------------------------------------------------------
 
 // Show Event in my Event page
@@ -61,7 +63,6 @@ Route::prefix('ticket')->group(function () {
     Route::get('/order', [TicketController::class, 'UserTicketOrder'])->name('ticket.order')->middleware('auth');
 
     // Show Single Ticket Info
-
     Route::get('/{id}', [TicketController::class, 'TicketInfo'])->name('ticket.info')->middleware('auth');
 });
 
@@ -87,9 +88,16 @@ Route::prefix('user')->group(function () {
 
 // Cart Related Routes --------------------------------------------------------------------------------------------------------
 
+// Show Add to Cart Page 
 Route::get('/cart', [CartController::class, 'ShowCart'])->name('cart')->middleware('auth');
+
+// Add Item to add to cart table
 Route::get('/addtoCart/{id}', [CartController::class, 'AddtoCart'])->name('addtocart')->middleware('auth');
+
+// Delete the Item from the cart
 Route::get('/deleteFromCart/{id}', [CartController::class, 'DeleteFromCart'])->name('deleteFromCart')->middleware('auth');
+
+// Place the order from the cart 
 Route::get('/Checkoutorder/{id}', [CartController::class, 'CheckOutOrder'])->name('CheckOutOrder')->middleware('auth');
 
 

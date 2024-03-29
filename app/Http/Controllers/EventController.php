@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Events;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,8 @@ class EventController extends Controller
         ]);
         return redirect()->route("event")->with('success', 'Event created successfully!');
     }
+
+
     // Show Edit Event Form
     public function ShowUpdateEventPage($id)
     {
@@ -107,16 +110,15 @@ class EventController extends Controller
         return redirect()->route("event")->with('success', 'Event Updated successfully!');
     }
 
-    // Delete the Event of user 
+    // Delete the Event of user if any other user bought the event ticket then it will not delete event 
     public function deleteEvent($id)
     {
-        // $cart = Cart::where('event_id', $id)->first();
-        // if ($cart) {
-
-        //     return redirect()->back()->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
-        // } else {
-        Events::where('id', $id)->delete();
-        return redirect()->back()->with('error', 'Event Deleted successfully!');
-        // }
+        $cart = Order::where('event_id', $id)->first();
+        if ($cart) {
+            return redirect()->back()->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
+        } else {
+            Events::where('id', $id)->delete();
+            return redirect()->back()->with('error', 'Event Deleted successfully!');
+        }
     }
 }

@@ -16,9 +16,8 @@ class CartController extends Controller
         $user = Auth::user();
         Cart::where('user_id', $user->id)
             ->whereDoesntHave('event', function ($query) {
-                $query->whereNull('deleted_at');
-            })
-            ->delete();
+                $query->whereNull('deleted_at'); // Check in the Event Table if the ticket is deleted Then also delete from cart table
+            })->delete();
 
         $cartItems = Cart::where('user_id', $user->id)
             ->with('event')
@@ -28,6 +27,8 @@ class CartController extends Controller
         $TotalItem = Cart::sum('user_id');
         return view('userProfile.Cart', compact('cartItems', 'SubTotal', 'ticket', 'TotalItem'));
     }
+
+
     // Directly add to cart 
     public function AddtoCart($id)
     {
@@ -37,15 +38,16 @@ class CartController extends Controller
         $event = Events::findOrFail($id);
         $price = $event->price;
 
+        //  Check if the item is already in the user's cart, then update quantity else create a new one
         $cartItem = Cart::where('user_id', $user_id)
             ->where('event_id', $id)
             ->first();
-
         if ($cartItem) {
             $cartItem->increment('quantity');
             $cartItem->update([
                 'total_price' => $cartItem->quantity * $price,
             ]);
+            // if the ticket is not already in cart then create it with default 1 quantity  and total price as price
         } else {
             Cart::create([
                 'user_id' => $user_id,
@@ -59,15 +61,17 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Added to Cart!');
     }
 
+    // Delete the item from cart
     public function DeleteFromCart($id)
     {
+
         Cart::where("id", $id)->delete();
         return redirect()->back()->with("error", "Deleted from Cart!");
     }
 
+    // Place the order from the cart table
     public function CheckOutOrder($id)
     {
-        // Retrieve cart items for the specified user
         $cartItems = Cart::where('user_id', $id)->get();
 
         // Create orders for each cart item
