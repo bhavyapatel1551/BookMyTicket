@@ -62,7 +62,7 @@ class ProfileController extends Controller
         if ($request->hasFile('photo')) {
             $imagepath = $request->file('photo')->getClientOriginalName();
             $request->file('photo')->storeAs('pfp', $imagepath, 'public');
-            $imagepath = 'pfp/' . $imagepath; // Update the image path to include the 'pfp' folder
+            $imagepath = 'pfp/' . $imagepath;
         } else {
             $imagepath = null;
         }

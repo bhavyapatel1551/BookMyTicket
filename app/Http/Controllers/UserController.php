@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    // Show the Admin dashboard for user management 
     public function index()
     {
         $user = Auth::user();
@@ -19,6 +21,8 @@ class UserController extends Controller
             abort(403, 'Unauthorized');
         }
     }
+
+    // show all the ticket details of the all the users.
     public function tickets()
     {
         $user = Auth::user();
@@ -31,6 +35,8 @@ class UserController extends Controller
         }
     }
 
+
+    // Delete the any user.
     public function destroy($id)
     {
         try {

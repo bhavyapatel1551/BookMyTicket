@@ -38,19 +38,21 @@ class EventController extends Controller
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
             'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',
+            'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
             'price' => 'required|numeric',
             'about' => '',
             'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
+        // if the event has the image than it will store the image to the local folder in public/storage/event 
         if ($request->hasFile('image')) {
             $imagepath = $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('event', $imagepath, 'public');
-            $imagepath = 'event/' . $imagepath; // Update the image path to include the 'pfp' folder
+            $imagepath = 'event/' . $imagepath;
         } else {
             $imagepath = null;
         }
         $user = Auth::user();
+        // change the date formate acoording to the database folder
         $date = Carbon::createFromFormat('m/d/Y', $request['date'], 'UTC')->format('Y-m-d');
         $organizer_id = $user->id;
         Events::create([
@@ -73,6 +75,7 @@ class EventController extends Controller
         $event = Events::findOrFail($id);
         $date = $event->date;
         $time = $event->time;
+        // Change the formate of the date and time for the display inthe input box 
         $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
         $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
         return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
@@ -90,14 +93,16 @@ class EventController extends Controller
             'about' => '',
             'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
+        // we upload the image fike than it will update the image path to the database. if the user does not provide the new image than it will not change the image and keep the old image as it is in the database.
         if ($request->hasFile('image')) {
             $imagepath = $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('event', $imagepath, 'public');
-            $imagepath = 'event/' . $imagepath; // Update the image path to include the 'pfp' folder
+            $imagepath = 'event/' . $imagepath;
             Events::where('id', $id)->update([
                 'image' => $imagepath,
             ]);
         }
+        // Change the formate of the date from the input box according to the database formate.
         $date = Carbon::createFromFormat('m/d/Y', $request['date'])->format('Y-m-d');
         Events::where('id', $id)->update([
             "name" => $request['name'],
@@ -113,8 +118,9 @@ class EventController extends Controller
     // Delete the Event of user if any other user bought the event ticket then it will not delete event 
     public function deleteEvent($id)
     {
-        $cart = Order::where('event_id', $id)->first();
-        if ($cart) {
+        $Order = Order::where('event_id', $id)->first();
+        // If the event is not sold out yet than we can delete that event otherwise we can not delete that event 
+        if ($Order) {
             return redirect()->back()->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
         } else {
             Events::where('id', $id)->delete();

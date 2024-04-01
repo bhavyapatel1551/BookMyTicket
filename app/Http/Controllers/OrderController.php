@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    // Show the user's ordered ticket list to user 
     public function UserPurchaseOrder()
     {
         $user_id = Auth::id();
@@ -17,6 +18,7 @@ class OrderController extends Controller
         return view('tickets.UserTicketOrder', compact('orders'));
     }
 
+    // Show all the data related to organizer's tickets like total sales , revenue and others...
     public function OrganizerOrderDetails()
     {
         $user_id = Auth::id();

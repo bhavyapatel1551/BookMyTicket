@@ -23,9 +23,9 @@ class CartController extends Controller
         $cartItems = Cart::where('user_id', $user->id)
             ->with('event')
             ->get();
-        $SubTotal = Cart::sum('total_price');
-        $ticket = Cart::sum('quantity');
-        $TotalItem = Cart::sum('user_id');
+        $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
+        $ticket = Cart::where('user_id', $user->id)->sum('quantity');
+        $TotalItem = Cart::where('user_id', $user->id)->sum('user_id');
         return view('userProfile.Cart', compact('cartItems', 'SubTotal', 'ticket', 'TotalItem'));
     }
 
@@ -82,42 +82,49 @@ class CartController extends Controller
                 'event_id' => $item->event_id,
                 'organizer_id' => $item->organizer_id,
                 'quantity' => $item->quantity,
-                'price' => $item->event->price, // Assuming event price is stored in the event table
+                'price' => $item->event->price,
                 'total_price' => $item->total_price,
-                // Add other order details as needed
             ]);
         }
 
-        // Delete cart items associated with the user
+        // Aftre the Checkout Cart will be empty and stroe the data in the order table.
         Cart::where('user_id', $id)->delete();
 
         return redirect()->back()->with('success', 'Your Order is Placed !!');
     }
 
+    // Increase the quantity of the item in the cart page
     public function increaseQuantity($id)
     {
+        $user = Auth::user();
+        // Get the id of the item from the cart table and increament by 1 
         $cart = Cart::where('id', $id)->first();
         $cart->increment('quantity');
         $cart->update(['total_price' => $cart->quantity * $cart->price,]);
-        $SubTotal = Cart::sum('total_price');
-        $ticket = Cart::sum('quantity');
+        // Aftre the the changes it will get the total price and ticket and sent all data to the view using json
+        $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
+        $ticket = Cart::where('user_id', $user->id)->sum('quantity');
         return response()->json([
             'quantity' => $cart->quantity,
             'SubTotal' => $SubTotal,
             'ticket' => $ticket
         ]);
     }
+
+    // Decrease the quantity of the item in the cart page 
     public function decreaseQuantity($id)
     {
+        $user = Auth::user();
         $cart = Cart::where('id', $id)->first();
 
+        // if the the quanitity is less than 1 than it will delete the item from the cart.
         if ($cart->quantity <= 1) {
             return response()->json(['delete' => true]);
         } else {
             $cart->decrement('quantity');
             $cart->update(['total_price' => $cart->quantity * $cart->price]);
-            $SubTotal = Cart::sum('total_price');
-            $ticket = Cart::sum('quantity');
+            $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
+            $ticket = Cart::where('user_id', $user->id)->sum('quantity');
             return response()->json([
                 'quantity' => $cart->quantity,
                 'SubTotal' => $SubTotal,
