@@ -98,9 +98,9 @@ class CartController extends Controller
     {
         $cart = Cart::where('id', $id)->first();
         $cart->increment('quantity');
+        $cart->update(['total_price' => $cart->quantity * $cart->price,]);
         $SubTotal = Cart::sum('total_price');
         $ticket = Cart::sum('quantity');
-        $cart->update(['total_price' => $cart->quantity * $cart->price,]);
         return response()->json([
             'quantity' => $cart->quantity,
             'SubTotal' => $SubTotal,

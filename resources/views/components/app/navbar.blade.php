@@ -23,8 +23,7 @@
 
             {{-- Logout Button --}}
             <div class="mb-0 font-weight-bold breadcrumb-text text-white">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                <form method="GET" action="{{ route('logout') }}">
 
                     <a href="login" onclick="event.preventDefault();
                 this.closest('form').submit();">

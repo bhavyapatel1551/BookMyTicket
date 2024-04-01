@@ -104,10 +104,6 @@
                                         <th class="align-middle text-center ">Price</th>
                                         <th class="align-middle text-center ">Purchase Date</th>
                                         <th class="align-middle text-center ">View</th>
-
-
-
-
                                     </tr>
                                 </thead>
                                 <tbody>

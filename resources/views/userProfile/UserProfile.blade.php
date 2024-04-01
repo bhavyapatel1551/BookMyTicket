@@ -89,7 +89,7 @@
                                     <div class="col-6">
                                         <label for="location">Location</label>
                                         <input type="text" name="location" id="location"
-                                            placeholder="Bucharest, Romania"
+                                            placeholder="Gujarat, India"
                                             value="{{ old('location', auth()->user()->location) }}"
                                             class="form-control">
                                         @error('location')
@@ -99,7 +99,7 @@
 
                                     <div class="col-6">
                                         <label for="phone">Phone</label>
-                                        <input type="text" name="phone" id="phone" placeholder="0733456987"
+                                        <input type="text" name="phone" id="phone" placeholder="733456987"
                                             value="{{ old('phone', auth()->user()->phone) }}" class="form-control">
                                         @error('phone')
                                             <span class="text-danger text-sm">{{ $message }}</span>
