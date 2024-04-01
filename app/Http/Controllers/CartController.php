@@ -7,6 +7,7 @@ use App\Models\Events;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -65,7 +66,6 @@ class CartController extends Controller
     // Delete the item from cart
     public function DeleteFromCart($id)
     {
-
         Cart::where("id", $id)->delete();
         return redirect()->back()->with("error", "Deleted from Cart!");
     }
@@ -91,6 +91,29 @@ class CartController extends Controller
         // Delete cart items associated with the user
         Cart::where('user_id', $id)->delete();
 
-        return redirect()->back()->with('success', 'Added to Cart!');
+        return redirect()->back()->with('success', 'Your Order is Placed !!');
+    }
+
+    public function increaseQuantity($id)
+    {
+        Log::debug('Increase !!!!!');
+        $cart = Cart::where('id', $id)->first();
+        $cart->increment('quantity');
+        $cart->update(['total_price' => $cart->quantity * $cart->price]);
+        Log::debug('Cart increase');
+        return response()->json(['quantity' => $cart->quantity]);
+    }
+    public function decreaseQuantity($id)
+    {
+        Log::debug('Decrease !!!!!');
+        $cart = Cart::where('id', $id)->first();
+
+        if ($cart->quantity <= 1) {
+            return response()->json(['delete' => true]);
+        } else {
+            $cart->decrement('quantity');
+            $cart->update(['total_price' => $cart->quantity * $cart->price]);
+            return response()->json(['quantity' => $cart->quantity]);
+        }
     }
 }

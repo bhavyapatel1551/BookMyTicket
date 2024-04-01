@@ -39,10 +39,58 @@ function deleteCartItem(id) {
         });
     }
 }
+
+function increaseQuantity(id) {
+    $.ajax({
+        url: "/increaseQuantity/" + id,
+        type: "POST",
+        success: function (response) {
+            $("#quantity-" + id).text(response.quantity);
+        },
+        error: function (xhr, status, error) {
+            var errorMessage =
+                xhr.responseJSON && xhr.responseJSON.error
+                    ? xhr.responseJSON.error
+                    : "Unknown error";
+            console.error(errorMessage);
+        },
+    });
+}
+
+function decreaseQuantity(id) {
+    $.ajax({
+        url: "/decreaseQuantity/" + id,
+        type: "POST",
+        success: function (response) {
+            if (response.delete) {
+                // If the response indicates that the item should be deleted, call deleteCartItem
+                deleteCartItem(id);
+                location.reload();
+            } else {
+                // If not, update the quantity displayed
+                $("#quantity-" + id).html(response.quantity);
+            }
+        },
+        error: function (xhr, status, error) {
+            var errorMessage =
+                xhr.responseJSON && xhr.responseJSON.error
+                    ? xhr.responseJSON.error
+                    : "Unknown error";
+            console.error(errorMessage);
+        },
+    });
+}
+
 // Session Alert Animation
 $(document).ready(function () {
     // Hide the alert after 5 seconds (5000 milliseconds)
     setTimeout(function () {
         $("#alert").fadeOut("slow");
     }, 3000);
+});
+
+$.ajaxSetup({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
 });

@@ -75,14 +75,14 @@
                                                             <div class="d-flex flex-row align-items-center ">
                                                                 <div style="width: 50px;" class="me-2">
                                                                     <div class="quantity-selector d-flex">
-                                                                        <a href="#" class="me-2"
-                                                                            onclick="updateQuantity('decrease')">
+                                                                        <a href="" class="me-2"
+                                                                            onclick="decreaseQuantity('{{ $item->id }}')">
                                                                             <i class="fa fa-minus fa-sm text-dark"></i>
                                                                         </a>
-                                                                        <span id="quantity"
+                                                                        <span id="quantity-{{ $item->id }}"
                                                                             class="quantity ">{{ $item->quantity }}</span>
-                                                                        <a href="#" class="ms-2"
-                                                                            onclick="updateQuantity('increase')">
+                                                                        <a href="" class="ms-2"
+                                                                            onclick="increaseQuantity('{{ $item->id }}')">
                                                                             <i class="fa fa-plus fa-sm text-dark"></i>
 
                                                                         </a>
@@ -213,17 +213,5 @@
             </div>
         </section>
     </main>
-    <script>
-        function updateQuantity(action) {
-            let quantityElement = document.getElementById('quantity');
-            let currentQuantity = parseInt(quantityElement.textContent);
-            let newQuantity = action === 'increase' ? currentQuantity + 1 : currentQuantity - 1;
-            if (newQuantity < 1) {
-                return; // Prevent decreasing quantity below 1
-            }
-            quantityElement.textContent = newQuantity;
-
-            // You can update the subtotal and other details here if needed
-        }
-    </script>
+    <script></script>
 </x-app-layout>
