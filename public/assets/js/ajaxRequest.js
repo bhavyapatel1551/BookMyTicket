@@ -46,6 +46,10 @@ function increaseQuantity(id) {
         type: "POST",
         success: function (response) {
             $("#quantity-" + id).text(response.quantity);
+            $("#SubTotal1").text(response.SubTotal);
+            $("#SubTotal2").text(response.SubTotal);
+            $("#SubTotal3").text(response.SubTotal);
+            $("#ticket").text(response.ticket);
         },
         error: function (xhr, status, error) {
             var errorMessage =
@@ -69,6 +73,10 @@ function decreaseQuantity(id) {
             } else {
                 // If not, update the quantity displayed
                 $("#quantity-" + id).html(response.quantity);
+                $("#SubTotal1").text(response.SubTotal);
+                $("#SubTotal2").text(response.SubTotal);
+                $("#SubTotal3").text(response.SubTotal);
+                $("#ticket").text(response.ticket);
             }
         },
         error: function (xhr, status, error) {
@@ -80,6 +88,26 @@ function decreaseQuantity(id) {
         },
     });
 }
+$(document).ready(function () {
+    $(".delete-user-link").on("click", function (e) {
+        e.preventDefault();
+        var userId = $(this).data("id");
+        if (confirm("Are you sure you want to delete this user?")) {
+            $.ajax({
+                url: $(this).attr("href"),
+                type: "GET",
+                success: function (response) {
+                    $("#user-row-" + userId).remove();
+                    alert("User deleted successfully.");
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("Error deleting user: " + error);
+                },
+            });
+        }
+    });
+});
 
 // Session Alert Animation
 $(document).ready(function () {

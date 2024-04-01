@@ -96,16 +96,19 @@ class CartController extends Controller
 
     public function increaseQuantity($id)
     {
-        Log::debug('Increase !!!!!');
         $cart = Cart::where('id', $id)->first();
         $cart->increment('quantity');
-        $cart->update(['total_price' => $cart->quantity * $cart->price]);
-        Log::debug('Cart increase');
-        return response()->json(['quantity' => $cart->quantity]);
+        $SubTotal = Cart::sum('total_price');
+        $ticket = Cart::sum('quantity');
+        $cart->update(['total_price' => $cart->quantity * $cart->price,]);
+        return response()->json([
+            'quantity' => $cart->quantity,
+            'SubTotal' => $SubTotal,
+            'ticket' => $ticket
+        ]);
     }
     public function decreaseQuantity($id)
     {
-        Log::debug('Decrease !!!!!');
         $cart = Cart::where('id', $id)->first();
 
         if ($cart->quantity <= 1) {
@@ -113,7 +116,13 @@ class CartController extends Controller
         } else {
             $cart->decrement('quantity');
             $cart->update(['total_price' => $cart->quantity * $cart->price]);
-            return response()->json(['quantity' => $cart->quantity]);
+            $SubTotal = Cart::sum('total_price');
+            $ticket = Cart::sum('quantity');
+            return response()->json([
+                'quantity' => $cart->quantity,
+                'SubTotal' => $SubTotal,
+                'ticket' => $ticket
+            ]);
         }
     }
 }

@@ -164,5 +164,7 @@ Route::get('/test', function () {
 
 
 
-// Show all user for admin 
+// Admin ----------------
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+Route::get('/ticket-management', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');

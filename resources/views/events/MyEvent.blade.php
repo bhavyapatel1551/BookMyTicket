@@ -22,7 +22,7 @@
                                         <span class="btn-inner--icon me-2">
                                             <i class="fa-solid fa-chart-line"></i>
                                         </span>
-                                        <span class="btn-inner--text">Event Statistics</span>
+                                        <span class="btn-inner--text">Event Statistics </span>
                                     </button>
                                 </a>
                                 <img src="{{ asset('eventmanage.png') }}" alt="Event"

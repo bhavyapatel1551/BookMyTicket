@@ -37,7 +37,7 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
             'about' => '',
@@ -84,7 +84,7 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
             'about' => '',

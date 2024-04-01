@@ -15,11 +15,11 @@
                             <p class="mb-4 font-weight-semibold">
                                 Create your own Evnets
                             </p>
-                            <a href="" style="text-decoration: none;">
+                            <a href="">
                                 <button type="button"
                                     class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0">
-                                    <span class="btn-inner--icon">
-
+                                    <span class="btn-inner--icon me-2">
+                                        <i class="fa-solid fa-chart-line"></i>
                                     </span>
                                     <span class="btn-inner--text">Event Statistics </span>
                                 </button>
@@ -34,44 +34,52 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
-                        <div id="zoomin"
-                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-beat-fade fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0">{{ $Todaysale }}</h6>
+                        <a href="">
+                            <div id="zoomin"
+                                class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-line fa-beat-fade fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Today Sale</p>
+                                    <h6 class="mb-0">{{ $Todaysale }}</h6>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div id="zoomin"
-                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-beat-fade fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0">{{ $Totalsale }}</h6>
+                        <a href="">
+                            <div id="zoomin"
+                                class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-bar fa-beat-fade fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Total Sale</p>
+                                    <h6 class="mb-0">{{ $Totalsale }}</h6>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div id="zoomin"
-                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
-                            <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">₹{{ $Todayprice }}</h6>
+                        <a href="">
+                            <div id="zoomin"
+                                class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
+                                <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Today Revenue</p>
+                                    <h6 class="mb-0">₹{{ $Todayprice }}</h6>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div id="zoomin"
-                            class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
-                            <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">₹{{ $Totalprice }}</h6>
+                        <a href="">
+                            <div id="zoomin"
+                                class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
+                                <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Total Revenue</p>
+                                    <h6 class="mb-0">₹{{ $Totalprice }}</h6>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

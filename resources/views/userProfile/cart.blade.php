@@ -75,13 +75,13 @@
                                                             <div class="d-flex flex-row align-items-center ">
                                                                 <div style="width: 50px;" class="me-2">
                                                                     <div class="quantity-selector d-flex">
-                                                                        <a href="" class="me-2"
+                                                                        <a class="me-2"
                                                                             onclick="decreaseQuantity('{{ $item->id }}')">
                                                                             <i class="fa fa-minus fa-sm text-dark"></i>
                                                                         </a>
                                                                         <span id="quantity-{{ $item->id }}"
                                                                             class="quantity ">{{ $item->quantity }}</span>
-                                                                        <a href="" class="ms-2"
+                                                                        <a class="ms-2"
                                                                             onclick="increaseQuantity('{{ $item->id }}')">
                                                                             <i class="fa fa-plus fa-sm text-dark"></i>
 
@@ -175,24 +175,24 @@
 
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Tickets</p>
-                                                        <p class="mb-2">{{ $ticket }}</p>
+                                                        <p class="mb-2" id="ticket">{{ $ticket }}</p>
                                                     </div>
 
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Subtotal</p>
-                                                        <p class="mb-2">₹{{ $SubTotal }}</p>
+                                                        <p class="mb-2" id="SubTotal1">₹{{ $SubTotal }}</p>
                                                     </div>
                                                     <hr>
                                                     <div class="d-flex justify-content-between mb-4">
                                                         <h5 class="mb-2">Total(Incl. taxes)</h5>
-                                                        <h5 class="mb-2">₹{{ $SubTotal }}</h5>
+                                                        <h5 class="mb-2" id="SubTotal2">₹{{ $SubTotal }}</h5>
                                                     </div>
                                                 </div>
                                                 <a href="/Checkoutorder/{{ auth()->user()->id }}">
                                                     <button type="button"
                                                         class="btn btn-success bg-gradient btn-block btn-lg">
                                                         <div class="d-flex justify-content-between">
-                                                            <span>₹{{ $SubTotal }}</span>
+                                                            <span id="SubTotal3">₹{{ $SubTotal }}</span>
                                                             <span>Checkout <i
                                                                     class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>

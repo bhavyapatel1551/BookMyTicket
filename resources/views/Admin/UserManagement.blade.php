@@ -4,11 +4,11 @@
         <div class="px-5 py-4 container-fluid">
             <div class="mt-4 row">
                 <div class="col-12">
-                    <div class="alert alert-dark text-sm" role="alert">
+                    {{-- <div class="alert alert-dark text-sm" role="alert">
                         <strong>Add, Edit, Delete features are not functional!</strong> This is a
-                        <strong>PRO</strong> feature ! Click <a href="#" target="_blank" class="text-bold">here</a>
+                        <strong>PRO</strong> feature! Click <a href="#" target="_blank" class="text-bold">here</a>
                         to see the <strong>PRO</strong> product!
-                    </div>
+                    </div> --}}
                     <div class="card">
                         <div class="pb-0 card-header">
                             <div class="row">
@@ -57,9 +57,6 @@
                                             Email</th>
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            Role</th>
-                                        <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Creation Date</th>
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
@@ -67,97 +64,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="align-middle bg-transparent border-bottom">1</td>
-                                        <td class="align-middle bg-transparent border-bottom">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/team-1.jpg" class="rounded-circle mr-2"
-                                                    alt="user1" style="height: 36px; width: 36px;">
-                                            </div>
-                                        </td>
-                                        <td class="align-middle bg-transparent border-bottom">Admin</td>
-                                        <td class="align-middle bg-transparent border-bottom">admin@softui.com</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">Admin</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">16/08/18</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">
-                                            <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                            <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle bg-transparent border-bottom">2</td>
-                                        <td class="align-middle bg-transparent border-bottom">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/team-2.jpg" class="rounded-circle mr-2"
-                                                    alt="user2" style="height: 36px; width: 36px;">
-                                            </div>
-                                        </td>
-                                        <td class="align-middle bg-transparent border-bottom">Creator</td>
-                                        <td class="align-middle bg-transparent border-bottom">creator@softui.com</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">Creator</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">05/05/20</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">
-                                            <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                            <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle bg-transparent border-bottom">3</td>
-                                        <td class="align-middle bg-transparent border-bottom">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/team-3.jpg" class="rounded-circle mr-2"
-                                                    alt="user3" style="height: 36px; width: 36px;">
-                                            </div>
-                                        </td>
-                                        <td class="align-middle bg-transparent border-bottom">Member</td>
-                                        <td class="align-middle bg-transparent border-bottom">member@softui.com</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">Member</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">05/05/20</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">
-                                            <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                            <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle bg-transparent border-bottom">4</td>
-                                        <td class="align-middle bg-transparent border-bottom">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/team-4.jpg" class="rounded-circle mr-2"
-                                                    alt="user4" style="height: 36px; width: 36px;">
-                                            </div>
-                                        </td>
-                                        <td class="align-middle bg-transparent border-bottom">Peterson</td>
-                                        <td class="align-middle bg-transparent border-bottom">peterson@corporateui.com
-                                        </td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">Member</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">05/05/20</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">
-                                            <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                            <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle bg-transparent border-bottom">5</td>
-                                        <td class="align-middle bg-transparent border-bottom">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/marie.jpg" class="rounded-circle mr-2"
-                                                    alt="user5" style="height: 36px; width: 36px;">
-                                            </div>
-                                        </td>
-                                        <td class="align-middle bg-transparent border-bottom">Marie</td>
-                                        <td class="align-middle bg-transparent border-bottom">marie@corporateui.com
-                                        </td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">Creator</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">05/05/20</td>
-                                        <td class="text-center align-middle bg-transparent border-bottom">
-                                            <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                            <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td class="align-middle bg-transparent border-bottom">{{ $user->id }}
+                                            </td>
+                                            <td class="align-middle bg-transparent border-bottom">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    @if ($user->pfp)
+                                                        <img src="{{ url('storage/' . $user->pfp) }}"
+                                                            class="rounded-circle mr-2" alt="Profile Photo"
+                                                            style="height: 36px; width: 36px;">
+                                                    @else
+                                                        <img src="{{ asset('profileimg.png') }}"
+                                                            class="rounded-circle mr-2" alt="Profile Photo"
+                                                            style="height: 36px; width: 36px;">
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td class="align-middle bg-transparent border-bottom">{{ $user->name }}
+                                            </td>
+                                            <td class="align-middle bg-transparent border-bottom">{{ $user->email }}
+                                            </td>
+                                            <td class="text-center align-middle bg-transparent border-bottom">
+                                                {{ $user->created_at }}</td>
+                                            <td class="text-center align-middle bg-transparent border-bottom">
+                                                <a href="{{ route('user.delete', ['id' => $user->id]) }}"
+                                                    class="delete-user-link" data-id="{{ $user->id }}">
+                                                    <i class="fa-solid fa-trash-can text-dark"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -165,7 +104,6 @@
         </div>
         <x-app.footer />
     </main>
-
 </x-app-layout>
 
 <script src="/assets/js/plugins/datatables.js"></script>
