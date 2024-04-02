@@ -100,7 +100,9 @@ Route::get('/addtoCart/{id}', [CartController::class, 'AddtoCart'])->name('addto
 Route::get('/deleteFromCart/{id}', [CartController::class, 'DeleteFromCart'])->name('deleteFromCart')->middleware('auth');
 
 // Place the order from the cart 
-Route::get('/Checkoutorder/{id}', [CartController::class, 'CheckOutOrder'])->name('CheckOutOrder')->middleware('auth');
+Route::get('/Checkoutorder', [CartController::class, 'CheckOutOrder'])->name('CheckOutOrder')->middleware('auth');
+
+Route::post('/paymentGateway', [CartController::class, 'paymentGateway'])->name('paymentGateway')->middleware('auth');
 
 Route::post('/increaseQuantity/{id}', [CartController::class, 'increaseQuantity'])->name('increaseQuantity')->middleware('auth');
 Route::post('/decreaseQuantity/{id}', [CartController::class, 'decreaseQuantity'])->name('decreaseQuantity')->middleware('auth');

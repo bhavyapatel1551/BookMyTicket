@@ -107,7 +107,7 @@
                                         <div class="card bg-primary text-white rounded-3">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                                    <h5 class="mb-0">Card details</h5>
+                                                    <h5 class="mb-0">Cart details</h5>
                                                     @if (auth()->user()->pfp)
                                                         <img src="{{ url('storage/' . auth()->user()->pfp) }}"
                                                             alt="Profile Photo"
@@ -121,7 +121,7 @@
                                                     @endif
                                                 </div>
 
-                                                <p class="small mb-2">Card type</p>
+                                                {{-- <p class="small mb-2">Card type</p>
                                                 <a href="#!" type="submit" class="text-white"><i
                                                         class="fab fa-cc-mastercard fa-2x me-2"></i></a>
                                                 <a href="#!" type="submit" class="text-white"><i
@@ -168,7 +168,7 @@
                                                         </div>
                                                     </div>
 
-                                                </form>
+                                                </form> --}}
 
                                                 <hr class="my-4">
                                                 <div class="bg-gray-300 p-2 rounded-5 mb-2 text-dark">
@@ -188,15 +188,23 @@
                                                         <h5 class="mb-2" id="SubTotal2">₹{{ $SubTotal }}</h5>
                                                     </div>
                                                 </div>
-                                                <a href="/Checkoutorder/{{ auth()->user()->id }}">
-                                                    <button type="button"
+                                                <form action="/paymentGateway" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="hidden" name="total_price"
+                                                        value="{{ $SubTotal }}">
+                                                    <input type="hidden" name="total_ticket"
+                                                        value="{{ $ticket }}">
+                                                    <input type="hidden" name="email"
+                                                        value="{{ auth()->user()->email }}">
+                                                    <button type="submit"
                                                         class="btn btn-success bg-gradient btn-block btn-lg">
                                                         <div class="d-flex justify-content-between">
                                                             <span id="SubTotal3">₹{{ $SubTotal }}</span>
                                                             <span>Checkout <i
                                                                     class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>
-                                                    </button>
+                                                </form>
                                                 </a>
                                             </div>
                                         </div>

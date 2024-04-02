@@ -6,7 +6,7 @@
             <div class="container-fluid py-4 px-5">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                        <div class="card card-background card-background-after-none align-items-start mt-4 mb-4"
                             id="zoomin">
                             <div class="full-background"
                                 style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
@@ -33,6 +33,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -48,6 +49,33 @@
                     </div>
                 </div>
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="btn-group shadow-0">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Sort By
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Time New to Old</a></li>
+                                <li><a class="dropdown-item" href="#">Time Old to New</a></li>
+                                <li><a class="dropdown-item" href="#">Price High to Low</a></li>
+                                <li><a class="dropdown-item" href="#">Price Low to High</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="advanced-search-input"
+                                placeholder="Search Ticket" />
+                            <button class="btn btn-primary" id="advanced-search-button" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
                 <section class="">
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)

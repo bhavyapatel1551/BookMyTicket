@@ -71,9 +71,11 @@ class CartController extends Controller
     }
 
     // Place the order from the cart table
-    public function CheckOutOrder($id)
+    public function CheckOutOrder()
     {
-        $cartItems = Cart::where('user_id', $id)->get();
+
+        $user = Auth::user();
+        $cartItems = Cart::where('user_id', $user->id)->get();
 
         // Create orders for each cart item
         foreach ($cartItems as $item) {
@@ -88,10 +90,44 @@ class CartController extends Controller
         }
 
         // Aftre the Checkout Cart will be empty and stroe the data in the order table.
-        Cart::where('user_id', $id)->delete();
+        Cart::where('user_id', $user->id)->delete();
 
-        return redirect()->back()->with('success', 'Your Order is Placed !!');
+        return redirect('/cart')->with('success', 'Your Order is Placed !!');
+        // return redirect()->back()->with('success', 'Your Order is Placed !!');
     }
+
+    public function paymentGateway(Request $request)
+    {
+        // Set your Stripe API key.
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+
+        $email = $request->email;
+        $total_price = $request->total_price;
+        $total_ticket = $request->total_ticket;
+
+        $paymentGateway = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'INR',
+                        'product_data' => [
+                            'name' => $email,
+                        ],
+                        'unit_amount' => $total_price * 100, // Convert to cents
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'customer_email' => $email, // Add customer's email
+            'billing_address_collection' => 'required', // Request customer's billing address
+            'mode' => 'payment',
+            'success_url' => route('CheckOutOrder'),
+            'cancel_url' => route('cart'),
+        ]);
+        return redirect()->away($paymentGateway->url);
+    }
+
 
     // Increase the quantity of the item in the cart page
     public function increaseQuantity($id)

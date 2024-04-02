@@ -88,6 +88,8 @@ function decreaseQuantity(id) {
         },
     });
 }
+
+// Delete the user
 $(document).ready(function () {
     $(".delete-user-link").on("click", function (e) {
         e.preventDefault();

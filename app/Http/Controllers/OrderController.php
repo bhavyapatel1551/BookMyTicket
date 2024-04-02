@@ -29,4 +29,6 @@ class OrderController extends Controller
         $Todayprice = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('total_price');
         return view('events.EventStatistic', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
     }
+
+    // public function 
 }
