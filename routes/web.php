@@ -27,7 +27,8 @@ Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
-
+Route::get('/registrationFees', [RegisterController::class, 'RegistrationFees'])->name('Registration.Fees')->middleware('guest');
+Route::get('/SuccessfullPayment', [RegisterController::class, 'SuccessfullPayment'])->name('SuccessfullPayment')->middleware('guest');
 
 // Events Related Routes --------------------------------------------------------------------------------------------------------
 

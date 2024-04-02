@@ -44,7 +44,18 @@
                     <div class="col-lg-9 col-12 ">
                         <div class="card " id="basic-info">
                             <div class="card-header">
-                                <h5>Edit Your Event </h5>
+                                <div class="row align-items-center">
+                                    <div class="col-6 ">
+                                        <h5>Edit Your Event </h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        @if ($event->image)
+                                            <img src="{{ asset('storage/' . $event->image) }}"
+                                                class="img-fluid rounded-3" alt="Shopping item" style="width: 80px;">
+                                        @endif
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="pt-0 card-body">
 

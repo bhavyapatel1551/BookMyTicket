@@ -85,30 +85,71 @@ class RegisterController extends Controller
     public function verifyOtp(Request $request)
     {
         $email = session('email');
+        $otp = session('otp');
+        $otpAttempts = session('otp_attempts', 0);
+
+
 
         if ($request->input('action') === 'resend') {
-            $rotp = rand(999, 9999);
-            session(['otp' => $rotp]);
+            if ($otpAttempts > 3) {
+                return back()->with('error', 'You have exceeded the maximum number of OTP generation attempts.');
+            } else {
 
-            $otp = $rotp;
+                Mail::to($email)->send(new TestMail($otp, 'New Otp!'));
+                session(['otp_attempts' => $otpAttempts + 1]);
 
-            Mail::to($email)->send(new TestMail($otp, 'New OTP!'));
 
-            return Redirect()->route('showOtpForm');
+                return Redirect()->route('showOtpForm');
+            }
         } else {
-            $otp = session('otp');
             $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
 
             if ($otp == $userotp) {
-                $user = User::where('email', $email)->first();
-                Auth::login($user);
+
 
                 Session::forget('registration_in_progress');
 
-                return redirect(RouteServiceProvider::HOME);
+                return redirect('/registrationFees');
             } else {
                 return back()->with('error', 'Invalid OTP. Please try again.');
             }
         }
+    }
+
+    public function SuccessfullPayment()
+    {
+        $email = session('email');
+        $user = User::where('email', $email)->first();
+        Auth::login($user);
+    }
+    public function RegistrationFees()
+    {
+        // Set your Stripe API key.
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+
+        $email = session('email');
+
+        $paymentGateway = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'INR',
+                        'product_data' => [
+                            'name' => 'Registration Fees for BookMyTicket.com',
+                            'description' => 'This fee covers the registration process for accessing and using BookMyTicket.com',
+                        ],
+                        'unit_amount' => 10000,
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'customer_email' => $email, // Add customer's email
+            'billing_address_collection' => 'required', // Request customer's billing address
+            'mode' => 'payment',
+            'success_url' => route('dashboard'),
+            'cancel_url' => route('logout'),
+        ]);
+        return redirect()->away($paymentGateway->url);
     }
 }

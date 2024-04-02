@@ -50,32 +50,24 @@
                 </div>
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
                 <div class="row">
-                    <div class="col-md-1">
-                        <div class="btn-group shadow-0">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Sort By
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Time New to Old</a></li>
-                                <li><a class="dropdown-item" href="#">Time Old to New</a></li>
-                                <li><a class="dropdown-item" href="#">Price High to Low</a></li>
-                                <li><a class="dropdown-item" href="#">Price Low to High</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-md-2 mb-3 d-flex align-items-start">
+                        <select class="form-select" id="sort-by-select" aria-label="Default select example">
+                            <option>Sort By</option>
+                            <option value="date_asc">Time New to Old</option>
+                            <option value="date_desc">Time Old to New</option>
+                            <option value="price_asc">Price Low to High</option>
+                            <option value="price_desc">Price High to Low</option>
+                        </select>
                     </div>
-                    <div class="col-md-11">
+                    <div class="col-md-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="advanced-search-input"
-                                placeholder="Search Ticket" />
-                            <button class="btn btn-primary" id="advanced-search-button" type="button">
+                            <input type="text" class="form-control" id="search-input" placeholder="Search Ticket" />
+                            <button class="btn btn-primary" id="search-button" type="button">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-
-
                 <section class="">
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)
@@ -93,13 +85,15 @@
                                     <h1 class="postcard__title blue"><a href="#"> {{ $ticket->name }}</a></h1>
                                     <div class="postcard__subtitle small">
                                         <time datetime="2020-05-25 12:00:00">
-                                            <i class="fas fa-calendar-alt me-2"></i> {{ $ticket->date }}
+                                            <i class="fas fa-calendar-alt me-2"></i>
+                                            {{ date('d/m/y', strtotime($ticket->date)) }}
                                         </time>
                                     </div>
                                     <div class="postcard__bar"></div>
                                     <div class="postcard__preview-txt">{{ $ticket->about }}
-                                        <h6 class="mt-3">Price : {{ $ticket->price }}</h6>
-                                        <h6 class="">Time : {{ $ticket->time }}</h6>
+                                        <h6 class="mt-3">Venue : {{ $ticket->venue }}</h6>
+                                        <h6 class="mt-3">Price : ₹{{ number_format($ticket->price, 2) }}</h6>
+                                        <h6 class="">Time : {{ date('h:i A', strtotime($ticket->time)) }}</h6>
                                     </div>
 
 
@@ -120,5 +114,28 @@
         </section>
         <x-app.footer />
     </main>
+    <script>
+        const sortBySelect = document.getElementById('sort-by-select');
+
+        sortBySelect.addEventListener('change', function() {
+            const selectedSortOption = sortBySelect.value;
+            const url = new URL(window.location.href);
+            url.searchParams.set('sort_by', selectedSortOption);
+            window.location.href = url.toString();
+        });
+    </script>
+    <script>
+        const searchInput = document.getElementById('search-input');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const searchTerm = searchInput.value.trim();
+                const url = new URL(window.location.href);
+                url.searchParams.set('search', searchTerm);
+                window.location.href = url.toString();
+            }
+        });
+    </script>
+
 
 </x-app-layout>

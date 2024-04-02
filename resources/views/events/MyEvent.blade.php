@@ -102,16 +102,19 @@
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
-                                                            <p class="text-sm text-dark  mb-0">{{ $event->time }}
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                {{ date('h:i A', strtotime($event->time)) }}
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
-                                                            <p class="text-sm text-dark  mb-0">{{ $event->date }}
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                {{ date('d/m/y', strtotime($event->date)) }}
 
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
-                                                            <p class="text-sm text-dark  mb-0">₹{{ $event->price }}
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                ₹{{ number_format($event->price, 2) }}
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">

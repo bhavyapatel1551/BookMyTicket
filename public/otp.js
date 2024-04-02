@@ -57,3 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
         input.addEventListener("paste", handlePaste);
     });
 });
+
+function submitForm(action) {
+    document.getElementById("action").value = action;
+    document.getElementById("otp-form").submit();
+}

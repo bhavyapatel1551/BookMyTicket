@@ -49,7 +49,9 @@ function increaseQuantity(id) {
             $("#SubTotal1").text(response.SubTotal);
             $("#SubTotal2").text(response.SubTotal);
             $("#SubTotal3").text(response.SubTotal);
+            $("#SubTotal4").text(response.SubTotal);
             $("#ticket").text(response.ticket);
+            // location.reload();
         },
         error: function (xhr, status, error) {
             var errorMessage =
@@ -76,7 +78,9 @@ function decreaseQuantity(id) {
                 $("#SubTotal1").text(response.SubTotal);
                 $("#SubTotal2").text(response.SubTotal);
                 $("#SubTotal3").text(response.SubTotal);
+                $("#SubTota4").text(response.SubTotal);
                 $("#ticket").text(response.ticket);
+                // location.reload();
             }
         },
         error: function (xhr, status, error) {

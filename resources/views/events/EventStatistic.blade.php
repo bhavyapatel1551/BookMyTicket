@@ -64,7 +64,7 @@
                                 <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Today Revenue</p>
-                                    <h6 class="mb-0">₹{{ $Todayprice }}</h6>
+                                    <h6 class="mb-0">₹{{ number_format($Todayprice, 2) }}</h6>
                                 </div>
                             </div>
                         </a>
@@ -76,7 +76,7 @@
                                 <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Total Revenue</p>
-                                    <h6 class="mb-0">₹{{ $Totalprice }}</h6>
+                                    <h6 class="mb-0">₹{{ number_format($Totalprice, 2) }}</h6>
                                 </div>
                             </div>
                         </a>
@@ -124,7 +124,8 @@
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0">₹{{ $order->price }}
+                                                <p class="text-sm text-dark  mb-0">
+                                                    ₹{{ number_format($order->price, 2) }}
 
                                                 </p>
                                             </td>

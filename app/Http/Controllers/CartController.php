@@ -25,8 +25,8 @@ class CartController extends Controller
             ->get();
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
-        $TotalItem = Cart::where('user_id', $user->id)->sum('user_id');
-        return view('userProfile.Cart', compact('cartItems', 'SubTotal', 'ticket', 'TotalItem'));
+        $Totalitem = Cart::where('user_id', $user->id)->count();
+        return view('userProfile.Cart', compact('cartItems', 'SubTotal', 'ticket', 'Totalitem'));
     }
 
 
@@ -112,7 +112,7 @@ class CartController extends Controller
                     'price_data' => [
                         'currency' => 'INR',
                         'product_data' => [
-                            'name' => $email,
+                            'name' => 'BookMyTicket.com',
                         ],
                         'unit_amount' => $total_price * 100, // Convert to cents
                     ],

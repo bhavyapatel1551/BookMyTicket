@@ -21,7 +21,7 @@
                                         <div class="d-flex justify-content-between align-items-center mb-4  ">
                                             <div>
                                                 <p class="mb-1">Shopping cart</p>
-                                                <p class="mb-0">You have {{ $TotalItem }} items in your cart
+                                                <p class="mb-0">You have {{ $Totalitem }} items in your cart
                                                 </p>
                                             </div>
                                         </div>
@@ -42,7 +42,6 @@
                                         </div>
                                         @if ($cartItems->isEmpty())
                                             <p class="text-center p-5 pb-0">No Item Available</p>
-                                            <p class="text-center">Buy Now</p>
                                         @else
                                             @foreach ($cartItems as $item)
                                                 <div class="card mb-3 bg-gray-200" id="zoomin">
@@ -66,9 +65,9 @@
                                                                     <p class="small mb-0"> <span
                                                                             class="me-2">{{ $item->event->venue }}</span>
                                                                         <span
-                                                                            class="me-2">{{ $item->event->date }}</span>
+                                                                            class="me-2">{{ date('d/m/y', strtotime($item->event->date)) }}</span>
                                                                         <span
-                                                                            class="me-2">{{ $item->event->time }}</span>
+                                                                            class="me-2">{{ date('h:i A', strtotime($item->event->time)) }}</span>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -89,7 +88,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div style="width: 80px;">
-                                                                    <h5 class="mb-0">₹{{ $item->price }}</h5>
+                                                                    <h5 class="mb-0">
+                                                                        ₹{{ number_format($item->price) }}</h5>
                                                                 </div>
                                                                 <a href=""
                                                                     onclick="deleteCartItem('{{ $item->id }}')">
@@ -180,19 +180,21 @@
 
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Subtotal</p>
-                                                        <p class="mb-2" id="SubTotal1">₹{{ $SubTotal }}</p>
+                                                        <p class="mb-2" id="SubTotal1">
+                                                            ₹{{ number_format($SubTotal, 2) }}</p>
                                                     </div>
                                                     <hr>
                                                     <div class="d-flex justify-content-between mb-4">
                                                         <h5 class="mb-2">Total(Incl. taxes)</h5>
-                                                        <h5 class="mb-2" id="SubTotal2">₹{{ $SubTotal }}</h5>
+                                                        <h5 class="mb-2" id="SubTotal2">
+                                                            ₹{{ number_format($SubTotal, 2) }}</h5>
                                                     </div>
                                                 </div>
                                                 <form action="/paymentGateway" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="hidden" name="total_price"
-                                                        value="{{ $SubTotal }}">
+                                                    <input type="hidden" id="SubTotal4" name="total_price"
+                                                        value="₹{{ number_format($SubTotal, 2) }}">
                                                     <input type="hidden" name="total_ticket"
                                                         value="{{ $ticket }}">
                                                     <input type="hidden" name="email"
@@ -200,7 +202,8 @@
                                                     <button type="submit"
                                                         class="btn btn-success bg-gradient btn-block btn-lg">
                                                         <div class="d-flex justify-content-between">
-                                                            <span id="SubTotal3">₹{{ $SubTotal }}</span>
+                                                            <span
+                                                                id="SubTotal3">₹₹{{ number_format($SubTotal, 2) }}</span>
                                                             <span>Checkout <i
                                                                     class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>
