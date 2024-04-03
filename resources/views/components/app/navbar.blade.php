@@ -25,6 +25,7 @@
             <div class="mb-0 font-weight-bold breadcrumb-text text-white">
                 <form method="GET" action="{{ route('logout') }}">
 
+
                     <a href="login" onclick="event.preventDefault();
                 this.closest('form').submit();">
                         <button class="btn btn-sm  btn-white  mb-0 me-1" type="submit">Log out</button>
@@ -35,7 +36,13 @@
                 {{-- User Profile --}}
                 <li class="nav-item ps-2 d-flex align-items-center">
                     <a href="{{ route('user.profile') }}" class="nav-link text-body p-0">
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm" alt="avatar" />
+                        @if (auth()->user()->pfp)
+                            <img src="{{ url('storage/' . auth()->user()->pfp) }}" class="avatar avatar-sm"
+                                alt="avatar" />
+                        @else
+                            <img src="{{ asset('storage/profileimg.png') }}" class="avatar avatar-sm" alt="avatar" />
+                        @endif
+
                     </a>
                 </li>
             </ul>

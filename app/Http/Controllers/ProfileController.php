@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'location' => 'max:255',
             'phone' => 'numeric|digits:10',
-            'about' => 'max:255',
+            'aboutyou' => 'max:255',
         ], [
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
@@ -39,7 +39,7 @@ class ProfileController extends Controller
             'email' => $request->email,
             'location' => $request->location,
             'phone' => $request->phone,
-            'about' => $request->about,
+            'about' => $request->aboutyou,
         ]);
 
         return back()->with('success', 'Profile updated successfully.');

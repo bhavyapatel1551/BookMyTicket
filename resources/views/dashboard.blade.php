@@ -81,18 +81,20 @@
                                     @endif
 
                                 </a>
-                                <div class="postcard__text t-dark">
+                                <div class="postcard__text t-dark"style="font-family: Arial, sans-serif;">
                                     <h1 class="postcard__title blue"><a href="#"> {{ $ticket->name }}</a></h1>
                                     <div class="postcard__subtitle small">
                                         <time datetime="2020-05-25 12:00:00">
                                             <i class="fas fa-calendar-alt me-2"></i>
-                                            {{ date('d/m/y', strtotime($ticket->date)) }}
+                                            {{ date('d-m-Y', strtotime($ticket->date)) }}
                                         </time>
                                     </div>
                                     <div class="postcard__bar"></div>
                                     <div class="postcard__preview-txt">{{ $ticket->about }}
-                                        <h6 class="mt-3">Venue : {{ $ticket->venue }}</h6>
-                                        <h6 class="mt-3">Price : ₹{{ number_format($ticket->price, 2) }}</h6>
+                                        <h6 class="mt-3" style="font-family: Arial, sans-serif;">Venue :
+                                            {{ $ticket->venue }}</h6>
+                                        <h6 class="mt-3" style="font-family: Georgia">Price :
+                                            ₹{{ number_format($ticket->price, 2) }}</h6>
                                         <h6 class="">Time : {{ date('h:i A', strtotime($ticket->time)) }}</h6>
                                     </div>
 
@@ -108,6 +110,9 @@
                                 </div>
                             </article>
                         @endforeach
+                        <div class="d-flex">
+                            {{ $tickets->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </section>
             </div>

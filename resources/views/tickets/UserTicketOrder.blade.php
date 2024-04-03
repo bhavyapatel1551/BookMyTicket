@@ -33,75 +33,85 @@
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
-                                        <thead class="bg-gray-100">
-                                            <tr>
-                                                <th class="align-middle text-center  ">Name</th>
-                                                <th class="align-middle text-center ">Vanue</th>
-                                                <th class="align-middle text-center ">Time</th>
-                                                <th class="align-middle text-center ">Date</th>
-                                                <th class="align-middle text-center ">Price</th>
-                                                <th class="align-middle text-center ">Quantity</th>
-                                                <th class="align-middle text-center ">Purchase Time</th>
-                                                <th class="align-middle text-center ">View</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $order)
-                                                <tr class="justify-content-center" id="zoomin">
-                                                    <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ $order->event->name }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ $order->event->venue }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ date('h:i A', strtotime($order->event->time)) }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ date('d/m/y', strtotime($order->event->date)) }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            ₹{{ number_format($order->price, 2) }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ $order->quantity }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            {{ $order->created_at }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center p-3 ">
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                            <a href="#"
-                                                                class="text-secondary font-weight-bold  me-2">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </a>
-                                                        </p>
-                                                    </td>
+                                @if ($orders->isEmpty())
+                                    <tr>
+                                        <td colspan="8" class="text-center py-4">No orders available.
+                                        </td>
+                                    </tr>
+                                @else
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <thead class="bg-gray-100">
+                                                <tr>
+                                                    <th class="align-middle text-center  ">Name</th>
+                                                    <th class="align-middle text-center ">Vanue</th>
+                                                    <th class="align-middle text-center ">Time</th>
+                                                    <th class="align-middle text-center ">Date</th>
+                                                    <th class="align-middle text-center ">Price</th>
+                                                    <th class="align-middle text-center ">Quantity</th>
+                                                    <th class="align-middle text-center ">Purchase Time</th>
+                                                    <th class="align-middle text-center ">View</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($orders as $order)
+                                                    <tr class="justify-content-center" id="zoomin">
+                                                        <td class="align-middle text-center p-3">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ $order->event->name }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ $order->event->venue }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ date('h:i A', strtotime($order->event->time)) }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ date('d-m-Y', strtotime($order->event->date)) }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                ₹{{ number_format($order->price, 2) }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ $order->quantity }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                {{ date('d-m-Y h:i:s A', strtotime($order->created_at)) }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                                <a href="/PurchasedTicket/{{ $order->id }}"
+                                                                    class="text-secondary font-weight-bold  me-2">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </a>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                @endif
+                            </div>
+                            <div class="d-flex ms-3 mt-4">
+                                {{ $orders->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
         <x-app.footer />

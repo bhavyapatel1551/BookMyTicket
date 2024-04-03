@@ -1,7 +1,28 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <style>
+            .edit-icon {
+                position: absolute;
+                top: 100%;
+                right: 0%;
+                transform: translate(50%, -50%);
+                border-radius: 100%;
+                padding: 5px;
+                visibility: hidden;
+                /* Hidden by default */
+            }
+
+            .avatar:hover .edit-icon {
+                visibility: visible;
+                /* Show on hover */
+            }
+
+            .edit-icon i {
+                color: #000;
+            }
+        </style>
         <div class="container-fluid ">
-            <form action={{ route('user.update') }} method="POST">
+            <form action={{ route('user.update') }} method="POST" role="form">
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">
@@ -16,20 +37,24 @@
                                     <div class="avatar avatar-2xl position-relative">
                                         <a href="{{ route('user.PhotoUpdate') }}"
                                             onclick="return confirm('Do you want to update the Profile photo?')">
-                                            @if (auth()->user()->pfp)
-                                                <img src="{{ url('storage/' . auth()->user()->pfp) }}"
-                                                    alt="Profile Photo"
-                                                    class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
-                                                    id="preview">
-                                            @else
-                                                <img src="{{ asset('profileimg.png') }}" alt="Default Profile Photo"
-                                                    class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
-                                                    id="preview">
-                                            @endif
+                                            <div class="position-relative">
+                                                @if (auth()->user()->pfp)
+                                                    <img src="{{ url('storage/' . auth()->user()->pfp) }}"
+                                                        alt="Profile Photo"
+                                                        class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
+                                                        id="preview">
+                                                @else
+                                                    <img src="{{ asset('profileimg.png') }}" alt="Default Profile Photo"
+                                                        class="w-100 h-100 object-fit-cover border-radius-2xl shadow-sm"
+                                                        id="preview">
+                                                @endif
+                                                <div class="edit-icon">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
                                         </a>
-
-
                                     </div>
+
                                 </div>
                                 <div class="col-sm-auto col-8 my-auto">
                                     <div class="h-100">
@@ -108,13 +133,22 @@
                                 </div>
                                 <div class="row p-2">
                                     <label for="about">About me</label>
-                                    <textarea name="about" id="about" rows="5" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
-                                    @error('about')
+                                    <textarea name="aboutyou" id="aboutyou" rows="3" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
+                                    @error('aboutyou')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <button type="submit" class="mt-3 mb-0 btn btn-outline-dark btn-sm float-end">Save
-                                    changes</button>
+                                <div class="row mb-0">
+                                    <div class="col-10">
+                                        <button type="submit"
+                                            class="btn btn-outline-success btn-sm float-end">Submit</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-outline-danger btn-sm float-start"
+                                            onclick="window.location.href='{{ route('user.profile') }}'">Cancel</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

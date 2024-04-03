@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function UserPurchaseOrder()
     {
         $user_id = Auth::id();
-        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->get();
+        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(5);
         return view('tickets.UserTicketOrder', compact('orders'));
     }
 
@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function OrganizerOrderDetails()
     {
         $user_id = Auth::id();
-        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->get();
+        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate(5);
         $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
         $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
         $Totalprice = Order::where('organizer_id', $user_id)->sum('total_price');
@@ -30,5 +30,9 @@ class OrderController extends Controller
         return view('events.EventStatistic', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
     }
 
-    // public function 
+    public function PurchasedTicket($id)
+    {
+        $ticket = Order::where('id', $id)->with('event')->first();
+        return view('tickets.PurchasedTicket', compact('ticket'));
+    }
 }

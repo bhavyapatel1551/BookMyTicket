@@ -18,10 +18,11 @@
                     <a href="#" class="nav-link text-m text-muted" target="_blank">Book my Ticket</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-m text-muted" target="_blank">Terms & Conditions</a>
+                    <a href="{{ route('t&c') }}" class="nav-link text-m text-muted" target="_blank">Terms &
+                        Conditions</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-m text-muted" target="_blank">About Us</a>
+                    <a href="{{ route('about-us') }}" class="nav-link text-m text-muted" target="_blank">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-m text-muted" target="_blank">Blog</a>

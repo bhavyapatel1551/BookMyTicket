@@ -130,7 +130,8 @@
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center p-3 ">
-                                                <p class="text-sm text-dark  mb-0"> {{ $order->created_at }}
+                                                <p class="text-sm text-dark  mb-0">
+                                                    {{ date('d-m-Y h:i:s A', strtotime($order->created_at)) }}
                                                 </p>
                                             </td>
 
@@ -147,6 +148,9 @@
 
                                 </tbody>
                             </table>
+                            <div class="d-flex ms-3 mt-4">
+                                {{ $orders->links('pagination::bootstrap-5') }}
+                            </div>
 
                         </div>
 

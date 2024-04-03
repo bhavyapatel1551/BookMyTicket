@@ -65,7 +65,7 @@
                                                                     <p class="small mb-0"> <span
                                                                             class="me-2">{{ $item->event->venue }}</span>
                                                                         <span
-                                                                            class="me-2">{{ date('d/m/y', strtotime($item->event->date)) }}</span>
+                                                                            class="me-2">{{ date('d-m-Y', strtotime($item->event->date)) }}</span>
                                                                         <span
                                                                             class="me-2">{{ date('h:i A', strtotime($item->event->time)) }}</span>
                                                                     </p>
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-lg-5">
 
-                                        <div class="card bg-primary text-white rounded-3">
+                                        <div class="card bg-primary text-white rounded-3 mt-5">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                                     <h5 class="mb-0">Cart details</h5>
@@ -174,7 +174,7 @@
                                                 <div class="bg-gray-300 p-2 rounded-5 mb-2 text-dark">
 
                                                     <div class="d-flex justify-content-between">
-                                                        <p class="mb-2">Tickets</p>
+                                                        <p class="mb-2">Total Tickets</p>
                                                         <p class="mb-2" id="ticket">{{ $ticket }}</p>
                                                     </div>
 
@@ -193,17 +193,12 @@
                                                 <form action="/paymentGateway" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="hidden" id="SubTotal4" name="total_price"
-                                                        value="₹{{ number_format($SubTotal, 2) }}">
-                                                    <input type="hidden" name="total_ticket"
-                                                        value="{{ $ticket }}">
-                                                    <input type="hidden" name="email"
-                                                        value="{{ auth()->user()->email }}">
                                                     <button type="submit"
+                                                        @if ($cartItems->isEmpty()) disabled @endif
                                                         class="btn btn-success bg-gradient btn-block btn-lg">
                                                         <div class="d-flex justify-content-between">
                                                             <span
-                                                                id="SubTotal3">₹₹{{ number_format($SubTotal, 2) }}</span>
+                                                                id="SubTotal3">₹{{ number_format($SubTotal, 2) }}</span>
                                                             <span>Checkout <i
                                                                     class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                         </div>

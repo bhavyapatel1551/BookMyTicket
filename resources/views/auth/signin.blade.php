@@ -42,6 +42,9 @@
                                                 placeholder="Enter your email address"
                                                 value="{{ old('email') ? old('email') : '' }}" aria-label="Email"
                                                 aria-describedby="email-addon">
+                                            @error('email')
+                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
@@ -49,6 +52,9 @@
                                                 value="{{ old('password') ? old('password') : '' }}"
                                                 class="form-control" placeholder="Enter password" aria-label="Password"
                                                 aria-describedby="password-addon">
+                                            @error('password')
+                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('password.request') }}"
@@ -94,5 +100,4 @@
             </div>
         </section>
     </main>
-
 </x-guest-layout>

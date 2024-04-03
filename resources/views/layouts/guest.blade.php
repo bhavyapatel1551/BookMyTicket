@@ -68,6 +68,12 @@
         <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
         <!-- CSS Files -->
         <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js">
+        </script>
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdG6qspAAAAABBpAPvltFclxYJ7h0DYroL7XaPb"></script>
+        <script src="{{ asset('assets/js/validation.js') }}"></script>
     </head>
 
     <body class="">

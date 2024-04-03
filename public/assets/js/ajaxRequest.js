@@ -94,26 +94,21 @@ function decreaseQuantity(id) {
 }
 
 // Delete the user
-$(document).ready(function () {
-    $(".delete-user-link").on("click", function (e) {
-        e.preventDefault();
-        var userId = $(this).data("id");
-        if (confirm("Are you sure you want to delete this user?")) {
-            $.ajax({
-                url: $(this).attr("href"),
-                type: "GET",
-                success: function (response) {
-                    $("#user-row-" + userId).remove();
-                    alert("User deleted successfully.");
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    alert("Error deleting user: " + error);
-                },
-            });
-        }
-    });
-});
+function deleteUser(id) {
+    if (confirm("Are you sure you want to delete this User?")) {
+        $.ajax({
+            url: "/userDelete/" + id,
+            method: "get",
+            data: { id: id },
+            success: function () {
+                alert("User Deleted Successfully");
+            },
+            error: function (xhr, status, error) {
+                alert("Error deleting Event: " + error);
+            },
+        });
+    }
+}
 
 // Session Alert Animation
 $(document).ready(function () {

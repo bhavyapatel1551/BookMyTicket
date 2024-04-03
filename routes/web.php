@@ -22,13 +22,21 @@ use App\Http\Controllers\TicketController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Home Page
+// Web Page
 Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
 Route::get('/registrationFees', [RegisterController::class, 'RegistrationFees'])->name('Registration.Fees')->middleware('guest');
 Route::get('/SuccessfullPayment', [RegisterController::class, 'SuccessfullPayment'])->name('SuccessfullPayment')->middleware('guest');
+
+Route::get('/terms-and-conditions', function () {
+    return view('terms&conditions');
+})->name('t&c');
+
+Route::get('/about-us', function () {
+    return view('AboutUs');
+})->name('about-us');
 
 // Events Related Routes --------------------------------------------------------------------------------------------------------
 
@@ -72,6 +80,7 @@ Route::get('/userPurchaseOrder', [OrderController::class, 'UserPurchaseOrder'])-
 // Show Event Statistics
 Route::get('/organizerOrderDetails', [OrderController::class, 'OrganizerOrderDetails'])->name('OrganizerOrderDetails')->middleware('auth');
 
+Route::get('/PurchasedTicket/{id}', [OrderController::class, 'PurchasedTicket'])->name('PurchasedTicket')->middleware('auth');
 // User Profile Related Route----------------------------------------------------------------------------------------------------
 
 // Show User PRofile
@@ -145,8 +154,8 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store'])
     ->middleware('guest');
 
 // Show OTP Verification PAge
-Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('showOtpForm');
-Route::post('/verify-otp', [RegisterController::class, 'verifyOtp'])->name('verifyOtp');
+Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('showOtpForm')->middleware('guest');
+Route::post('/verify-otp', [RegisterController::class, 'verifyOtp'])->name('verifyOtp')->middleware('guest');
 
 
 
@@ -170,4 +179,4 @@ Route::get('/test', function () {
 // Admin ----------------
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
 Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
-Route::get('/ticket-management', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');
+Route::get('/viewEventsByUserId/{id}', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');

@@ -15,30 +15,33 @@
                                 <div class="col-6">
                                     <h5 class="">User Management</h5>
                                     <p class="mb-0 text-sm">
-                                        Here you can manage users.
+                                        Here you can manage your users.
                                     </p>
                                 </div>
-                                <div class="col-6 text-end">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-9 col-12">
+                                        @if (session('error'))
+                                            <div class="alert alert-danger" role="alert" id="alert">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
+                                        @if (session('success'))
+                                            <div class="alert alert-success" role="alert" id="alert">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                {{-- <div class="col-6 text-end">
                                     <a href="#" class="btn btn-dark btn-primary">
                                         <i class="fas fa-user-plus me-2"></i> Add Member
                                     </a>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="">
-                                @if (session('success'))
-                                    <div class="alert alert-success" role="alert" id="alert">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger" role="alert" id="alert">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+
+
+
                         <div class="table-responsive">
                             <table class="table text-secondary text-center">
                                 <thead>
@@ -88,15 +91,24 @@
                                             <td class="text-center align-middle bg-transparent border-bottom">
                                                 {{ $user->created_at }}</td>
                                             <td class="text-center align-middle bg-transparent border-bottom">
-                                                <a href="{{ route('user.delete', ['id' => $user->id]) }}"
+                                                <a href="" onclick="deleteUser('{{ $user->id }}')"
                                                     class="delete-user-link" data-id="{{ $user->id }}">
                                                     <i class="fa-solid fa-trash-can text-dark"></i>
                                                 </a>
+                                                <a class="m-1" href="/viewEventsByUserId/{{ $user->id }}"
+                                                    class="delete-user-link" data-id="{{ $user->id }}">
+                                                    <i class="fa-solid fa-eye text-dark"></i>
+                                                </a>
+
                                             </td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
+                            <div class="d-flex m-3">
+                                {{ $users->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>

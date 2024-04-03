@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <form action={{ route('event.create') }} method="POST" enctype="multipart/form-data">
+            <form action={{ route('event.create') }} method="POST" enctype="multipart/form-data" role="form">
                 @csrf
 
                 <div class="row justify-content-center">
@@ -71,7 +71,7 @@
                                     <div class="col-6">
                                         <label for="image">Event Photo</label>
                                         <input type="file" name="image" id="image" class="form-control"
-                                            value="{{ old('image') }}">
+                                            value="{{ old('image') }}" accept="image/*">
                                         @error('image')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
@@ -113,8 +113,17 @@
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <button type="submit"
-                                    class="mt-3 mb-0 btn btn-outline-dark btn-sm float-end">Create</button>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <button type="submit"
+                                            class="btn btn-outline-success btn-sm float-end">Submit</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-outline-danger btn-sm float-start"
+                                            onclick="window.location.href='{{ route('event') }}'">Cancel</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

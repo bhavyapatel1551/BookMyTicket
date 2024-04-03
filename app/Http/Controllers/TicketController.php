@@ -42,7 +42,7 @@ class TicketController extends Controller
                 ->orWhere('price', 'like', '%' . $searchTerm . '%');
         }
 
-        $tickets = $tickets->get();
+        $tickets = $tickets->paginate(10);
 
         return view('dashboard', ['tickets' => $tickets]);
     }

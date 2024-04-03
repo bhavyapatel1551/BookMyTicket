@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Mail;
@@ -40,7 +39,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:7|max:255',
+            'password' => 'required|min:8|max:255',
             'terms' => 'accepted',
         ], [
             'name.required' => 'Name is required',
@@ -49,7 +48,7 @@ class RegisterController extends Controller
             'terms.accepted' => 'You must accept the terms and conditions'
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -76,22 +75,33 @@ class RegisterController extends Controller
 
     public function showOtpForm()
     {
+
         if (Session::get('registration_in_progress')) {
             return view('auth.otp');
         }
+
         return redirect('/sign-up');
     }
 
     public function verifyOtp(Request $request)
     {
+        if (Auth::check()) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+        // Validate the otp input field
         $email = session('email');
         $otp = session('otp');
         $otpAttempts = session('otp_attempts', 0);
 
+        // Check if OTP verification is completed for the current user
+        $otpVerified = session('otp_verified_' . md5($email), false);
+        if ($otpVerified) {
+            return redirect(RouteServiceProvider::HOME);
+        }
 
 
         if ($request->input('action') === 'resend') {
-            if ($otpAttempts > 3) {
+            if ($otpAttempts > 2) {
                 return back()->with('error', 'You have exceeded the maximum number of OTP generation attempts.');
             } else {
 
@@ -105,22 +115,28 @@ class RegisterController extends Controller
             $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
 
             if ($otp == $userotp) {
+                $user = User::where('email', $email)->first();
+                if ($user) {
+                    $user->email_verified_at = now();
+                    $user->save();
+                }
 
 
+                session(['otp_verified_' . md5($email) => true]);
                 Session::forget('registration_in_progress');
 
-                return redirect('/registrationFees');
+                return redirect('registrationFees');
             } else {
                 return back()->with('error', 'Invalid OTP. Please try again.');
             }
         }
     }
-
     public function SuccessfullPayment()
     {
         $email = session('email');
         $user = User::where('email', $email)->first();
         Auth::login($user);
+        return redirect('dashboard');
     }
     public function RegistrationFees()
     {
@@ -147,8 +163,8 @@ class RegisterController extends Controller
             'customer_email' => $email, // Add customer's email
             'billing_address_collection' => 'required', // Request customer's billing address
             'mode' => 'payment',
-            'success_url' => route('dashboard'),
-            'cancel_url' => route('logout'),
+            'success_url' => route('SuccessfullPayment'),
+            'cancel_url' => route('sign-up'),
         ]);
         return redirect()->away($paymentGateway->url);
     }

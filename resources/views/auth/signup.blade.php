@@ -91,15 +91,15 @@
                                         </div>
                                         <div class="form-check form-check-info text-left mb-0">
                                             <input class="form-check-input" type="checkbox" name="terms"
-                                                id="terms" required>
+                                                id="terms">
                                             <label class="font-weight-normal text-dark mb-0" for="terms">
                                                 I agree the <a href="javascript:;"
                                                     class="text-dark font-weight-bold">Terms and Conditions</a>.
-                                            </label>
-                                            @error('terms')
-                                                <span class="text-danger text-sm">{{ $message }}</span>
-                                            @enderror
+                                            </label><br>
                                         </div>
+                                        @error('terms')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign up</button>
                                             {{-- <a href="{{ route('send-otp') }}" class="btn btn-primary w-100 mt-4 mb-3">Send OTP</a> --}}

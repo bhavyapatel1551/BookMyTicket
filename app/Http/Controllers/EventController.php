@@ -15,7 +15,7 @@ class EventController extends Controller
     public function ShowAllEvents()
     {
         $id = Auth::id();
-        $events = Events::where('organizer_id', $id)->get();
+        $events = Events::where('organizer_id', $id)->paginate(5);
         return view('events.MyEvent', compact('events'));
     }
 
@@ -91,15 +91,15 @@ class EventController extends Controller
             'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
             'about' => '',
-            'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
+            'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
         // we upload the image fike than it will update the image path to the database. if the user does not provide the new image than it will not change the image and keep the old image as it is in the database.
-        if ($request->hasFile('image')) {
-            $imagepath = $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('event', $imagepath, 'public');
+        if ($request->hasFile('imageUpadte')) {
+            $imagepath = $request->file('imageUpadte')->getClientOriginalName();
+            $request->file('imageUpadte')->storeAs('event', $imagepath, 'public');
             $imagepath = 'event/' . $imagepath;
             Events::where('id', $id)->update([
-                'image' => $imagepath,
+                'imageUpadte' => $imagepath,
             ]);
         }
         // Change the formate of the date from the input box according to the database formate.
