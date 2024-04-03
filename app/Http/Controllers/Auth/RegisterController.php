@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendOtpMail;
 use App\Mail\TestMail;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -94,10 +95,7 @@ class RegisterController extends Controller
         $otpAttempts = session('otp_attempts', 0);
 
         // Check if OTP verification is completed for the current user
-        $otpVerified = session('otp_verified_' . md5($email), false);
-        if ($otpVerified) {
-            return redirect(RouteServiceProvider::HOME);
-        }
+
 
 
         if ($request->input('action') === 'resend') {
@@ -115,17 +113,11 @@ class RegisterController extends Controller
             $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
 
             if ($otp == $userotp) {
-                $user = User::where('email', $email)->first();
-                if ($user) {
-                    $user->email_verified_at = now();
-                    $user->save();
-                }
-
 
                 session(['otp_verified_' . md5($email) => true]);
                 Session::forget('registration_in_progress');
 
-                return redirect('registrationFees');
+                return redirect()->route('Registration.Fees');
             } else {
                 return back()->with('error', 'Invalid OTP. Please try again.');
             }
@@ -136,36 +128,43 @@ class RegisterController extends Controller
         $email = session('email');
         $user = User::where('email', $email)->first();
         Auth::login($user);
+        $user->email_verified_at = now();
+        $user->save();
         return redirect('dashboard');
     }
     public function RegistrationFees()
     {
-        // Set your Stripe API key.
-        \Stripe\Stripe::setApiKey(config('stripe.sk'));
-
+        Log::debug('Register');
         $email = session('email');
+        $user = User::where('email', $email)->first();
+        if ($user->email_verified_at === null) {
+            Log::debug('Stripe');
+            // Set your Stripe API key.
+            \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        $paymentGateway = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'INR',
-                        'product_data' => [
-                            'name' => 'Registration Fees for BookMyTicket.com',
-                            'description' => 'This fee covers the registration process for accessing and using BookMyTicket.com',
+
+            $paymentGateway = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'INR',
+                            'product_data' => [
+                                'name' => 'Registration Fees for BookMyTicket.com',
+                                'description' => 'This fee covers the registration process for accessing and using BookMyTicket.com',
+                            ],
+                            'unit_amount' => 10000,
                         ],
-                        'unit_amount' => 10000,
+                        'quantity' => 1,
                     ],
-                    'quantity' => 1,
                 ],
-            ],
-            'customer_email' => $email, // Add customer's email
-            'billing_address_collection' => 'required', // Request customer's billing address
-            'mode' => 'payment',
-            'success_url' => route('SuccessfullPayment'),
-            'cancel_url' => route('sign-up'),
-        ]);
-        return redirect()->away($paymentGateway->url);
+                'customer_email' => $email, // Add customer's email
+                'billing_address_collection' => 'required', // Request customer's billing address
+                'mode' => 'payment',
+                'success_url' => route('SuccessfullPayment'),
+                'cancel_url' => route('sign-up'),
+            ]);
+            return redirect()->away($paymentGateway->url);
+        }
     }
 }

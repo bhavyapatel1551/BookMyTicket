@@ -99,7 +99,7 @@ class EventController extends Controller
             $request->file('imageUpadte')->storeAs('event', $imagepath, 'public');
             $imagepath = 'event/' . $imagepath;
             Events::where('id', $id)->update([
-                'imageUpadte' => $imagepath,
+                'image' => $imagepath,
             ]);
         }
         // Change the formate of the date from the input box according to the database formate.

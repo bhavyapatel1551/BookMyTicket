@@ -111,6 +111,7 @@ class CartController extends Controller
         $eventNames = Cart::where('user_id', $user->id)->with('event')->get();
         $description = 'Purchase ' . $ticket . ' ticket(s) for ';
         foreach ($eventNames as $eventName) {
+
             $description .= $eventName->event->name . ', ';
         }
 

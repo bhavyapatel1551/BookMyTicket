@@ -2,7 +2,7 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
         <div class="container-fluid ">
-            <form action={{ route('user.update') }} method="POST">
+            <form action={{ route('user.PhotoUpdate') }} method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">

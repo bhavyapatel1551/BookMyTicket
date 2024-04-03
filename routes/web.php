@@ -93,7 +93,7 @@ Route::prefix('user')->group(function () {
 
     // Upload Profile Photo
     Route::get('/PhotoUpdate', [ProfileController::class, 'showprofilephotoform'])->name('user.PhotoUpdate')->middleware('auth');
-    Route::post('/PhotoUpdate', [ProfileController::class, 'updateprofilephoto'])->name('user.PhotoUpdate')->middleware('auth');
+    Route::put('/PhotoUpdate', [ProfileController::class, 'updateprofilephoto'])->name('user.PhotoUpdate')->middleware('auth');
 });
 
 
