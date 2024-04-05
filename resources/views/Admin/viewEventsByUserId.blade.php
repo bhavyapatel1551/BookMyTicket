@@ -74,6 +74,7 @@
                                                     <th class="align-middle text-center ">Date</th>
                                                     <th class="align-middle text-center ">Price</th>
                                                     <th class="align-middle text-center">Created at</th>
+                                                    <th class="align-middle text-center ">Action</th>
 
 
 
@@ -111,6 +112,15 @@
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">{{ $event->created_at }}
                                                             </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                <a href="/purchasedBy/{{ $event->id }}"
+                                                                    class="text-secondary font-weight-bold  me-2">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </a>
+                                                            </p>
+
                                                         </td>
 
 

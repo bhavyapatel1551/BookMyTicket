@@ -141,7 +141,7 @@
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">
-                                                                <a href="#"
+                                                                <a href="/purchasedBy/{{ $event->id }}"
                                                                     class="text-secondary font-weight-bold  me-2">
                                                                     <i class="fa-solid fa-eye"></i>
                                                                 </a>

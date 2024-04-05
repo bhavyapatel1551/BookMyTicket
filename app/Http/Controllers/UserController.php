@@ -56,4 +56,15 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'User Deleted Succefully.');
         }
     }
+    public function purchasedBy($id)
+    {
+        $organizer = Auth::user();
+        $event = Events::find($id);
+        if ($organizer && $event && $organizer->id === 0 || $event->organizer_id === $organizer->id) {
+            $purchases = Order::where('event_id', $id)->with('user')->get();
+            return view('purchasedBy', compact('event', 'purchases'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
+    }
 }

@@ -32,7 +32,16 @@ class OrderController extends Controller
 
     public function PurchasedTicket($id)
     {
-        $ticket = Order::where('id', $id)->with('event')->first();
-        return view('tickets.PurchasedTicket', compact('ticket'));
+        $user_id = Auth::id();
+        $orders = Order::where('id', $id)->first();
+        $check = $orders->user_id == $user_id;
+        if ($check) {
+            $ticket = Order::where('id', $id)->with('event')->first();
+
+
+            return view('tickets.PurchasedTicket', compact('ticket'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
     }
 }

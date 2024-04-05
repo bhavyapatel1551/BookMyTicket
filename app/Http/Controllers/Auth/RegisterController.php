@@ -63,10 +63,10 @@ class RegisterController extends Controller
         $otp = rand(1000, 9999);
         session(['otp' => $otp]);
 
-        Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
         Session::put('email', $email);
         Session::put('otp', $otp);
         Session::put('name', $name);
+        Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
 
         Session::put('registration_in_progress', true);
 
@@ -93,8 +93,6 @@ class RegisterController extends Controller
         $email = session('email');
         $otp = session('otp');
         $otpAttempts = session('otp_attempts', 0);
-
-        // Check if OTP verification is completed for the current user
 
 
 
