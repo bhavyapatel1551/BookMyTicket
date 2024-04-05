@@ -15,14 +15,8 @@ class EventController extends Controller
     public function ShowAllEvents()
     {
         $id = Auth::id();
-        $events = Events::where('organizer_id', $id)->paginate(5);
+        $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(5);
         return view('events.MyEvent', compact('events'));
-    }
-
-    // Show Statistic Page for user
-    public function ShowStatisticPage()
-    {
-        return view('events.EventStatistic');
     }
 
     // Show Create Event From
@@ -40,6 +34,7 @@ class EventController extends Controller
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
             'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
             'about' => '',
             'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
@@ -61,6 +56,7 @@ class EventController extends Controller
             "date" => $date,
             "time" => $request['time'],
             "price" => $request['price'],
+            "quantity" => $request['quantity'],
             "about" => $request['about'],
             "image" => $imagepath,
             'organizer_id' => $organizer_id,
@@ -90,6 +86,7 @@ class EventController extends Controller
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i',
             'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
             'about' => '',
             'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
@@ -110,6 +107,7 @@ class EventController extends Controller
             "time" => $request['time'],
             "date" => $date,
             "price" => $request['price'],
+            "quantity" => $request['quantity'],
             "about" => $request['about'],
         ]);
         return redirect()->route("event")->with('success', 'Event Updated successfully!');
@@ -121,10 +119,10 @@ class EventController extends Controller
         $Order = Order::where('event_id', $id)->first();
         // If the event is not sold out yet than we can delete that event otherwise we can not delete that event 
         if ($Order) {
-            return redirect()->back()->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
+            return redirect('event')->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
         } else {
             Events::where('id', $id)->delete();
-            return redirect()->back()->with('error', 'Event Deleted successfully!');
+            return redirect('event')->with('error', 'Event Deleted successfully!');
         }
     }
 }

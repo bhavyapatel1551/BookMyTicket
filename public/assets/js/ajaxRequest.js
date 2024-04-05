@@ -59,6 +59,9 @@ function increaseQuantity(id) {
                     ? xhr.responseJSON.error
                     : "Unknown error";
             console.error(errorMessage);
+            // Show the error message on the page
+            $("#error-message").text(errorMessage);
+            $("#error-message").show(); // Assuming you have a div with id="error-message" to display the error
         },
     });
 }

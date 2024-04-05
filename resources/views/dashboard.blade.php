@@ -96,6 +96,8 @@
                                         <h6 class="mt-3" style="font-family: Georgia">Price :
                                             ₹{{ number_format($ticket->price, 2) }}</h6>
                                         <h6 class="">Time : {{ date('h:i A', strtotime($ticket->time)) }}</h6>
+                                        <p style="font-family: Arial, sans-serif; font-size:15px">Ticket left :
+                                            {{ $ticket->quantity }}</p>
                                     </div>
 
 

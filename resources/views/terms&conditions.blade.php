@@ -25,14 +25,12 @@
     </head>
 
     <body id="terms-and-conditions">
-        <header class="header">
+        <header class="header mt-5">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1">
+                <div class="row" style="margin-top: 2em">
+                    <div class="col col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" style="margin-top: 1em">
                         <a href="/">
-                            <img class="img-responsive logo" src="ticket-logo.png"
-                                srcset="images/projecthub-logo@2x.png 2x, images/projecthub-logo@3x.png 3x"
-                                draggable="false" />
+                            <img class="img-responsive logo" src="ticket-logo.png" />
                         </a>
                     </div>
                     <div class="col col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-1">
@@ -488,44 +486,44 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-center">
-                    <h2 class="title">Better organization for a more productive you.</h2>
-                </div>
-                <div class="row footer-logo-container">
-                    <div class="col col-xs-12 text-center">
-                        <img src="ticket-logo.png"
-                            srcset="images/projecthub-footer-logo@2x.png 2x, images/projecthub-footer-logo@3x.png 3x"
-                            draggable="false" />
+        <footer class="footer p-5 ">
+            <div class="row align-items-center justify-content-lg-between ">
+                <div class="col-lg-6 mb-lg-0 mb-4">
+                    <div class="copyright text-center text-m text-muted text-lg-start">
+                        Copyright
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        made by
+                        <a href="#" class="text-secondary text-bold" target="_blank">bookmyticket.com</a>
+
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col col-xs-12 col-sm-4 col-md-3 col-md-offset-1 text-center link-container">
-                        <a class="links" href="https://xmartlabs.com" target="_blank">About Xmartlabs</a>
-                        <br>
-                        <a class="links" href="https://github.com/xmartlabs" target="_blank">See more projects</a>
-                    </div>
-                    <div class="col col-sm-4 col-md-4 text-center link-container">
-                        <a class="links" href="about.html">About Projecthub</a>
-                        <br>
-                        <a class="links" href="terms-and-conditions.html">Terms and Conditions</a>
-                    </div>
-                    <div class="col col-xs-12 col-sm-4 col-md-3 text-center">
-                        <a href="https://xmartlabs.com" target="_blank">
-                            <img src="ticket.png" height="30px"
-                                srcset="images/xmartlabs-logo-white@2x.png 2x, images/xmartlabs-logo-white@3x.png 3x"
-                                draggable="false" />
-                        </a>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <p class="copyright">Project Hub - Xmartlabs - 2017 all right reserved</p>
-                    <p class="copyright">Project Hub is not a representative of GitHub. GitHub and the GitHub logos are
-                        Trademarks of GitHub inc.</p>
+                <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-m text-muted" target="_blank">Book my Ticket</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('t&c') }}" class="nav-link text-m text-muted" target="_blank">Terms &
+                                Conditions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('about-us') }}" class="nav-link text-m text-muted" target="_blank">About
+                                Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-m text-muted" target="_blank">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-m pe-0 text-muted" target="_blank">Contact Us</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </footer>
+
     </body>
 
 </html>

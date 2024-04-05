@@ -80,6 +80,7 @@
                                                     <th class="align-middle text-center ">Time</th>
                                                     <th class="align-middle text-center ">Date</th>
                                                     <th class="align-middle text-center ">Price</th>
+                                                    <th class="align-middle text-center ">Ticket Left</th>
                                                     <th class="align-middle text-center ">Action</th>
                                                     <th class="align-middle text-center ">View</th>
 
@@ -115,6 +116,11 @@
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">
                                                                 ₹{{ number_format($event->price, 2) }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="align-middle text-center p-3 ">
+                                                            <p class="text-sm text-dark  mb-0">
+                                                                {{ number_format($event->quantity) }}
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">

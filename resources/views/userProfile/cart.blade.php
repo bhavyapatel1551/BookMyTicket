@@ -38,6 +38,9 @@
                                                         {{ session('success') }}
                                                     </div>
                                                 @endif
+                                                <div id="error-message" class="alert alert-danger"
+                                                    style="display: none;"></div>
+
                                             </div>
                                         </div>
                                         @if ($cartItems->isEmpty())

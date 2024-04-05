@@ -1,6 +1,5 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-
         <div class="container-fluid ">
             <form action={{ route('user.PhotoUpdate') }} method="POST" enctype="multipart/form-data">
                 @csrf
@@ -10,12 +9,9 @@
                         <div class="card card-body"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );"
                             id="zoomin">
-
                             <div class="row z-index-2 justify-content-start align-items-center">
-
                                 <div class="col-sm-auto col-4">
                                     <div class="avatar avatar-2xl position-relative">
-
                                         <div class="position-relative">
                                             @if (auth()->user()->pfp)
                                                 <img src="{{ url('storage/' . auth()->user()->pfp) }}"
@@ -31,9 +27,6 @@
                                                 <i class="fas fa-pencil-alt"></i>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                                 <div class="col-sm-auto col-8 my-auto">
@@ -42,10 +35,8 @@
                                             {{ auth()->user()->name }}
                                         </h2>
                                         <p>{{ auth()->user()->email }}</p>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -87,18 +78,13 @@
                                             onclick="window.location.href='{{ route('user.profile') }}'">Cancel</button>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
         <x-app.footer />
         </div>
     </main>
-
 </x-app-layout>

@@ -113,15 +113,16 @@
                     platform's robust architecture and user-friendly interface.</p>
             </div>
             <div class="team-member">
-                <h3>Bhavy Patel</h3>
+                <h3>Rinkesh Dhakad</h3>
                 <p>UI/UX Designer</p>
-                <p>Bhavy is a creative genius who designs visually appealing and intuitive user interfaces. His designs
+                <p>Rinkesh is a creative genius who designs visually appealing and intuitive user interfaces. His
+                    designs
                     enhance the overall user experience, making event creation and ticket booking a breeze.</p>
             </div>
             <div class="team-member">
-                <h3>Rinkesh Dhakad</h3>
+                <h3>Bhavy Patel</h3>
                 <p>Backend Developer</p>
-                <p>Rinkesh is a backend wizard who ensures that our platform runs smoothly. He's responsible for
+                <p>Bhavy is a backend wizard who ensures that our platform runs smoothly. He's responsible for
                     implementing complex functionalities and ensuring the security of our users' data.</p>
             </div>
         </div>

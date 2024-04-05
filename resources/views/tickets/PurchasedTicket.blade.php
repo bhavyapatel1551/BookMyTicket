@@ -11,8 +11,8 @@
                         <p class="admit-one">
                             <span>bookmyticket.com</span>
                         </p>
-                        <img src="{{ asset('storage/event/kids-music-band-children-stage-performance-girls-boys-play-musical-instrument-sing-scene-young-musicians-with-guitar-saxophone-drums-microphone-vector-flat-cartoon-concept_17641.avif') }}"
-                            style="max-height: 300px;" alt="">
+                        <img src="{{ asset('storage/' . $ticket->event->image) }}" style="max-height: 300px;"
+                            alt="">
                         <div class="ticket-number">
                             <p>
                                 {{ $ticket->transaction_id }}

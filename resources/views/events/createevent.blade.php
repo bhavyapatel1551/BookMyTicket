@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <label for="image">Event Photo</label>
                                         <input type="file" name="image" id="image" class="form-control"
                                             value="{{ old('image') }}" accept="image/*">
@@ -77,7 +77,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <label for="price">Event Price</label>
                                         <input type="text" name="price" id="price" class="form-control"
                                             value="{{ old('price') }}">
@@ -85,20 +85,32 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="col-4">
+                                        <label for="quantity">Ticket Quantity</label>
+                                        <input type="text" name="quantity" id="quantity" class="form-control"
+                                            value="{{ old('quantity') }}">
+                                        @error('quantity')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="date">Event Date</label>
-                                        <input type="text" name="date" id="date" class="form-control"
-                                            value="{{ old('date') }}">
+                                        <div class="cs-form">
+                                            <label for="date">Event Date</label>
+                                            <input type="text" name="date" id="date" class="form-control"
+                                                value="{{ old('date') }}">
+                                        </div>
                                         @error('date')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="time">Event Time</label>
-                                        <input type="text" name="time" id="time" class="form-control"
-                                            value="{{ old('time') }}">
+                                        <div class="cs-form">
+                                            <label for="time">Event Time</label>
+                                            <input type="time" name="time" id="time" class="form-control"
+                                                value="{{ old('time') }}" />
+                                        </div>
                                         @error('time')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
@@ -140,11 +152,7 @@
                 showOtherMonths: true
             });
 
-            // Initialize timepicker
-            $('#time').timepicker({
-                showMeridian: false,
-                defaultTime: false
-            });
+
         });
     </script>
 

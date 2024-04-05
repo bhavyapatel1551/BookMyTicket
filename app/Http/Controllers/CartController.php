@@ -21,7 +21,7 @@ class CartController extends Controller
             })->delete();
 
         $cartItems = Cart::where('user_id', $user->id)
-            ->with('event')
+            ->with('event')->orderByDesc('updated_at')
             ->get();
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
@@ -39,16 +39,22 @@ class CartController extends Controller
         $event = Events::findOrFail($id);
         $price = $event->price;
         $organizer_id = $event->organizer_id;
-        //  Check if the item is already in the user's cart, then update quantity else create a new one
+
+        // Check if the event has sufficient quantity
+        if ($event->quantity <= 1) {
+            return redirect()->back()->with('error', 'Insufficient quantity for event: ' . $event->name);
+        }
+
+        // Check if the item is already in the user's cart, then update quantity else create a new one
         $cartItem = Cart::where('user_id', $user_id)
             ->where('event_id', $id)
             ->first();
+
         if ($cartItem) {
             $cartItem->increment('quantity');
             $cartItem->update([
                 'total_price' => $cartItem->quantity * $price,
             ]);
-            // if the ticket is not already in cart then create it with default 1 quantity  and total price as price
         } else {
             Cart::create([
                 'user_id' => $user_id,
@@ -60,8 +66,9 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Added to Cart!');
+        return redirect('dashboard')->with('success', 'Added to Cart!');
     }
+
 
     // Delete the item from cart
     public function DeleteFromCart($id)
@@ -78,9 +85,10 @@ class CartController extends Controller
         $cartItems = Cart::where('user_id', $user->id)->get();
         // Retrieve the payment intent id from the request
         $paymentIntentId = $request->input('payment_intent');
-        Log::debug('Trasntions id' . $paymentIntentId);
+        // Log::debug('Trasntions id' . $paymentIntentId);
         // Create orders for each cart item
         foreach ($cartItems as $item) {
+            Events::where('id', $item->event_id)->decrement('quantity', $item->quantity);
             Order::create([
                 'user_id' => $item->user_id,
                 'event_id' => $item->event_id,
@@ -156,18 +164,24 @@ class CartController extends Controller
     public function increaseQuantity($id)
     {
         $user = Auth::user();
-        // Get the id of the item from the cart table and increament by 1 
         $cart = Cart::where('id', $id)->first();
-        $cart->increment('quantity');
-        $cart->update(['total_price' => $cart->quantity * $cart->price,]);
-        // Aftre the the changes it will get the total price and ticket and sent all data to the view using json
-        $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
-        $ticket = Cart::where('user_id', $user->id)->sum('quantity');
-        return response()->json([
-            'quantity' => $cart->quantity,
-            'SubTotal' => $SubTotal,
-            'ticket' => $ticket
-        ]);
+
+        // Check if the event has sufficient quantity
+        $event = Events::findOrFail($cart->event_id);
+        if ($event->quantity > $cart->quantity) {
+            $cart->increment('quantity');
+            $cart->update(['total_price' => $cart->quantity * $cart->price]);
+
+            $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
+            $ticket = Cart::where('user_id', $user->id)->sum('quantity');
+            return response()->json([
+                'quantity' => $cart->quantity,
+                'SubTotal' => $SubTotal,
+                'ticket' => $ticket
+            ]);
+        } else {
+            echo response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
+        }
     }
 
     // Decrease the quantity of the item in the cart page 

@@ -10,7 +10,7 @@ class Events extends Model
 {
     use HasFactory;
     protected $table = 'events';
-    protected $fillable = ['name', 'venue', 'date', 'time', 'price', 'about', 'image', 'organizer_id'];
+    protected $fillable = ['name', 'venue', 'date', 'time', 'price', 'quantity', 'about', 'image', 'organizer_id'];
     use SoftDeletes;
 
     public function organizer()

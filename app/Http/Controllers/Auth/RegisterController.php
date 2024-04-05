@@ -134,11 +134,9 @@ class RegisterController extends Controller
     }
     public function RegistrationFees()
     {
-        Log::debug('Register');
         $email = session('email');
         $user = User::where('email', $email)->first();
         if ($user->email_verified_at === null) {
-            Log::debug('Stripe');
             // Set your Stripe API key.
             \Stripe\Stripe::setApiKey(config('stripe.sk'));
 

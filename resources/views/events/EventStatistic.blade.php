@@ -15,7 +15,7 @@
                             <p class="mb-4 font-weight-semibold">
                                 Create your own Evnets
                             </p>
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <button type="button"
                                     class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0">
                                     <span class="btn-inner--icon me-2">
@@ -34,7 +34,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
-                        <a href="">
+                        <a href="" style="text-decoration: none;">
                             <div id="zoomin"
                                 class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                                 <i class="fa fa-chart-line fa-beat-fade fa-3x text-primary"></i>
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <a href="">
+                        <a href="" style="text-decoration: none;">
                             <div id="zoomin"
                                 class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                                 <i class="fa fa-chart-bar fa-beat-fade fa-3x text-primary"></i>
@@ -58,7 +58,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <a href="">
+                        <a href="" style="text-decoration: none;">
                             <div id="zoomin"
                                 class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                                 <i class="fa-solid fa-hand-holding-dollar fa-beat-fade fa-3x text-primary"></i>
@@ -70,7 +70,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <a href="">
+                        <a href="" style="text-decoration: none;">
                             <div id="zoomin"
                                 class="bg-gray-500 text-dark border-radius-2xl d-flex align-items-center justify-content-between p-4">
                                 <i class="fa-solid fa-file-invoice-dollar fa-beat-fade fa-3x text-primary"></i>
