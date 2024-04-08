@@ -180,3 +180,4 @@ Route::get('/test', function () {
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
 Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/viewEventsByUserId/{id}', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');
+Route::get('/purchasedBy/{id}', [UserController::class, 'purchasedBy'])->name('purchasedBy')->middleware('auth');

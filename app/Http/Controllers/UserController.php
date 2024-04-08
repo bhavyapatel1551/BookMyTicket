@@ -62,7 +62,7 @@ class UserController extends Controller
         $event = Events::find($id);
         if ($organizer && $event && $organizer->id === 0 || $event->organizer_id === $organizer->id) {
             $purchases = Order::where('event_id', $id)->with('user')->get();
-            return view('purchasedBy', compact('event', 'purchases'));
+            return view('Admin.purchasedBy', compact('event', 'purchases'));
         } else {
             abort(403, 'Unauthorized');
         }
