@@ -38,15 +38,18 @@
                                                         {{ session('success') }}
                                                     </div>
                                                 @endif
-                                                <div id="error-message" class="alert alert-danger"
-                                                    style="display: none;"></div>
 
                                             </div>
                                         </div>
+
                                         @if ($cartItems->isEmpty())
                                             <p class="text-center p-5 pb-0">No Item Available</p>
                                         @else
                                             @foreach ($cartItems as $item)
+                                                <div class="row justify-content-center">
+                                                    <div id="error-message" class="alert alert-danger "
+                                                        style="display: none;"> </div>
+                                                </div>
                                                 <div class="card mb-3 bg-gray-200" id="zoomin">
                                                     <div class="card-body">
                                                         <div class="d-flex justify-content-between">

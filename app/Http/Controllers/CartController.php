@@ -176,11 +176,12 @@ class CartController extends Controller
             $ticket = Cart::where('user_id', $user->id)->sum('quantity');
             return response()->json([
                 'quantity' => $cart->quantity,
-                'SubTotal' => $SubTotal,
-                'ticket' => $ticket
+                'SubTotal' => '₹' . number_format($SubTotal),
+                'ticket' => number_format($ticket),
             ]);
         } else {
-            echo response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
+            // echo response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
+            return response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
         }
     }
 
@@ -200,8 +201,8 @@ class CartController extends Controller
             $ticket = Cart::where('user_id', $user->id)->sum('quantity');
             return response()->json([
                 'quantity' => $cart->quantity,
-                'SubTotal' => $SubTotal,
-                'ticket' => $ticket
+                'SubTotal' => '₹' . number_format($SubTotal),
+                'ticket' => number_format($ticket),
             ]);
         }
     }

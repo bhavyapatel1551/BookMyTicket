@@ -11,8 +11,8 @@
                         <p class="admit-one">
                             <span>bookmyticket.com</span>
                         </p>
-                        <img src="{{ asset('storage/' . $ticket->event->image) }}" style="max-height: 300px;"
-                            alt="">
+                        <img src="{{ asset('storage/' . $ticket->event->image) }}"
+                            style="max-height: 300px;,height:100%" alt="">
                         <div class="ticket-number">
                             <p>
                                 {{ $ticket->transaction_id }}
