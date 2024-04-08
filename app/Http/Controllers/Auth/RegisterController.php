@@ -35,8 +35,10 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Create new user and store the data of user
     public function store(Request $request)
     {
+        // validate the user input fileds
         $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -56,24 +58,25 @@ class RegisterController extends Controller
         ]);
 
 
+
+        // sent email to user email id to verify the user email id 
         $name = $request->input('name');
-
-
         $email = $request->input('email');
         $otp = rand(1000, 9999);
         session(['otp' => $otp]);
 
+        // put all data to session to sent along with the email
         Session::put('email', $email);
         Session::put('otp', $otp);
         Session::put('name', $name);
         Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
-
         Session::put('registration_in_progress', true);
 
         return Redirect()->route('showOtpForm');
     }
 
 
+    // show the verify otp form 
     public function showOtpForm()
     {
 
@@ -84,6 +87,7 @@ class RegisterController extends Controller
         return redirect('/sign-up');
     }
 
+    // verify the otp from the user email
     public function verifyOtp(Request $request)
     {
         if (Auth::check()) {
@@ -94,42 +98,34 @@ class RegisterController extends Controller
         $otp = session('otp');
         $otpAttempts = session('otp_attempts', 0);
 
-
-
+        // it will resent the otp to user email
         if ($request->input('action') === 'resend') {
+            // if the resend attempt are more than 3 than it will show the error message.
             if ($otpAttempts > 2) {
                 return back()->with('error', 'You have exceeded the maximum number of OTP generation attempts.');
             } else {
-
                 Mail::to($email)->send(new TestMail($otp, 'New Otp!'));
                 session(['otp_attempts' => $otpAttempts + 1]);
-
-
                 return Redirect()->route('showOtpForm');
             }
         } else {
             $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
 
+            // verify otp 
             if ($otp == $userotp) {
 
                 session(['otp_verified_' . md5($email) => true]);
                 Session::forget('registration_in_progress');
 
+                // if the varification is successfull than it will redirect to payment gate way to for registartion fees 
                 return redirect()->route('Registration.Fees');
             } else {
                 return back()->with('error', 'Invalid OTP. Please try again.');
             }
         }
     }
-    public function SuccessfullPayment()
-    {
-        $email = session('email');
-        $user = User::where('email', $email)->first();
-        Auth::login($user);
-        $user->email_verified_at = now();
-        $user->save();
-        return redirect('dashboard');
-    }
+
+    // show payment gate way form for registartion fees process
     public function RegistrationFees()
     {
         $email = session('email');
@@ -146,8 +142,11 @@ class RegisterController extends Controller
                         'price_data' => [
                             'currency' => 'INR',
                             'product_data' => [
-                                'name' => 'Registration Fees for BookMyTicket.com',
+                                'name' => 'BookMyTicket.com',
                                 'description' => 'This fee covers the registration process for accessing and using BookMyTicket.com',
+                            ],
+                            "recurring" => [
+                                "interval" => "year"
                             ],
                             'unit_amount' => 10000,
                         ],
@@ -156,11 +155,22 @@ class RegisterController extends Controller
                 ],
                 'customer_email' => $email, // Add customer's email
                 'billing_address_collection' => 'required', // Request customer's billing address
-                'mode' => 'payment',
+                'mode' => 'subscription',
                 'success_url' => route('SuccessfullPayment'),
                 'cancel_url' => route('sign-up'),
             ]);
             return redirect()->away($paymentGateway->url);
         }
+    }
+
+    // on successfull payment it will verify the user email and login the user.
+    public function SuccessfullPayment()
+    {
+        $email = session('email');
+        $user = User::where('email', $email)->first();
+        Auth::login($user);
+        $user->email_verified_at = now();
+        $user->save();
+        return redirect('dashboard');
     }
 }

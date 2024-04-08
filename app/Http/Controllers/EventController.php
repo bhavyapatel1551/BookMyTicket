@@ -15,7 +15,7 @@ class EventController extends Controller
     public function ShowAllEvents()
     {
         $id = Auth::id();
-        $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(5);
+        $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(10);
         return view('events.MyEvent', compact('events'));
     }
 
@@ -90,7 +90,7 @@ class EventController extends Controller
             'about' => '',
             'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
-        // we upload the image fike than it will update the image path to the database. if the user does not provide the new image than it will not change the image and keep the old image as it is in the database.
+        // we upload the imagee. it will update the image path to the database. if the user does not provide the new image than it will not change the image and keep the old image as it is in the database.
         if ($request->hasFile('imageUpadte')) {
             $imagepath = $request->file('imageUpadte')->getClientOriginalName();
             $request->file('imageUpadte')->storeAs('event', $imagepath, 'public');

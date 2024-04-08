@@ -28,9 +28,7 @@
                             <span>{{ date('l', strtotime($ticket->event->date)) }}</span>
                             <span class="nov-10">{{ date('j F', strtotime($ticket->event->date)) }}</span>
                             <span>{{ date('Y', strtotime($ticket->event->date)) }}</span>
-
                         </p>
-
                         <div class="show-name">
                             <h1>{{ $ticket->event->name }}</h1>
                             <h6 class="about">{{ $ticket->event->about }}</h6>
@@ -38,7 +36,6 @@
                         <div class="time">
                             <p> {{ date('h:i A', strtotime($ticket->event->time)) }} </p>
                         </div>
-
                         <p class="location"><span>{{ $ticket->event->venue }}</span>
                         </p>
                     </div>

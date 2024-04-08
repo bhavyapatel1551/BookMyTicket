@@ -26,7 +26,7 @@
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">
-                    <div class="col-lg-9 col-12">
+                    <div class=" col-10">
                         <div class="card card-body"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );"
                             id="zoomin">
@@ -54,7 +54,6 @@
                                             </div>
                                         </a>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-auto col-8 my-auto">
                                     <div class="h-100">
@@ -62,10 +61,8 @@
                                             {{ auth()->user()->name }}
                                         </h2>
                                         <p>{{ auth()->user()->email }}</p>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -85,13 +82,12 @@
                     </div>
                 </div>
                 <div class="mb-5 row justify-content-center">
-                    <div class="col-lg-9 col-12 ">
+                    <div class="col-10 ">
                         <div class="card " id="basic-info">
                             <div class="card-header">
                                 <h5>Basic Info</h5>
                             </div>
                             <div class="pt-0 card-body">
-
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="name">Name</label>

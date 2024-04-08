@@ -72,7 +72,7 @@
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)
                             <article class="postcard TicketCard blue" id="TicketCard">
-                                <a class="postcard__img_link" href="#">
+                                <a class="postcard__img_link">
                                     @if ($ticket->image)
                                         <img class="postcard__img" src="{{ asset('storage/' . $ticket->image) }}"
                                             alt="Image Title" />
@@ -82,11 +82,11 @@
 
                                 </a>
                                 <div class="postcard__text t-dark"style="font-family: Arial, sans-serif;">
-                                    <h1 class="postcard__title blue"><a href="#"> {{ $ticket->name }}</a></h1>
+                                    <h1 class="postcard__title blue"><a> {{ $ticket->name }}</a></h1>
                                     <div class="postcard__subtitle small">
                                         <time datetime="2020-05-25 12:00:00">
                                             <i class="fas fa-calendar-alt me-2"></i>
-                                            {{ date('d-m-Y', strtotime($ticket->date)) }}
+                                            {{ date('d-M-Y', strtotime($ticket->date)) }}
                                         </time>
                                     </div>
                                     <div class="postcard__bar"></div>
@@ -134,15 +134,11 @@
     <script>
         const searchInput = document.getElementById('search-input');
 
-        searchInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                const searchTerm = searchInput.value.trim();
-                const url = new URL(window.location.href);
-                url.searchParams.set('search', searchTerm);
-                window.location.href = url.toString();
-            }
+        searchInput.addEventListener('input', function(event) {
+            const searchTerm = searchInput.value.trim();
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', searchTerm);
+            window.location.href = url.toString();
         });
     </script>
-
-
 </x-app-layout>

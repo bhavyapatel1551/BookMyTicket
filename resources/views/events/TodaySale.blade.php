@@ -2,7 +2,7 @@
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
-        <div class="container-fluid mt-4 px-4 pb-0">
+        <div class="container-fluid pb-4 pb-0 px-4">
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -92,8 +92,8 @@
                         <div class="card-header bg-gray-200 border-bottom pb-0">
                             <div class="d-sm-flex align-items-center">
                                 <div>
-                                    <h6 class="font-weight-semibold text-lg mb-0">Resent Sales list</h6>
-                                    <p class="text-sm">See information about all Sales list</p>
+                                    <h6 class="font-weight-semibold text-lg mb-0">Today's Sales list</h6>
+                                    <p class="text-sm">See information about Today Sales list</p>
                                 </div>
 
                             </div>
@@ -107,17 +107,17 @@
                                     <table class="table align-items-center mb-0 w-100">
                                         <thead class="bg-gray-100">
                                             <tr>
-                                                <th class="align-middle ps-5 ">Customer Name</th>
-                                                <th class="align-middle  ps-4   ">Event Name</th>
-                                                <th class="align-middle text-center ">Price</th>
-                                                <th class="align-middle text-center ">Quantity</th>
-                                                <th class="align-middle text-center ">Purchase Date</th>
+                                                <th class="align-middle ps-5">Customer Name</th>
+                                                <th class="align-middle ps-4">Event Name</th>
+                                                <th class="align-middle text-center">Price</th>
+                                                <th class="align-middle text-center">Quantity</th>
+                                                <th class="align-middle text-center">Purchase Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($orders as $order)
                                                 <tr class="justify-content-center" id="zoomin">
-                                                    <td class="align-middle ">
+                                                    <td class="align-middle">
                                                         <p class="text-sm text-dark ms-5 mb-0">{{ $order->user->name }}
                                                         </p>
                                                     </td>

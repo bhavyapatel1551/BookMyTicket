@@ -56,10 +56,12 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'User Deleted Succefully.');
         }
     }
+    // Show user the data of the purchased tickets by the users
     public function purchasedBy($id)
     {
         $organizer = Auth::user();
         $event = Events::find($id);
+        //  here other than the organizer admin can also access this page. if the organizer user is not valid than it will show error page.
         if ($organizer && $event && $organizer->id === 0 || $event->organizer_id === $organizer->id) {
             $purchases = Order::where('event_id', $id)->with('user')->get();
             return view('Admin.purchasedBy', compact('event', 'purchases'));

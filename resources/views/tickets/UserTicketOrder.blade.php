@@ -62,7 +62,8 @@
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3">
-                                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                            <p class="text-sm text-dark max-width-100  mb-0"
+                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                                                 {{ $order->event->venue }}
                                                             </p>
                                                         </td>

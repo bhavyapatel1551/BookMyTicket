@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function UserPurchaseOrder()
     {
         $user_id = Auth::id();
-        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(5);
+        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(10);
         return view('tickets.UserTicketOrder', compact('orders'));
     }
 
@@ -22,14 +22,26 @@ class OrderController extends Controller
     public function OrganizerOrderDetails()
     {
         $user_id = Auth::id();
-        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate(5);
+        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate();
         $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
         $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
         $Totalprice = Order::where('organizer_id', $user_id)->sum('total_price');
         $Todayprice = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('total_price');
         return view('events.EventStatistic', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
     }
+    // Show today's sales page for organizer
+    public function TodaySales()
+    {
+        $user_id = Auth::id();
+        $orders = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->with('event', 'user')->orderByDesc('created_at')->paginate(10);
+        $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
+        $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
+        $Totalprice = Order::where('organizer_id', $user_id)->sum('total_price');
+        $Todayprice = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('total_price');
+        return view('events.Todaysale', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
+    }
 
+    // Show user's purchased ticket 
     public function PurchasedTicket($id)
     {
         $user_id = Auth::id();
@@ -37,8 +49,6 @@ class OrderController extends Controller
         $check = $orders->user_id == $user_id;
         if ($check) {
             $ticket = Order::where('id', $id)->with('event')->first();
-
-
             return view('tickets.PurchasedTicket', compact('ticket'));
         } else {
             abort(403, 'Unauthorized');

@@ -81,6 +81,8 @@ Route::get('/userPurchaseOrder', [OrderController::class, 'UserPurchaseOrder'])-
 Route::get('/organizerOrderDetails', [OrderController::class, 'OrganizerOrderDetails'])->name('OrganizerOrderDetails')->middleware('auth');
 
 Route::get('/PurchasedTicket/{id}', [OrderController::class, 'PurchasedTicket'])->name('PurchasedTicket')->middleware('auth');
+
+Route::get('/todaysales', [OrderController::class, 'TodaySales'])->name('TodaySale')->middleware('auth');
 // User Profile Related Route----------------------------------------------------------------------------------------------------
 
 // Show User PRofile

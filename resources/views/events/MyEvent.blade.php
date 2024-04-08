@@ -3,7 +3,7 @@
     <main class="main-content position-relative max-height-vh-100 p-5 h-100 border-radius-lg ">
         {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom ">
-            <div class="container-fluid py-4 px-5">
+            <div class="container-fluid py-4 px-1">
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"

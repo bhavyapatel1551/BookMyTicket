@@ -42,7 +42,7 @@ class CartController extends Controller
 
         // Check if the event has sufficient quantity
         if ($event->quantity <= 1) {
-            return redirect()->back()->with('error', 'Insufficient quantity for event: ' . $event->name);
+            return redirect()->back()->with('error', 'Insufficient quantity for Ticket : ' . $event->name);
         }
 
         // Check if the item is already in the user's cart, then update quantity else create a new one
@@ -69,13 +69,6 @@ class CartController extends Controller
         return redirect('dashboard')->with('success', 'Added to Cart!');
     }
 
-
-    // Delete the item from cart
-    public function DeleteFromCart($id)
-    {
-        Cart::where("id", $id)->delete();
-        return redirect()->back()->with("error", "Deleted from Cart!");
-    }
 
     // Place the order from the cart table
     public function CheckOutOrder(Request $request)
@@ -107,6 +100,7 @@ class CartController extends Controller
         // return redirect()->back()->with('success', 'Your Order is Placed !!');
     }
 
+    // it will redirect to the payment gateway to place the order 
     public function paymentGateway()
     {
         // Set your Stripe API key.
@@ -123,7 +117,7 @@ class CartController extends Controller
             $description .= $eventName->event->name . ', ';
         }
 
-        // Create a Payment Intent
+        // Create a Payment Intent id
         $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $SubTotal * 100, // Amount in cents
             'currency' => 'INR',
@@ -134,6 +128,7 @@ class CartController extends Controller
             ],
         ]);
 
+        // create payment gateway session for payent
         $paymentGateway = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [
@@ -145,6 +140,7 @@ class CartController extends Controller
                             'description' => $description,
 
                         ],
+
                         'unit_amount' => $SubTotal * 100, // Convert to cents
                     ],
                     'quantity' => 1,
@@ -153,9 +149,12 @@ class CartController extends Controller
             'customer_email' => $email, // Add customer's email
             'billing_address_collection' => 'required', // Request customer's billing address
             'mode' => 'payment',
+            // on successfull payment it will redirect to the checkoutorder route.  
             'success_url' => route('CheckOutOrder') . '?payment_intent=' . $paymentIntent->id,
+            // on cancel payment it will redirect back to cart page.
             'cancel_url' => route('cart'),
         ]);
+        // it will redirect to stripe payment gateway url with payment intent id
         return redirect()->away($paymentGateway->url);
     }
 
@@ -179,9 +178,9 @@ class CartController extends Controller
                 'SubTotal' => '₹' . number_format($SubTotal),
                 'ticket' => number_format($ticket),
             ]);
+            // if the item is more than quantity then show error message.
         } else {
-            // echo response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
-            return response()->json(['error' => 'Insufficient quantity for event: ' . $event->name]);
+            return response()->json(['error' => 'Insufficient quantity for Ticket : ' . $event->name]);
         }
     }
 
@@ -205,5 +204,12 @@ class CartController extends Controller
                 'ticket' => number_format($ticket),
             ]);
         }
+    }
+
+    // Delete the item from cart
+    public function DeleteFromCart($id)
+    {
+        Cart::where("id", $id)->delete();
+        return redirect()->back()->with("error", "Deleted from Cart!");
     }
 }

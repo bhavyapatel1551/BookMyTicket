@@ -1,6 +1,6 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <div class="container-fluid ">
+        <div class="container-fluid mt-4 px-4 pb-0">
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -27,7 +27,7 @@
                 @csrf
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-9 col-12">
+                    <div class="col-10">
                         @if (session('error'))
                             <div class="alert alert-danger" role="alert" id="alert">
                                 {{ session('error') }}
@@ -78,6 +78,27 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-6">
+                                        <label for="date">Event Date</label>
+                                        <input type="text" name="date" id="date" class="form-control"
+                                            value="{{ $newDate }}">
+                                        @error('date')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cs-form">
+                                            <label for="time">Event Time</label>
+                                            <input type="time" name="time" id="time" class="form-control"
+                                                value="{{ $newTime }}" />
+                                        </div>
+                                        {{-- <input type="text" name="time" id="time" class="form-control"> --}}
+                                        @error('time')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-4">
                                         <label for="image">Event Photo</label>
                                         <input type="file" name="imageUpadte" id="imageUpadte" class="form-control"
@@ -100,27 +121,6 @@
                                         <input type="text" name="quantity" id="quantity" class="form-control"
                                             value="{{ $event->quantity }}">
                                         @error('quantity')
-                                            <span class="text-danger text-sm">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="date">Event Date</label>
-                                        <input type="text" name="date" id="date" class="form-control"
-                                            value="{{ $newDate }}">
-                                        @error('date')
-                                            <span class="text-danger text-sm">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="cs-form">
-                                            <label for="time">Event Time</label>
-                                            <input type="time" name="time" id="time" class="form-control"
-                                                value="{{ $newTime }}" />
-                                        </div>
-                                        {{-- <input type="text" name="time" id="time" class="form-control"> --}}
-                                        @error('time')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -11,12 +12,9 @@ class TicketController extends Controller
     public function ShowAllTickets(Request $request)
     {
         $sortBy = $request->query('sort_by');
-
         // Default sorting if no option is selected
         $sortBy = $sortBy ?: 'date_asc';
-
         $tickets = Events::query();
-
         switch ($sortBy) {
             case 'date_asc':
                 $tickets->orderBy('updated_at', 'desc');
@@ -36,16 +34,17 @@ class TicketController extends Controller
         }
         // Search functionality
         $searchTerm = $request->query('search');
+
         if ($searchTerm) {
             $tickets->where('name', 'like', '%' . $searchTerm . '%')
                 ->orWhere('venue', 'like', '%' . $searchTerm . '%')
                 ->orWhere('price', 'like', '%' . $searchTerm . '%');
         }
 
-        $tickets = $tickets->paginate(10);
-
+        $tickets = $tickets->where('quantity', '>', 0)->whereDate('date', '>', Carbon::today())->paginate(10);
         return view('dashboard', ['tickets' => $tickets]);
     }
+
 
     // Show the Specific Ticket 
     public function TicketInfo($id)

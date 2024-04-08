@@ -2,7 +2,7 @@
 
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <div class="container-fluid ">
+        <div class="container-fluid mt-4 px-4 pb-0">
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -26,7 +26,6 @@
             </div>
             <form action={{ route('event.create') }} method="POST" enctype="multipart/form-data" role="form">
                 @csrf
-
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -42,13 +41,12 @@
                     </div>
                 </div>
                 <div class="mb-5 row justify-content-center">
-                    <div class="col-lg-9 col-12 ">
+                    <div class=" col-10 ">
                         <div class="card " id="basic-info">
                             <div class="card-header">
                                 <h5>Create Your Event </h5>
                             </div>
                             <div class="pt-0 card-body">
-
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="name">Event Name</label>
@@ -63,6 +61,28 @@
                                         <input type="text" name="venue" id="venue" class="form-control"
                                             value="{{ old('venue') }}">
                                         @error('venue')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="cs-form">
+                                            <label for="date">Event Date</label>
+                                            <input type="text" name="date" id="date" class="form-control"
+                                                value="{{ old('date') }}">
+                                        </div>
+                                        @error('date')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cs-form">
+                                            <label for="time">Event Time</label>
+                                            <input type="time" name="time" id="time" class="form-control"
+                                                value="{{ old('time') }}" />
+                                        </div>
+                                        @error('time')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -90,28 +110,6 @@
                                         <input type="text" name="quantity" id="quantity" class="form-control"
                                             value="{{ old('quantity') }}">
                                         @error('quantity')
-                                            <span class="text-danger text-sm">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="cs-form">
-                                            <label for="date">Event Date</label>
-                                            <input type="text" name="date" id="date" class="form-control"
-                                                value="{{ old('date') }}">
-                                        </div>
-                                        @error('date')
-                                            <span class="text-danger text-sm">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="cs-form">
-                                            <label for="time">Event Time</label>
-                                            <input type="time" name="time" id="time" class="form-control"
-                                                value="{{ old('time') }}" />
-                                        </div>
-                                        @error('time')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
