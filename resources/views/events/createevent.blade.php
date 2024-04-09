@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid mt-4 px-4 pb-0">
             <div class="row">
@@ -15,11 +13,8 @@
                             <p class="mb-4 font-weight-semibold">
                                 Check all the Events and choose the best.
                             </p>
-
-
                             <img src="{{ asset('createEvent.png') }}" alt="Event"
                                 class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
-
                         </div>
                     </div>
                 </div>
@@ -96,7 +91,6 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="col-4">
                                         <label for="price">Event Price</label>
                                         <input type="text" name="price" id="price" class="form-control"
@@ -114,8 +108,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-
                                 <div class="row p-2">
                                     <label for="about">Event Description</label>
                                     <textarea name="about" id="about" rows="3" class="form-control">{{ old('about') }}</textarea>
@@ -133,7 +125,6 @@
                                             onclick="window.location.href='{{ route('event') }}'">Cancel</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -149,10 +140,6 @@
             $('#date').datepicker({
                 showOtherMonths: true
             });
-
-
         });
     </script>
-
-
 </x-app-layout>

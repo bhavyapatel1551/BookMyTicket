@@ -183,3 +183,4 @@ Route::get('/users-management', [UserController::class, 'index'])->name('users-m
 Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/viewEventsByUserId/{id}', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');
 Route::get('/purchasedBy/{id}', [UserController::class, 'purchasedBy'])->name('purchasedBy')->middleware('auth');
+Route::get('/UserDetails', [UserController::class, 'UserStatistics'])->name('UserStatistics')->middleware('auth');

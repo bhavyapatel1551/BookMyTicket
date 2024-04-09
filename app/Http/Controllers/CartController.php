@@ -173,6 +173,7 @@ class CartController extends Controller
 
             $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
             $ticket = Cart::where('user_id', $user->id)->sum('quantity');
+            // it will sent json data to through ajax request to web page
             return response()->json([
                 'quantity' => $cart->quantity,
                 'SubTotal' => '₹' . number_format($SubTotal),
@@ -183,7 +184,6 @@ class CartController extends Controller
             return response()->json(['error' => 'Insufficient quantity for Ticket : ' . $event->name]);
         }
     }
-
     // Decrease the quantity of the item in the cart page 
     public function decreaseQuantity($id)
     {

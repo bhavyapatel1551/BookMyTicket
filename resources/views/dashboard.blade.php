@@ -133,12 +133,16 @@
     </script>
     <script>
         const searchInput = document.getElementById('search-input');
+        let timer;
 
-        searchInput.addEventListener('input', function(event) {
-            const searchTerm = searchInput.value.trim();
-            const url = new URL(window.location.href);
-            url.searchParams.set('search', searchTerm);
-            window.location.href = url.toString();
+        searchInput.addEventListener('keyup', function(event) {
+            clearTimeout(timer); // Clear the previous timer
+            timer = setTimeout(function() {
+                const searchTerm = searchInput.value.trim();
+                const url = new URL(window.location.href);
+                url.searchParams.set('search', searchTerm);
+                window.location.href = url.toString();
+            }, 700); // Wait for 2 seconds before updating the URL
         });
     </script>
 </x-app-layout>

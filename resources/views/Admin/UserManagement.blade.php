@@ -1,6 +1,5 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <x-app.navbar />
         <div class="px-5 py-4 container-fluid">
             <div class="mt-4 row">
                 <div class="col-12">
@@ -9,6 +8,33 @@
                         <strong>PRO</strong> feature! Click <a href="#" target="_blank" class="text-bold">here</a>
                         to see the <strong>PRO</strong> product!
                     </div> --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
+                                id="zoomin">
+                                <div class="full-background"
+                                    style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );">
+                                </div>
+                                <div class="card-body text-start p-4 w-100">
+                                    <h3 class="text-white mb-2">Book. Click. Enjoy 🔥</h3>
+                                    <p class="mb-4 font-weight-semibold">
+                                        Create your own Evnets
+                                    </p>
+                                    <a href="{{ route('UserStatistics') }}" style="text-decoration: none;">
+                                        <button type="button"
+                                            class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0 p-2">
+                                            <span class="btn-inner--icon me-2">
+                                                <i class="fa-solid fa-chart-line"></i>
+                                            </span>
+                                            <span class="btn-inner--text">User Statistics </span>
+                                        </button>
+                                    </a>
+                                    <img src="{{ asset('eventmanage.png') }}" alt="Event"
+                                        class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="pb-0 card-header">
                             <div class="row">
@@ -47,16 +73,16 @@
                                 <thead>
                                     <tr>
                                         <th
-                                            class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             ID</th>
                                         <th
-                                            class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Photo</th>
                                         <th
-                                            class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary ">
                                             Name</th>
                                         <th
-                                            class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Email</th>
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
@@ -84,7 +110,8 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td class="align-middle bg-transparent border-bottom">{{ $user->name }}
+                                            <td class="align-middle bg-transparent border-bottom p-3">
+                                                {{ $user->name }}
                                             </td>
                                             <td class="align-middle bg-transparent border-bottom">{{ $user->email }}
                                             </td>
