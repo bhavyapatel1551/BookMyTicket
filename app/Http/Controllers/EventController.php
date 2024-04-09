@@ -112,7 +112,6 @@ class EventController extends Controller
         ]);
         return redirect()->route("event")->with('success', 'Event Updated successfully!');
     }
-
     // Delete the Event of user if any other user bought the event ticket then it will not delete event 
     public function deleteEvent($id)
     {

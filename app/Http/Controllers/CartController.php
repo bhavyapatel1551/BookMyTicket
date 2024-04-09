@@ -111,13 +111,13 @@ class CartController extends Controller
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
         $eventNames = Cart::where('user_id', $user->id)->with('event')->get();
-        $description = 'Purchase ' . $ticket . ' ticket(s) for ';
+        $description = 'Purchase total  ' . $ticket . ' tickets for ';
         foreach ($eventNames as $eventName) {
 
-            $description .= $eventName->event->name . ', ';
+            $description .= $eventName->event->name . ' ' . $eventName->quantity . ' Tickets, ';
         }
 
-        // Create a Payment Intent id
+        // Create a Payment Intent id for payment transition id 
         $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $SubTotal * 100, // Amount in cents
             'currency' => 'INR',
@@ -138,26 +138,26 @@ class CartController extends Controller
                         'product_data' => [
                             'name' => 'BookMyTicket.com',
                             'description' => $description,
-
                         ],
-
                         'unit_amount' => $SubTotal * 100, // Convert to cents
                     ],
                     'quantity' => 1,
                 ],
             ],
-            'customer_email' => $email, // Add customer's email
-            'billing_address_collection' => 'required', // Request customer's billing address
+            // Add customer's email
+            'customer_email' => $email,
+            // Request customer's billung address
+            'billing_address_collection' => 'required',
+            // Mode of the payment for gateway
             'mode' => 'payment',
-            // on successfull payment it will redirect to the checkoutorder route.  
+            // On successfull payment it will redirect to the checkout order route.
             'success_url' => route('CheckOutOrder') . '?payment_intent=' . $paymentIntent->id,
-            // on cancel payment it will redirect back to cart page.
+            // If any error occure then it will redirect to the cart page.
             'cancel_url' => route('cart'),
         ]);
         // it will redirect to stripe payment gateway url with payment intent id
         return redirect()->away($paymentGateway->url);
     }
-
 
     // Increase the quantity of the item in the cart page
     public function increaseQuantity($id)

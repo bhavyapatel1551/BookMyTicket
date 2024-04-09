@@ -50,7 +50,7 @@
                                                     <div id="error-message" class="alert alert-danger "
                                                         style="display: none;"> </div>
                                                 </div>
-                                                <div class="card mb-3 bg-gray-200" id="zoomin">
+                                                <div class="card m-3 bg-gray-200" id="zoomin">
                                                     <div class="card-body">
                                                         <div class="d-flex justify-content-between">
                                                             <div class="d-flex flex-row align-items-center">

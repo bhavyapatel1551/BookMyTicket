@@ -15,15 +15,6 @@
                             <p class="mb-4 font-weight-semibold">
                                 Create your own Evnets
                             </p>
-                            <a href="" style="text-decoration: none;">
-                                <button type="button"
-                                    class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0">
-                                    <span class="btn-inner--icon me-2">
-                                        <i class="fa-solid fa-chart-line"></i>
-                                    </span>
-                                    <span class="btn-inner--text">Event Statistics </span>
-                                </button>
-                            </a>
                             <img src="{{ asset('eventmanage.png') }}" alt="Event"
                                 class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
                         </div>
@@ -102,12 +93,12 @@
 
                             <div class="table p-0">
                                 @if ($orders->isEmpty())
-                                    <p class="text-center p-5">No Events Available</p>
+                                    <p class="text-center p-5">No Sales Available</p>
                                 @else
                                     <table class="table align-items-center mb-0 w-100">
                                         <thead class="bg-gray-100">
                                             <tr>
-                                                <th class="align-middle ps-5">Customer Name</th>
+                                                <th class="align-middle ps-4">Customer Name</th>
                                                 <th class="align-middle ps-4">Event Name</th>
                                                 <th class="align-middle text-center">Price</th>
                                                 <th class="align-middle text-center">Quantity</th>
