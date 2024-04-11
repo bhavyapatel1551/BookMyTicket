@@ -8,20 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    // Show Profile Page of the user
-    public function index()
+    public function index()                                         // Show Profile Page of the user with his/her persnal info
+
     {
         $user = User::find(Auth::id());
 
         return view('userProfile.UserProfile', compact('user'));
     }
 
-
-
-    // Update the User Data
-    public function update(Request $request)
+    public function update(Request $request)                       // Update the Persnal info of the user
     {
-        $request->validate([
+        $request->validate([                                        // validate the input field from the form
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'location' => 'max:255',
@@ -32,31 +29,31 @@ class ProfileController extends Controller
             'email.required' => 'Email is required',
         ]);
 
-        $user = User::find(Auth::id());
+        $user = User::find(Auth::id());                              // Get the current Loged-in user's id
 
-        $user->update([
+
+        $user->update([                                               // Update into database
             'name' => $request->name,
             'email' => $request->email,
             'location' => $request->location,
             'phone' => $request->phone,
             'about' => $request->aboutyou,
         ]);
-
         return back()->with('success', 'Profile updated successfully.');
     }
 
-    // Show Upload Profile Photo page
-    public function showprofilephotoform()
+    public function showprofilephotoform()                          // Show Upload Profile Photo page
     {
 
         return view('userProfile.UpdateProfilePhoto');
     }
 
-    // Upload the Profile Photo
-    public function updateprofilephoto(Request $request)
+
+    public function updateprofilephoto(Request $request)             // Upload the Profile Photo
     {
-        // return response($id);
-        $data = $request->validate([
+
+
+        $data = $request->validate([                                   // Validate the image type and size of the image
             'photo' => 'mimes:jpeg,png,jpg,gif|max:10240',
         ]);
         if ($request->hasFile('photo')) {
@@ -67,7 +64,7 @@ class ProfileController extends Controller
             $imagepath = null;
         }
 
-        $user = User::find(Auth::id());
+        $user = User::find(Auth::id());                              // get the current loged-in user's ud
         $user->update([
             'pfp' => $imagepath
         ]);

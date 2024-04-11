@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    // Show all the ticket to the user Dashboard
-    public function ShowAllTickets(Request $request)
+    public function ShowAllTickets(Request $request)        // Show all the Ticket to user
     {
+        // Sort Ticket based on the option
         $sortBy = $request->query('sort_by');
-        // Default sorting if no option is selected
         $sortBy = $sortBy ?: 'date_asc';
         $tickets = Events::query();
         switch ($sortBy) {
@@ -32,29 +31,27 @@ class TicketController extends Controller
                 // Default sorting
                 $tickets->orderBy('updated_at', 'asc');
         }
-        // Search functionality
+        // Search ticket 
         $searchTerm = $request->query('search');
-
         if ($searchTerm) {
             $tickets->where('name', 'like', '%' . $searchTerm . '%')
                 ->orWhere('venue', 'like', '%' . $searchTerm . '%')
                 ->orWhere('price', 'like', '%' . $searchTerm . '%');
         }
-
+        // Show all data based on user filtration
         $tickets = $tickets->where('quantity', '>', 0)->whereDate('date', '>', Carbon::today())->paginate(10);
         return view('dashboard', ['tickets' => $tickets]);
     }
 
 
-    // Show the Specific Ticket 
-    public function TicketInfo($id)
+    // *** Currently pending
+    public function TicketInfo($id)     // Show  specific ticket info
     {
         $ticket = Events::where('id', $id)->first();
         return view('tickets.TicketInfo', compact('ticket'));
     }
 
-    // Show Ticket order of the user 
-    public function UserTicketOrder()
+    public function UserTicketOrder()       // Show list user's purchased order. 
     {
         return view('tickets.UserTicketOrder');
     }

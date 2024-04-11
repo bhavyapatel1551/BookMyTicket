@@ -11,28 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    // Show All the event of the user
-    public function ShowAllEvents()
+    public function ShowAllEvents()                         // Show event list created by the orgaizer
     {
         $id = Auth::id();
         $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(10);
         return view('events.MyEvent', compact('events'));
     }
 
-    // Show Create Event From
-    public function ShowCreateEventPage()
+    public function ShowCreateEventPage()                   //Show Create Event From
     {
         return view('events.CreateEvent');
     }
 
-    // Store Event Data to the Database
-    public function createEvent(Request $request)
+    public function createEvent(Request $request)        //Store Event Data to the Database
     {
-        $request->validate([
+
+        $request->validate([                              // Validate input field from the form
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
             'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
+            'time' => 'required|date_format:H:i',           // validate if the the event date is aftre the today or not 
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'about' => '',
@@ -46,11 +44,14 @@ class EventController extends Controller
         } else {
             $imagepath = null;
         }
-        $user = Auth::user();
+
+        $user = Auth::user();                                // get current user's data.
+
         // change the date formate acoording to the database folder
         $date = Carbon::createFromFormat('m/d/Y', $request['date'], 'UTC')->format('Y-m-d');
         $organizer_id = $user->id;
-        Events::create([
+
+        Events::create([                                     // Store the data to database
             "name" => $request['name'],
             "venue" => $request['venue'],
             "date" => $date,
@@ -65,22 +66,24 @@ class EventController extends Controller
     }
 
 
-    // Show Edit Event Form
-    public function ShowUpdateEventPage($id)
+    public function ShowUpdateEventPage($id)        // Show Edit Event form
     {
+        // find event data by event_id and get all data
         $event = Events::findOrFail($id);
         $date = $event->date;
         $time = $event->time;
         // Change the formate of the date and time for the display inthe input box 
         $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
         $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
+        // show all info related event to the edit form
         return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
     }
 
-    // Update the Event Data 
-    public function UpdateEvent($id, Request $request)
+
+    public function UpdateEvent($id, Request $request)      // Update Event data
     {
-        $request->validate([
+
+        $request->validate([                                 // Validate the data from input field if the form
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
             'date' => 'required|date|after_or_equal:today',
@@ -90,7 +93,7 @@ class EventController extends Controller
             'about' => '',
             'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
-        // we upload the imagee. it will update the image path to the database. if the user does not provide the new image than it will not change the image and keep the old image as it is in the database.
+        // if we change the event image then it will update into database otherwise it will keep it as old image
         if ($request->hasFile('imageUpadte')) {
             $imagepath = $request->file('imageUpadte')->getClientOriginalName();
             $request->file('imageUpadte')->storeAs('event', $imagepath, 'public');
@@ -101,6 +104,7 @@ class EventController extends Controller
         }
         // Change the formate of the date from the input box according to the database formate.
         $date = Carbon::createFromFormat('m/d/Y', $request['date'])->format('Y-m-d');
+        // Update the event data to database
         Events::where('id', $id)->update([
             "name" => $request['name'],
             "venue" => $request['venue'],
@@ -112,8 +116,9 @@ class EventController extends Controller
         ]);
         return redirect()->route("event")->with('success', 'Event Updated successfully!');
     }
-    // Delete the Event of user if any other user bought the event ticket then it will not delete event 
-    public function deleteEvent($id)
+
+
+    public function deleteEvent($id)                            // Delete the event 
     {
         $Order = Order::where('event_id', $id)->first();
         // If the event is not sold out yet than we can delete that event otherwise we can not delete that event 
