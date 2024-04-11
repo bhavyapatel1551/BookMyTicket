@@ -17,7 +17,6 @@ The Event Tickets Booking System is a web application that allows event organize
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
@@ -112,10 +111,6 @@ Once the installation is complete, you can access the Event Tickets Booking Syst
 ## Contributing
 
 Contributions to the Event Tickets Booking System are welcome! To contribute, please fork the repository and submit a pull request.
-
-## License
-
-The Event Tickets Booking System is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ---
 
