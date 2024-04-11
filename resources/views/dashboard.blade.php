@@ -53,8 +53,8 @@
                     <div class="col-md-2 mb-3 d-flex align-items-start">
                         <select class="form-select" id="sort-by-select" aria-label="Default select example">
                             <option>Sort By</option>
-                            <option value="date_asc">Time New to Old</option>
-                            <option value="date_desc">Time Old to New</option>
+                            <option value="date_asc">Time Latest</option>
+                            <option value="date_desc">Time Oldest</option>
                             <option value="price_asc">Price Low to High</option>
                             <option value="price_desc">Price High to Low</option>
                         </select>

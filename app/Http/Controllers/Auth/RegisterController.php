@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
+
 class RegisterController extends Controller
 {
     /**
@@ -93,7 +94,7 @@ class RegisterController extends Controller
         if (Auth::check()) {
             return redirect(RouteServiceProvider::HOME);
         }
-        // Validate the otp input field
+        // Get all data from session.
         $email = session('email');
         $otp = session('otp');
         $otpAttempts = session('otp_attempts', 0);

@@ -33,14 +33,12 @@
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
-                                @if ($orders->isEmpty())
-                                    <tr>
-                                        <td colspan="8" class="text-center py-4">No orders available.
-                                        </td>
-                                    </tr>
-                                @else
-                                    <div class="table-responsive p-0">
-                                        <table class="table align-items-center mb-0">
+
+                                <div class="table-responsive p-0">
+                                    <table class="table align-items-center mb-0">
+                                        @if ($orders->isEmpty())
+                                            <p class="text-center p-5">No Events Available</p>
+                                        @else
                                             <thead class="bg-gray-100">
                                                 <tr>
                                                     <th class="align-middle text-center  ">Name</th>
@@ -103,16 +101,16 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-                                        </table>
-                                @endif
-                            </div>
-                            <div class="d-flex ms-3 mt-4">
-                                {{ $orders->links('pagination::bootstrap-5') }}
+                                    </table>
+                                    @endif
+                                </div>
+                                <div class="d-flex ms-3 mt-4">
+                                    {{ $orders->links('pagination::bootstrap-5') }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </section>
         <x-app.footer />

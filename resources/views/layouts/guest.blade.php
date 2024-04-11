@@ -97,6 +97,20 @@
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
+        <!-- Your existing HTML code -->
+
+        <!-- Add this script and badge code at the bottom, just before the closing </body> tag -->
+        <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY_HERE"></script>
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LefzKspAAAAAG9YZnsai30sgjebrpi-1J9C26e5', {
+                    action: 'homepage'
+                }).then(function(token) {
+                    // Token logic here if needed
+                });
+            });
+        </script>
+
     </body>
 
 </html>
