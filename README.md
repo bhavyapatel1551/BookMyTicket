@@ -72,14 +72,14 @@ The Event Tickets Booking System is built using the following technologies:
 - Laravel PHP framework for the backend.
 - MySQL database for data storage.
 - HTML, CSS, and JavaScript for the frontend.
-- Bootstrap framework for responsive design.
+- Bootstrap framework and Jquery framework for responsive design.
 
 ## Software Requirements
 
 To run the Event Tickets Booking System, you will need the following software:
 
-- PHP (version 7.0 or higher)
-- Composer
+- PHP (version 8.0 or higher)
+- Composer (version 2.6 or higher)
 - MySQL database
 - Web server (e.g., Apache, Nginx)
 
@@ -87,19 +87,22 @@ To run the Event Tickets Booking System, you will need the following software:
 
 The hardware requirements for running the Event Tickets Booking System are:
 
-- Minimum of 1GB RAM
-- 1GHz processor
-- 10GB of free disk space
+- Processor: Dual-core or higher
+- RAM: 2GB or higher
+- Storage: 10GB or higher
+
 
 ## Installation
 
 To install the Event Tickets Booking System, follow these steps:
 
 1. Clone the repository: git clone https://github.com/bhavyapatel1551/EventTicketManagementSystem
-2. Generate an application key: php artisan key:generate
-3. Run database migrations: php artisan migrate
-4. Seed the database (optional): php artisan db:seed
-5. Start the development server: php artisan serve
+2. Install this project into your local folder.
+3. Update Composer.json. 
+4. Run database migrations: php artisan migrate
+5. Link storage folder : php artisan storage:link
+6. Seed the database (optional): php artisan db:seed
+7. Start the development server: php artisan serve
 
 ## Usage
 
