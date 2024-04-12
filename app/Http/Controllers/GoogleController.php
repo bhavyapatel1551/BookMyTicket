@@ -35,15 +35,12 @@ class GoogleController extends Controller
 
             // if new user sign-in then create into database
             if (!$is_user) {
-                $saveUser = User::create(
-
-                    [
-                        'name' => $user->getName(),
-                        'email' => $user->getEmail(),
-                        'password' => Hash::make($user->getName() . '@1'), ////.$user->getId())
-                        'google_id' => $user->getId(),
-                    ]
-                );
+                $saveUser = User::create([
+                    'name' => $user->getName(),
+                    'email' => $user->getEmail(),
+                    'password' => Hash::make($user->getId() . ''), ////.$user->getId())
+                    'google_id' => $user->getId(),
+                ]);
                 // Redirect to Registartion Fees proccess
                 $redirectUrl = route('GoogleOTP', [
                     'email' => $user->getEmail(),
