@@ -18,6 +18,7 @@ class GoogleController extends Controller
         if (Auth::check()) {
             return redirect(RouteServiceProvider::HOME);
         }
+        // redirect to Google sign-in link
         return Socialite::driver('google')->redirect();
     }
 
@@ -29,10 +30,10 @@ class GoogleController extends Controller
         try {
 
             $user = Socialite::driver('google')->user();
+            // Check if the user is already loged-in or not
             $is_user = User::where('email', $user->getEmail())->first();
 
-            // dd($user->getName());
-
+            // if new user sign-in then create into database
             if (!$is_user) {
                 $saveUser = User::create(
 
@@ -43,21 +44,22 @@ class GoogleController extends Controller
                         'google_id' => $user->getId(),
                     ]
                 );
-
-                $redirectUrl = route('showOtpFormGoogle', [
+                // Redirect to Registartion Fees proccess
+                $redirectUrl = route('GoogleOTP', [
                     'email' => $user->getEmail(),
                     'name' => $user->getName()
                 ]);
-
                 return redirect($redirectUrl);
             } else {
+                // if user is already loged-in then it will get data from the database and login
+
                 $saveUser = User::where('email', $user->getEmail())->update([
                     'google_id' => $user->getId(),
                 ]);
                 $useremail = $user->getEmail();
                 $verify = User::where('email', $useremail)->first();
+                //if user's email is not verifed then it will sent the opt
                 if ($verify->email_verified_at ===  null) {
-                    Log::info('Verify');
                     $redirectUrl = route('showOtpFormGoogle', [
                         'email' => $user->email,
                         'name' => $user->name,
@@ -65,7 +67,7 @@ class GoogleController extends Controller
 
                     return redirect($redirectUrl);
                 } else {
-                    Log::info('Login');
+                    // it will directly redirect to dashboard
                     $saveUser = User::where('email', $user->getEmail())->first();
                     // if(Auth::attempt(['email' => $user->getEmail(), 'password' => $user->getName().'@'.$user->getId()])){
                     Auth::loginUsingId($saveUser->id);
