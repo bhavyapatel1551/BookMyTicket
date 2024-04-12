@@ -164,7 +164,7 @@
                 </div>
             </div>
         </section>
-        <x-app.footer />
+        {{-- <x-app.footer /> --}}
     </main>
 
 </x-app-layout>

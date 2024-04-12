@@ -124,7 +124,8 @@ class CartController extends Controller
             ],
             'customer_email' => $email,                                  // add customer's email id
             'billing_address_collection' => 'required',                  // Request customer's blilling address
-            'mode' => 'payment',                                         // Show the mode of payment
+            'mode' => 'payment',
+            'success_url' => route('CheckOutOrder') . '?payment_intent=' . $paymentIntent->id,
             'cancel_url' => route('cart'),                               // On cancel order it will redirect back to cart 
         ]);
         // it will redirect to stripe payment gateway url with payment intent id

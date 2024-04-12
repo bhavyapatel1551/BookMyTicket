@@ -152,7 +152,7 @@
                 <!-- Recent Sales End -->
 
 
-                <x-app.footer />
+                {{-- <x-app.footer /> --}}
             </div>
     </main>
 

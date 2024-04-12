@@ -27,6 +27,10 @@ class RegisterController extends Controller
      */
     public function create()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('auth.signup');
     }
 
@@ -88,6 +92,26 @@ class RegisterController extends Controller
         return redirect('/sign-up');
     }
 
+    // Genrate OTP for Google signin api
+    public function GoogleOTP(Request $request)
+    {
+
+        $email = $request->query('email');
+        $name = $request->query('name');
+
+        $otp = rand(1000, 9999);
+        // Log::info($name);
+        session(['otp' => $otp]);
+
+        Session::put('email', $email);
+        Session::put('otp', $otp);
+        Session::put('name', $name);
+        Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
+
+        Session::put('registration_in_progress', true);
+
+        return Redirect()->route('showOtpForm');
+    }
     // verify the otp from the user email
     public function verifyOtp(Request $request)
     {
@@ -129,6 +153,9 @@ class RegisterController extends Controller
     // show payment gate way form for registartion fees process
     public function RegistrationFees()
     {
+        if (Auth::check()) {
+            return redirect(RouteServiceProvider::HOME);
+        }
         $email = session('email');
         $user = User::where('email', $email)->first();
         if ($user->email_verified_at === null) {

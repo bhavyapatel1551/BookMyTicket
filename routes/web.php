@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TicketController;
 
@@ -69,6 +70,13 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store'])
 Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('showOtpForm')->middleware('guest');
 Route::post('/verify-otp', [RegisterController::class, 'verifyOtp'])->name('verifyOtp')->middleware('guest');
 
+// Google Api for signin
+Route::get('/verify-otp-google', [RegisterController::class, 'GoogleOTP'])->name('showOtpFormGoogle')->middleware('guest');
+
+// Sign in with Google
+
+Route::get('auth/google', [GoogleController::class, 'loginwithgoogle'])->name('login')->middleware('guest');
+Route::any('auth/google/callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback')->middleware('guest');
 
 // Procced with the registration fees to access the website.
 Route::get('/registrationFees', [RegisterController::class, 'RegistrationFees'])->name('Registration.Fees')->middleware('guest');

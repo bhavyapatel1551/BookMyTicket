@@ -174,6 +174,6 @@
                 </div>
             </div>
         </section>
+        <x-app.footer />
     </main>
-    <script></script>
 </x-app-layout>
