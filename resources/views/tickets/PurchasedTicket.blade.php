@@ -1,12 +1,12 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 bg-gray-200 h-100 border-radius-lg ">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('assets/css/ticket.css') }}">
+        {{-- Start of Ticket Card  --}}
         <div class="content">
             <div class="ticket created-by-anniedotexe">
-
                 <div class="left">
+                    {{-- Start of Ticket Image  --}}
                     <div class="image">
                         <p class="admit-one">
                             <span>bookmyticket.com</span>
@@ -19,7 +19,9 @@
                             </p>
                         </div>
                     </div>
+                    {{-- End of Ticket Image  --}}
 
+                    {{-- Start of Ticket Info  --}}
                     <div class="ticket-info">
                         <p class="admit-one">
                             <span>bookmyticket.com</span>
@@ -40,6 +42,9 @@
                         </p>
                     </div>
                 </div>
+                {{-- End of Ticket Info  --}}
+
+                {{-- Start of Ticket Purchase info  --}}
                 <div class="right">
                     <p class="admit-one">
                         <span>bookmyticket.com</span>
@@ -61,15 +66,15 @@
                             {{ $ticket->transaction_id }}
                         </p>
                     </div>
-
                     <div class="total-amount">
                         <p>Total Amount <span><b>₹{{ $ticket->total_price }}</b> </span></p>
                         <p>Quantity<span class="info mt-2"> <b>{{ $ticket->quantity }}</b></span></p>
                     </div>
                 </div>
+                {{-- End of Ticket Purchase info  --}}
             </div>
         </div>
+        {{-- End of Ticket Card  --}}
         <x-app.footer />
     </main>
-
 </x-app-layout>

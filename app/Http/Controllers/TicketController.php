@@ -54,7 +54,6 @@ class TicketController extends Controller
         return view('dashboard', ['tickets' => $tickets]);
     }
 
-
     /**
      * Show Specifc Ticket Info
      * @param mixed $id

@@ -7,11 +7,9 @@
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
         <link rel="icon" type="image/png" href="{{ asset('storage/favicon.png') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <title>
-            Event Ticket Booking System
+            Book My Tickets
         </title>
-        <!--     Fonts and icons     -->
         <link
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
             rel="stylesheet" />
@@ -32,31 +30,23 @@
         <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
         <!-- Bootstrap JS (bundle includes Popper) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/js/bootstrap.bundle.min.js"></script>
-
         <!-- Bootstrap Datepicker CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css"
             rel="stylesheet">
-
         <!-- Bootstrap Datepicker JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-
         <!-- Bootstrap Timepicker CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
             rel="stylesheet">
-
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
         <!-- Bootstrap JavaScript (Make sure to include Popper.js and jQuery as well) -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
-
         <!-- Bootstrap Timepicker JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -65,7 +55,6 @@
         <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
         <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('assets/css/Animation.css') }}">
-
         <script async src="https://www.google.com/recaptcha/api.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js">
@@ -77,13 +66,11 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
 
     <body class="g-sidenav-show  bg-gray-100">
         <x-app.sidebar />
-
         {{ $slot }}
         <!--   Core JS Files   -->
         <script src="../assets/js/core/popper.min.js"></script>
@@ -104,10 +91,7 @@
                     },
                 });
             };
-
-
             var ctx = document.getElementById("chart-bars").getContext("2d");
-
             new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -195,22 +179,15 @@
                     },
                 },
             });
-
-
             var ctx2 = document.getElementById("chart-line").getContext("2d");
-
             var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
             gradientStroke1.addColorStop(1, 'rgba(45,168,255,0.2)');
             gradientStroke1.addColorStop(0.2, 'rgba(45,168,255,0.0)');
             gradientStroke1.addColorStop(0, 'rgba(45,168,255,0)'); //blue colors
-
             var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
             gradientStroke2.addColorStop(1, 'rgba(119,77,211,0.4)');
             gradientStroke2.addColorStop(0.7, 'rgba(119,77,211,0.1)');
             gradientStroke2.addColorStop(0, 'rgba(119,77,211,0)'); //purple colors
-
             new Chart(ctx2, {
                 plugins: [{
                     beforeInit(chart) {
@@ -241,7 +218,6 @@
                                 2444, 2636, 2593, 2885, 1764, 898, 1356, 2573, 3382, 2858, 4228
                             ],
                             maxBarThickness: 6
-
                         },
                         {
                             label: "Trade",

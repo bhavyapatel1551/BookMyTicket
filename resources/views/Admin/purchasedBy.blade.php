@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <section class="h-100 h-custom">
             <div class="container-fluid py-4 px-5">
@@ -8,6 +7,7 @@
                         <h3>Users who Purchased Tickets for {{ $event->name }}</h3>
                     </div>
                 </div>
+                {{-- Error Message  --}}
                 <div class="row justify-content-center mb-2">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -22,6 +22,9 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error Message  --}}
+
+                {{-- User Purchase Ticket Table  --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card border shadow-xs mb-4">
@@ -77,13 +80,15 @@
                                         </table>
                                     @endif
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
+                    {{-- End of User Purchase Ticket Table --}}
                 </div>
             </div>
         </section>
         <x-app.footer />
     </main>
-
 </x-app-layout>

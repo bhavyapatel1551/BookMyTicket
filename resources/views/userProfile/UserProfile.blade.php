@@ -9,12 +9,10 @@
                 border-radius: 100%;
                 padding: 5px;
                 visibility: hidden;
-                /* Hidden by default */
             }
 
             .avatar:hover .edit-icon {
                 visibility: visible;
-                /* Show on hover */
             }
 
             .edit-icon i {
@@ -22,17 +20,17 @@
             }
         </style>
         <div class="container-fluid ">
+            {{-- Start of User's Info Update Form  --}}
             <form action={{ route('user.update') }} method="POST" role="form">
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">
                     <div class=" col-10">
+                        {{-- Start of User's Profile Card  --}}
                         <div class="card card-body"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );"
                             id="zoomin">
-
                             <div class="row z-index-2 justify-content-start align-items-center">
-
                                 <div class="col-sm-auto col-4">
                                     <div class="avatar avatar-2xl position-relative">
                                         <a href="{{ route('user.PhotoUpdate') }}"
@@ -67,6 +65,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- End of User's Profile Card  --}}
+
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -81,6 +82,7 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error/Success Message  --}}
                 <div class="mb-5 row justify-content-center">
                     <div class="col-10 ">
                         <div class="card " id="basic-info">
@@ -117,7 +119,6 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="col-6">
                                         <label for="phone">Phone</label>
                                         <input type="text" name="phone" id="phone" placeholder="733456987"
@@ -144,15 +145,14 @@
                                             onclick="window.location.href='{{ route('user.profile') }}'">Cancel</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+            {{-- End of User's Info Update Form  --}}
         </div>
         <x-app.footer />
         </div>
     </main>
-
 </x-app-layout>

@@ -1,8 +1,8 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom">
             <div class="container-fluid py-4 px-5">
+                {{-- Start of Header Card  --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -21,6 +21,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- End of Header Card  --}}
+
+                {{-- Start of User's Order Table  --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card border shadow-xs mb-4">
@@ -33,7 +36,6 @@
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
-
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         @if ($orders->isEmpty())
@@ -109,6 +111,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- End of User's Table  --}}
                     </div>
                 </div>
             </div>

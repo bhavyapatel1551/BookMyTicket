@@ -1,9 +1,8 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 p-5 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom ">
             <div class="container-fluid py-4 px-1">
+                {{-- Start of Header Card --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -31,6 +30,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- End of Header Card --}}
+
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center mb-2">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -45,6 +47,9 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error/Success Message  --}}
+
+                {{-- Start of Event List Table --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card border shadow-xs mb-4">
@@ -105,7 +110,6 @@
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">
                                                                 {{ date('d-m-Y', strtotime($event->date)) }}
-
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
@@ -124,15 +128,12 @@
                                                                     href="/eventUpdate/{{ $event->id }}"class="text-secondary font-weight-bold  me-2">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </a>
-
                                                                 <a href=""
                                                                     onclick="deleteEvent('{{ $event->id }}')"
                                                                     class="text-secondary font-weight-bold  ">
                                                                     <i class="fa-solid fa-trash-can"></i>
                                                                 </a>
                                                             </p>
-
-
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">
@@ -141,11 +142,9 @@
                                                                     <i class="fa-solid fa-eye"></i>
                                                                 </a>
                                                             </p>
-
                                                         </td>
                                                     </tr>
                                                 @endforeach
-
                                             </tbody>
                                         </table>
                                     @endif
@@ -155,11 +154,10 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- End of Event List Table  --}}
                     </div>
                 </div>
             </div>
         </section>
-        {{-- <x-app.footer /> --}}
     </main>
-
 </x-app-layout>

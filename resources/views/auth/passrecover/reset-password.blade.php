@@ -79,5 +79,4 @@
             </div>
         </section>
     </main>
-
 </x-guest-layout>

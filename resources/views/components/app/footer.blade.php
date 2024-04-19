@@ -25,16 +25,13 @@
             </div>
             <div class="row ms-4">
                 <div class="col-lg-4">
-
                     <h4>About us</h4>
                     <p>Welcome to bookmytickets.com, your premier destination for hassle-free event ticket booking! Our
                         platform is designed to provide you with a seamless ticket purchasing experience for a wide
                         range of events, from concerts to sports matches and everything in between.Stay updated with
                         the latest events, manage your bookings,and enjoy a stress-free ticketing process with
                         bookmytickets.com</p>
-
                 </div>
-
                 <div class="col-md-4">
                     <h4>Information</h4>
                     <ul class="address1">
@@ -45,7 +42,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-md-4">
                     <h4>Follow us</h4>
                     <ul class="social-icon">
@@ -55,9 +51,7 @@
                         <li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>
-
 </footer>

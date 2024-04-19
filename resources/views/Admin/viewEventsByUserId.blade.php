@@ -1,7 +1,5 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom">
             <div class="container-fluid py-4 px-5">
                 <div class="row">
@@ -32,6 +30,8 @@
                         </div> --}}
                     </div>
                 </div>
+
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center mb-2">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -46,6 +46,9 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error/Success Message  --}}
+
+                {{-- Start of User Table  --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card border shadow-xs mb-4">
@@ -56,11 +59,9 @@
                                         <p class="text-sm">See information about all Events created by
                                             {{ $username }}</p>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
-
                                 <div class="table p-0">
                                     @if ($events->isEmpty())
                                         <p class="text-center p-5">No Events Available</p>
@@ -75,12 +76,6 @@
                                                     <th class="align-middle text-center ">Price</th>
                                                     <th class="align-middle text-center">Created at</th>
                                                     <th class="align-middle text-center ">Action</th>
-
-
-
-
-
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,7 +97,6 @@
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
                                                             <p class="text-sm text-dark  mb-0">{{ $event->date }}
-
                                                             </p>
                                                         </td>
                                                         <td class="align-middle text-center p-3 ">
@@ -120,22 +114,18 @@
                                                                     <i class="fa-solid fa-eye"></i>
                                                                 </a>
                                                             </p>
-
                                                         </td>
-
-
                                                     </tr>
                                                 @endforeach
-
                                             </tbody>
                                         </table>
                                     @endif
                                 </div>
-
                                 <div class="d-flex ms-3">
                                     {{ $events->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
+                            {{-- End of Start of User Table  --}}
                         </div>
                     </div>
                 </div>
@@ -143,5 +133,4 @@
         </section>
         <x-app.footer />
     </main>
-
 </x-app-layout>

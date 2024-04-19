@@ -19,9 +19,6 @@
                 <span class="nav-link-text ms-1 text-white">{{ auth()->user()->name }}</span>
                 <span class="nav-link-text ms-1 text-white">{{ auth()->user()->email }}</span>
             </li>
-
-
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <div
@@ -61,7 +58,6 @@
             @php
                 $currentUserId = auth()->id();
             @endphp
-
             @if ($currentUserId == 0)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users-management') }}">

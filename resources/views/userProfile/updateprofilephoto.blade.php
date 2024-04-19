@@ -1,11 +1,13 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid ">
+            {{-- Start of User's Profile Photo Update Form  --}}
             <form action={{ route('user.PhotoUpdate') }} method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mt-5 mb-5 mt-lg-7 row justify-content-center">
                     <div class="col-10">
+                        {{-- Start of User's Profile Card  --}}
                         <div class="card card-body"
                             style="background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );"
                             id="zoomin">
@@ -41,6 +43,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- End of User's Profile Card  --}}
+
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center">
                     <div class="col-10">
                         @if (session('error'))
@@ -83,6 +88,7 @@
                     </div>
                 </div>
             </form>
+            {{-- End of User's Profile Photo Update Form  --}}
         </div>
         <x-app.footer />
         </div>

@@ -1,9 +1,8 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
         <section class="h-100 h-custom ">
             <div class="container-fluid py-4 px-5">
+                {{-- Start of Header Card  --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-background card-background-after-none align-items-start mt-4 mb-4"
@@ -16,7 +15,6 @@
                                 <p class="mb-4 font-weight-semibold">
                                     Check all the Events and choose the best.
                                 </p>
-
                                 <a href="{{ route('userPurchaseOrder') }}">
                                     <button type="button"
                                         class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0 p-2">
@@ -28,12 +26,13 @@
                                 </a>
                                 <img src="{{ asset('event.png') }}" alt="Event" id="Dashboardheaderimg"
                                     class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
-
                             </div>
                         </div>
                     </div>
                 </div>
+                {{-- End of Header Card  --}}
 
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -46,9 +45,11 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-
                     </div>
                 </div>
+                {{-- End of Error/Success Message  --}}
+
+                {{-- Start of Ticket Filter  --}}
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
                 <div class="row">
                     <div class="col-md-2 mb-3 d-flex align-items-start">
@@ -69,6 +70,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- End of Ticket Filter  --}}
+
+                {{-- Start of Tickets  --}}
                 <section class="">
                     <div class="container py-2">
                         @foreach ($tickets as $ticket)
@@ -80,7 +84,6 @@
                                     @else
                                         <div class="postcard__img"> No Image Available</div>
                                     @endif
-
                                 </a>
                                 <div class="postcard__text t-dark"style="font-family: Arial, sans-serif;">
                                     <h1 class="postcard__title blue"><a> {{ $ticket->name }}</a></h1>
@@ -100,10 +103,7 @@
                                         <p style="font-family: Arial, sans-serif; font-size:15px">Ticket left :
                                             {{ $ticket->quantity }}</p>
                                     </div>
-
-
                                     <ul class="postcard__tagbox">
-
                                         <li class="tag__item play blue">
                                             <a href="" onclick="addtoCart('{{ $ticket->id }}')"><i
                                                     class="fa-solid fa-sm fa-cart-shopping me-2"></i>Add To
@@ -118,13 +118,14 @@
                         </div>
                     </div>
                 </section>
+                {{-- End of Tickets  --}}
             </div>
         </section>
         <x-app.footer />
     </main>
     <script>
+        // jQuery for Sortby Function
         const sortBySelect = document.getElementById('sort-by-select');
-
         sortBySelect.addEventListener('change', function() {
             const selectedSortOption = sortBySelect.value;
             const url = new URL(window.location.href);
@@ -133,9 +134,9 @@
         });
     </script>
     <script>
+        // jQuery for Search Function 
         const searchInput = document.getElementById('search-input');
         let timer;
-
         searchInput.addEventListener('keyup', function(event) {
             clearTimeout(timer); // Clear the previous timer
             timer = setTimeout(function() {

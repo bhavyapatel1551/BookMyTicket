@@ -1,8 +1,7 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
         <div class="container-fluid mt-4 px-4 pb-0">
+            {{-- Start of Header Card --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -21,7 +20,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Sale & Revenue Start -->
+            {{-- End of Header Card --}}
+
+            {{-- Start of Sales/Revenue Card  --}}
             <div class="container-fluid pt-0 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
@@ -74,9 +75,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Sale & Revenue End -->
+            {{-- End of Sales/Revenue Card --}}
 
-            <!-- Recent Sales Start -->
+            {{-- Start of the Event Sales Table  --}}
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="card border shadow-xs mb-4">
@@ -86,11 +87,9 @@
                                     <h6 class="font-weight-semibold text-lg mb-0">Total Sales list</h6>
                                     <p class="text-sm">Information about all Sales list</p>
                                 </div>
-
                             </div>
                         </div>
                         <div class="card-body px-0 py-0">
-
                             <div class="table p-0">
                                 @if ($orders->isEmpty())
                                     <p class="text-center p-5">No Events Available</p>
@@ -133,10 +132,8 @@
                                                             {{ date('d-m-Y h:i:s A', strtotime($order->created_at)) }}
                                                         </p>
                                                     </td>
-
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
                                     <div class="d-flex ms-3 mt-4">
@@ -144,16 +141,10 @@
                                     </div>
                                 @endif
                             </div>
-
                         </div>
-
+                        {{-- End of Event Sales Table  --}}
                     </div>
                 </div>
-                <!-- Recent Sales End -->
-
-
-                {{-- <x-app.footer /> --}}
             </div>
     </main>
-
 </x-app-layout>

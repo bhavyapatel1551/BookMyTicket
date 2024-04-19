@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-        <title>About Us - Event Ticket Booking</title>
+        <title>Book My Tickets</title>
         <style>
             body {
                 font-family: Arial, sans-serif;

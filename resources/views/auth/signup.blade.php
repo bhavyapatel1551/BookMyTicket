@@ -1,5 +1,4 @@
 <x-guest-layout>
-
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -93,8 +92,9 @@
                                             <input class="form-check-input" type="checkbox" name="terms"
                                                 id="terms">
                                             <label class="font-weight-normal text-dark mb-0" for="terms">
-                                                I agree the <a href="javascript:;"
-                                                    class="text-dark font-weight-bold">Terms and Conditions</a>.
+                                                I agree the <a href="/terms-and-conditions" target="_blank"
+                                                    class="text-dark font-weight-bold">Terms
+                                                    and Conditions</a>.
                                             </label><br>
                                         </div>
                                         @error('terms')
@@ -129,5 +129,4 @@
             </div>
         </section>
     </main>
-
 </x-guest-layout>

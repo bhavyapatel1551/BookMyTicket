@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Corporate UI - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/corporate-ui
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,7 +40,7 @@
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
         <link rel="icon" type="image/png" href="../assets/img/favicon.png">
         <title>
-            Event Ticket Booking System
+            Book My Tickets
         </title>
         <!--     Fonts and icons     -->
         <link
@@ -77,7 +63,6 @@
     </head>
 
     <body class="">
-
         {{ $slot }}
         <!--   Core JS Files   -->
         <script src="../assets/js/core/popper.min.js"></script>
@@ -98,7 +83,6 @@
         <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
         <!-- Your existing HTML code -->
-
         <!-- Add this script and badge code at the bottom, just before the closing </body> tag -->
         <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY_HERE"></script>
         <script>
@@ -110,7 +94,6 @@
                 });
             });
         </script>
-
     </body>
 
 </html>

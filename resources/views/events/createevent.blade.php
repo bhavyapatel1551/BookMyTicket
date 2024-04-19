@@ -1,6 +1,7 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid mt-4 px-4 pb-0">
+            {{-- Start of Header Card  --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -19,8 +20,12 @@
                     </div>
                 </div>
             </div>
+            {{-- End of Header Card  --}}
+
+            {{-- Start of Create Event Form  --}}
             <form action={{ route('event.create') }} method="POST" enctype="multipart/form-data" role="form">
                 @csrf
+                {{-- Start Of Error/Success Message  --}}
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-12">
                         @if (session('error'))
@@ -35,6 +40,7 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error/Success Message   --}}
                 <div class="mb-5 row justify-content-center">
                     <div class=" col-10 ">
                         <div class="card " id="basic-info">
@@ -130,13 +136,16 @@
                     </div>
                 </div>
             </form>
+
+            {{-- End of Create Event Form  --}}
         </div>
         <x-app.footer />
         </div>
     </main>
+
     <script>
+        // jQuery for DatePicker 
         $(document).ready(function() {
-            // Initialize datepicker
             $('#date').datepicker({
                 showOtherMonths: true,
                 minDate: new Date() // Disable previous dates

@@ -1,6 +1,7 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <div class="container-fluid mt-4 px-4 pb-0">
+            {{-- Start of Header Card  --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -13,19 +14,20 @@
                             <p class="mb-4 font-weight-semibold">
                                 Check all the Events and choose the best.
                             </p>
-
-
                             <img src="{{ asset('createEvent.png') }}" alt="Event"
                                 class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
-
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- End of Header Card  --}}
+
+            {{-- Start of Event Update Form  --}}
             <form action='{{ route('events.update', ['id' => $event->id]) }}' method="POST"
                 enctype="multipart/form-data">
                 @csrf
 
+                {{-- Start of Error/Success Message  --}}
                 <div class="row justify-content-center">
                     <div class="col-10">
                         @if (session('error'))
@@ -40,6 +42,7 @@
                         @endif
                     </div>
                 </div>
+                {{-- End of Error/Success Message  --}}
                 <div class="mb-5 row justify-content-center">
                     <div class="col-lg-9 col-12 ">
                         <div class="card " id="basic-info">
@@ -55,10 +58,8 @@
                                         @endif
                                     </div>
                                 </div>
-
                             </div>
                             <div class="pt-0 card-body">
-
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="name">*Event Name</label>
@@ -107,7 +108,6 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="col-4">
                                         <label for="price">*Event Price</label>
                                         <input type="number" name="price" id="price" class="form-control"
@@ -125,8 +125,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-
                                 <div class="row p-2">
                                     <label for="about">Event Description</label>
                                     <textarea name="about" id="about" rows="3" class="form-control">{{ $event->about }}</textarea>
@@ -144,24 +142,25 @@
                                             onclick="window.location.href='{{ route('event') }}'">Cancel</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+
+            {{-- End of Event Update Form  --}}
         </div>
         <x-app.footer />
         </div>
     </main>
     <script>
+        // jQueary for DatePicker 
         $(document).ready(function() {
             // Initialize datepicker
             $('#date').datepicker({
                 showOtherMonths: true
                 minDate: new Date() // Disable previous dates
             });
-
             // Initialize timepicker
             // $('#time').timepicker({
             //     showMeridian: false,
@@ -169,6 +168,4 @@
             // });
         });
     </script>
-
-
 </x-app-layout>

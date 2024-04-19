@@ -1,23 +1,19 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        {{-- <x-app.navbar /> --}}
-
         <section class="h-100 h-custom bg-gray-200">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
+
                     <div class="card">
                         <div class="card-body p-4">
-
                             <div class="row">
                                 <div class="row">
-
                                     <div class="col-lg-7 ">
                                         <h5 class="mb-3"><a href="{{ route('dashboard') }}"
                                                 style="text-decoration: none" class="text-body">
                                                 <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a>
                                         </h5>
                                         <hr>
-
                                         <div class="d-flex justify-content-between align-items-center mb-4  ">
                                             <div>
                                                 <p class="mb-1">Shopping cart</p>
@@ -25,7 +21,7 @@
                                                 </p>
                                             </div>
                                         </div>
-
+                                        {{-- Start of Error/Success Message  --}}
                                         <div class="row justify-content-center">
                                             <div class="col-lg-9 col-12">
                                                 @if (session('error'))
@@ -38,10 +34,12 @@
                                                         {{ session('success') }}
                                                     </div>
                                                 @endif
-
                                             </div>
                                         </div>
+                                        {{-- End of Error/Success Message --}}
 
+
+                                        {{-- Start of Cart list  --}}
                                         @if ($cartItems->isEmpty())
                                             <p class="text-center p-5 pb-0">No Item Available</p>
                                         @else
@@ -90,7 +88,6 @@
                                                                         <a class="ms-2"
                                                                             onclick="increaseQuantity('{{ $item->id }}')">
                                                                             <i class="fa fa-plus fa-sm text-dark"></i>
-
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -109,8 +106,10 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                    <div class="col-lg-5">
+                                    {{-- End of Cart list  --}}
 
+                                    {{-- Start of Checkout Details of Cart  --}}
+                                    <div class="col-lg-5">
                                         <div class="card bg-primary text-white rounded-3 mt-5">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -127,17 +126,12 @@
                                                             id="preview">
                                                     @endif
                                                 </div>
-
-
-
                                                 <hr class="my-4">
                                                 <div class="bg-gray-300 p-2 rounded-5 mb-2 text-dark">
-
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Total Tickets</p>
                                                         <p class="mb-2" id="ticket">{{ $ticket }}</p>
                                                     </div>
-
                                                     <div class="d-flex justify-content-between">
                                                         <p class="mb-2">Subtotal</p>
                                                         <p class="mb-2" id="SubTotal1">
@@ -167,6 +161,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- End of Checkout Cart Details  --}}
                                 </div>
                             </div>
                         </div>

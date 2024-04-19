@@ -3,19 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Projecthub T&C</title>
+        <title>Book My Tickets</title>
         <meta name="author" content="Xmartlabs" />
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png" />
-
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
             type="text/css" />
-
         <link href="css/custom.css" rel="stylesheet" type="text/css" />
-
-
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Projecthub" />
         <meta property="og:image:height" content="630" />
@@ -46,13 +41,11 @@
                 </div>
             </div>
         </header>
-
         <div class="container-fluid">
             <div class="row terms-and-conditions-section">
                 <div class="col-xs-12 text-center">
                     <h1 class="title">Terms and Conditions</h1>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                     <div class="content">
                         <p>
@@ -85,7 +78,6 @@
                             reserve the right to terminate your subscription in accordance with the "Cancellation and
                             Termination" section of these Terms of Service.
                         </p>
-
                         <h2 class="section-title">1. Use of Project Hub</h2>
                         <p>
                             To use Project Hub, you must (i) have a GitHub account (ii) authorize Xmartlabs to access
@@ -143,7 +135,6 @@
                                 you use Project Hub.
                             </li>
                         </ul>
-
                         <h2 class="section-title">2. Cancellation and Termination</h2>
                         <p>
                             To cancel your subscription, account, and access to Project Hub, send us an email at <a
@@ -192,7 +183,6 @@
                             Customer Data. Xmartlabs is not responsible if you fail to configure, or misconfigure, your
                             project and inadvertently allow unauthorized parties to view any Customer Data.
                         </p>
-
                         <h2 class="section-title">4. Ideas and Feedback</h2>
                         <p>
                             As part of your use of Project Hub, you may choose, or we may invite you, to submit
@@ -204,7 +194,6 @@
                             regardless of whether you request such treatment or otherwise designate Ideas as proprietary
                             or confidential.
                         </p>
-
                         <h2 class="section-title">5. External Sites and Content</h2>
                         <p>
                             The Project Hub may contain links to other websites or content (“Third Party Sites”).
@@ -220,7 +209,6 @@
                             should be directed to the Third Party Site itself. Xmartlabs bears no responsibility for any
                             action associated with any Third Party Site.
                         </p>
-
                         <h2 class="section-title">6. License and Restrictions</h2>
                         <p>
                             Subject to and conditioned upon your agreement to and compliance with these Terms, we will
@@ -293,7 +281,6 @@
                                 activities described in this paragraph.
                             </li>
                         </ul>
-
                         <h2 class="section-title">7. Open Source Software</h2>
                         <p>
                             Open source software licenses for components of Project Hub released under an open source
@@ -302,7 +289,6 @@
                             agreement with Xmartlabs only for the use of the components of Project Hub released under an
                             open source license.
                         </p>
-
                         <h2 class="section-title">8. Monitoring of Content</h2>
                         <p>
                             You understand that Xmartlabs may access and disclose Customer Data or otherwise provide
@@ -334,8 +320,6 @@
                                 offerings, including without limitation Project Hub, and the public.
                             </li>
                         </ul>
-
-                        <h2 class="section-title">9. Our Copyright Dispute Policy</h2>
                         <p>
                             Xmartlabs respects the intellectual property of others and requires that our users do the
                             same. If you believe that material or content residing on or accessible through Project Hub
@@ -403,7 +387,6 @@
                             LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY YOUR RELIANCE ON INFORMATION OBTAINED THROUGH THE
                             SERVICE.
                         </p>
-
                         <h2 class="section-title">10. Limitations on Liability</h2>
                         <p>
                             YOUR SOLE AND EXCLUSIVE REMEDY FOR ANY DISPUTE WITH US IS THE CANCELLATION OF YOUR USE OF
@@ -421,7 +404,6 @@
                             THE LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH STATES OR
                             JURISDICTIONS, OUR LIABILITY SHALL BE LIMITED TO THE EXTENT PERMITTED BY LAW.
                         </p>
-
                         <h2 class="section-title">11. Indemnification</h2>
                         <p>
                             You agree to hold harmless and indemnify Xmartlabs, and its subsidiaries, affiliates,
@@ -433,7 +415,6 @@
                             litigation costs and attorneys' fees, of every kind and nature. In such a case, Xmartlabs
                             will provide you with written notice of such claim, suit or action.
                         </p>
-
                         <h2 class="section-title">12. Choice of Law and Dispute Resolution</h2>
                         <p>
                             These Terms will be governed by and construed in accordance with the laws of the State of
@@ -443,7 +424,6 @@
                             The United Nations Convention on Contracts for the International Sale of Goods will not
                             apply to These Terms.
                         </p>
-
                         <h2 class="section-title">13. General Legal Terms</h2>
                         <p>
                             These Terms constitute the whole legal agreement between you and Xmartlabs and govern your
@@ -490,14 +470,12 @@
             <div class="row align-items-center justify-content-lg-between ">
                 <div class="col-lg-6 mb-lg-0 mb-4">
                     <div class="copyright text-center text-m text-muted text-lg-start">
-                        Copyright
-                        ©
+                        Copyright ©
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
                         made by
                         <a href="#" class="text-secondary text-bold" target="_blank">bookmyticket.com</a>
-
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -523,7 +501,6 @@
                 </div>
             </div>
         </footer>
-
     </body>
 
 </html>

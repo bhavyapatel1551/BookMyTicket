@@ -3,11 +3,7 @@
         <div class="px-5 py-4 container-fluid">
             <div class="mt-4 row">
                 <div class="col-12">
-                    {{-- <div class="alert alert-dark text-sm" role="alert">
-                        <strong>Add, Edit, Delete features are not functional!</strong> This is a
-                        <strong>PRO</strong> feature! Click <a href="#" target="_blank" class="text-bold">here</a>
-                        to see the <strong>PRO</strong> product!
-                    </div> --}}
+                    {{-- Header Card --}}
                     <div class="row">
                         <div class="col-12">
                             <div class="card card-background card-background-after-none align-items-start mt-4 mb-5"
@@ -35,6 +31,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- End of Header Card --}}
                     <div class="card">
                         <div class="pb-0 card-header">
                             <div class="row">
@@ -44,6 +41,7 @@
                                         Here you can manage your users.
                                     </p>
                                 </div>
+                                {{-- Error/Success Message  --}}
                                 <div class="row justify-content-center">
                                     <div class="col-lg-9 col-12">
                                         @if (session('error'))
@@ -58,16 +56,11 @@
                                         @endif
                                     </div>
                                 </div>
-                                {{-- <div class="col-6 text-end">
-                                    <a href="#" class="btn btn-dark btn-primary">
-                                        <i class="fas fa-user-plus me-2"></i> Add Member
-                                    </a>
-                                </div> --}}
+                                {{-- End of Error/Success Message --}}
                             </div>
                         </div>
 
-
-
+                        {{-- User Table --}}
                         <div class="table-responsive">
                             <table class="table text-secondary text-center">
                                 <thead>
@@ -126,17 +119,16 @@
                                                     class="delete-user-link" data-id="{{ $user->id }}">
                                                     <i class="fa-solid fa-eye text-dark"></i>
                                                 </a>
-
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                             <div class="d-flex m-3">
                                 {{ $users->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
+                        {{-- End of User Table  --}}
                     </div>
                 </div>
             </div>
@@ -144,7 +136,6 @@
         <x-app.footer />
     </main>
 </x-app-layout>
-
 <script src="/assets/js/plugins/datatables.js"></script>
 <script>
     const dataTableBasic = new simpleDatatables.DataTable("#datatable-search", {

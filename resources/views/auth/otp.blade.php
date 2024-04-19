@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OTP Verification Page</title>
-
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <script src="otp.js"></script>
     </head>
@@ -98,15 +97,12 @@
                     resendButton.disabled = true;
                     resendMsg.innerText = 'You can resend OTP after ' + timer + ' seconds.';
                     setTimeout(startTimer, 1000);
-
                 } else {
                     resendMsg.innerText = '';
                     resendButton.disabled = false; // Enable the button
                 }
             }
-
             startTimer();
-
             resendButton.addEventListener('click', function() {
                 if (!resendButton.disabled) {
                     resendButton.disabled = true;

@@ -30,6 +30,9 @@ class CartController extends Controller
                 $query->whereNull('deleted_at');
             })->delete();
 
+        /**
+         * Update the data from event table to cart table
+         */
         $data = Cart::where('user_id', $user->id)->get();
         foreach ($data as $d) {
             $id = $d->event_id;
@@ -37,7 +40,7 @@ class CartController extends Controller
             if ($event) {
                 $d->update([
                     'price' => $event->price,
-
+                    'total_price' => $event->price * $d->quantity,
                 ]);
             }
         }

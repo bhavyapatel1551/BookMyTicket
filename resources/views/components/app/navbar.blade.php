@@ -2,7 +2,6 @@
     <div class="container-fluid py-1 px-2">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
-
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
             </ol>
             <h6 class="font-weight-bold mb-0"> {{ auth()->user()->name }}</h6>
@@ -20,8 +19,6 @@
                     <input type="text" class="form-control ps-0" placeholder="Search">
                 </div> --}}
             </div>
-
-            {{-- Logout Button --}}
             <div class="mb-0 font-weight-bold breadcrumb-text text-white">
                 <form method="GET" action="{{ route('logout') }}">
 
@@ -33,7 +30,6 @@
                 </form>
             </div>
             <ul class="navbar-nav  justify-content-end">
-                {{-- User Profile --}}
                 <li class="nav-item ps-2 d-flex align-items-center">
                     <a href="{{ route('user.profile') }}" class="nav-link text-body p-0">
                         @if (auth()->user()->pfp)
@@ -42,11 +38,9 @@
                         @else
                             <img src="{{ asset('storage/profileimg.png') }}" class="avatar avatar-sm" alt="avatar" />
                         @endif
-
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<!-- End Navbar -->
