@@ -44,7 +44,7 @@
                             <div class="pt-0 card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="name">Event Name</label>
+                                        <label for="name">*Event Name</label>
                                         <input type="text" name="name" id="name" class="form-control"
                                             value="{{ old('name') }}">
                                         @error('name')
@@ -52,7 +52,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="venue">Event Venue</label>
+                                        <label for="venue">*Event Venue</label>
                                         <input type="text" name="venue" id="venue" class="form-control"
                                             value="{{ old('venue') }}">
                                         @error('venue')
@@ -63,7 +63,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="date">Event Date</label>
+                                            <label for="date">*Event Date</label>
                                             <input type="text" name="date" id="date" class="form-control"
                                                 value="{{ old('date') }}">
                                         </div>
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="time">Event Time</label>
+                                            <label for="time">*Event Time</label>
                                             <input type="time" name="time" id="time" class="form-control"
                                                 value="{{ old('time') }}" />
                                         </div>
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <label for="image">Event Photo</label>
+                                        <label for="image">*Event Photo</label>
                                         <input type="file" name="image" id="image" class="form-control"
                                             value="{{ old('image') }}" accept="image/*">
                                         @error('image')
@@ -92,16 +92,16 @@
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="price">Event Price</label>
-                                        <input type="text" name="price" id="price" class="form-control"
+                                        <label for="price">*Event Price</label>
+                                        <input type="number" name="price" id="price" class="form-control"
                                             value="{{ old('price') }}">
                                         @error('price')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="quantity">Ticket Quantity</label>
-                                        <input type="text" name="quantity" id="quantity" class="form-control"
+                                        <label for="quantity">*Ticket Quantity</label>
+                                        <input type="number" name="quantity" id="quantity" class="form-control"
                                             value="{{ old('quantity') }}">
                                         @error('quantity')
                                             <span class="text-danger text-sm">{{ $message }}</span>
@@ -118,7 +118,7 @@
                                 <div class="row">
                                     <div class="col-10">
                                         <button type="submit"
-                                            class="btn btn-outline-success btn-sm float-end">Submit</button>
+                                            class="btn btn-outline-success btn-sm float-end">Add</button>
                                     </div>
                                     <div class="col-2">
                                         <button type="button" class="btn btn-outline-danger btn-sm float-start"
@@ -138,7 +138,8 @@
         $(document).ready(function() {
             // Initialize datepicker
             $('#date').datepicker({
-                showOtherMonths: true
+                showOtherMonths: true,
+                minDate: new Date() // Disable previous dates
             });
         });
     </script>

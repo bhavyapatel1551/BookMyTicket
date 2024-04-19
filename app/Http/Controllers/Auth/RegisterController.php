@@ -43,7 +43,9 @@ class RegisterController extends Controller
     // Create new user and store the data of user
     public function store(Request $request)
     {
-        // validate the user input fileds
+        /**
+         * Validate the input field of user
+         */
         $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -55,44 +57,53 @@ class RegisterController extends Controller
             'password.required' => 'Password is required',
             'terms.accepted' => 'You must accept the terms and conditions'
         ]);
-
+        /**
+         * Create new user and store data into database.
+         */
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-
-
-        // sent email to user email id to verify the user email id 
+        /**
+         * Genrate the random opt and sent to user's email
+         * put all data into sesson to sent along with the email
+         */
         $name = $request->input('name');
         $email = $request->input('email');
         $otp = rand(1000, 9999);
         session(['otp' => $otp]);
-
-        // put all data to session to sent along with the email
         Session::put('email', $email);
         Session::put('otp', $otp);
         Session::put('name', $name);
         Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
         Session::put('registration_in_progress', true);
-
         return Redirect()->route('showOtpForm');
     }
 
 
-    // show the verify otp form 
+    /**
+     * Show Verify otp form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function showOtpForm()
     {
-
+        /**
+         * If the Registration is in the process then show the otp form
+         * otherwise redirect to sign-up page
+         */
         if (Session::get('registration_in_progress')) {
             return view('auth.otp');
         }
-
         return redirect('/sign-up');
     }
 
-    // Genrate OTP for Google signin api
+    /**
+     * Genrate OTP for Google signin api
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function GoogleOTP(Request $request)
     {
 
@@ -100,32 +111,38 @@ class RegisterController extends Controller
         $name = $request->query('name');
 
         $otp = rand(1000, 9999);
-        // Log::info($name);
         session(['otp' => $otp]);
-
         Session::put('email', $email);
         Session::put('otp', $otp);
         Session::put('name', $name);
         Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
-
         Session::put('registration_in_progress', true);
-
         return Redirect()->route('showOtpForm');
     }
-    // verify the otp from the user email
+    /**
+     * Verify the OTP from user 
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function verifyOtp(Request $request)
     {
+        /**
+         * If suser is already logged-in then redirect to home route
+         */
         if (Auth::check()) {
             return redirect(RouteServiceProvider::HOME);
         }
-        // Get all data from session.
+        /**
+         * Get all data from session
+         */
         $email = session('email');
         $otp = session('otp');
         $otpAttempts = session('otp_attempts', 0);
 
-        // it will resent the otp to user email
+        /**
+         * If user resent the opt then sent another email and it will increment the otp attempts
+         */
         if ($request->input('action') === 'resend') {
-            // if the resend attempt are more than 3 than it will show the error message.
             if ($otpAttempts > 2) {
                 return back()->with('error', 'You have exceeded the maximum number of OTP generation attempts.');
             } else {
@@ -136,13 +153,13 @@ class RegisterController extends Controller
         } else {
             $userotp = $request->input('d1') . $request->input('d2') . $request->input('d3') . $request->input('d4');
 
-            // verify otp 
+            /**
+             * Verify the OTP
+             * Redirect to payment url
+             */
             if ($otp == $userotp) {
-
                 session(['otp_verified_' . md5($email) => true]);
                 Session::forget('registration_in_progress');
-
-                // if the varification is successfull than it will redirect to payment gate way to for registartion fees 
                 return redirect()->route('Registration.Fees');
             } else {
                 return back()->with('error', 'Invalid OTP. Please try again.');
@@ -150,19 +167,27 @@ class RegisterController extends Controller
         }
     }
 
-    // show payment gate way form for registartion fees process
+    /**
+     * Show Payment Gate Way Form
+     *
+     * @return mixed|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function RegistrationFees()
     {
+        /**
+         * Check if user is already logged-in or not
+         */
         if (Auth::check()) {
             return redirect(RouteServiceProvider::HOME);
         }
         $email = session('email');
         $user = User::where('email', $email)->first();
         if ($user->email_verified_at === null) {
-            // Set your Stripe API key.
+            /**
+             * Set your Stripe API key.
+             * Create Payment Gateway Session.
+             */
             \Stripe\Stripe::setApiKey(config('stripe.sk'));
-
-
             $paymentGateway = \Stripe\Checkout\Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => [
@@ -187,11 +212,17 @@ class RegisterController extends Controller
                 'success_url' => route('SuccessfullPayment'),
                 'cancel_url' => route('sign-up'),
             ]);
+            /**
+             * Redirect to Stripe url for payment 
+             */
             return redirect()->away($paymentGateway->url);
         }
     }
 
-    // on successfull payment it will verify the user email and login the user.
+    /**
+     * On SuccessFull payment it will login the user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function SuccessfullPayment()
     {
         $email = session('email');

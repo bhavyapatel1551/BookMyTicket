@@ -14,7 +14,7 @@
                             <div class="card-body text-start p-4 w-100">
                                 <h3 class="text-white mb-2">Book. Click. Enjoy 🔥</h3>
                                 <p class="mb-4 font-weight-semibold">
-                                    Create your own Evnets
+                                    Create your own Event
                                 </p>
                                 <a href="{{ route('OrganizerOrderDetails') }}" style="text-decoration: none;">
                                     <button type="button"
@@ -52,7 +52,7 @@
                                 <div class="d-sm-flex align-items-center">
                                     <div>
                                         <h6 class="font-weight-semibold text-lg mb-0">Event list</h6>
-                                        <p class="text-sm">See information about all Events</p>
+                                        <p class="text-sm">Information about all Events</p>
                                     </div>
                                     <div class="ms-auto d-flex">
 
@@ -67,7 +67,6 @@
                                 </div>
                             </div>
                             <div class="card-body px-0 py-0">
-
                                 <div class="table p-0">
                                     @if ($events->isEmpty())
                                         <p class="text-center p-5">No Events Available</p>
@@ -82,11 +81,7 @@
                                                     <th class="align-middle text-center ">Price</th>
                                                     <th class="align-middle text-center ">Ticket Left</th>
                                                     <th class="align-middle text-center ">Action</th>
-                                                    <th class="align-middle text-center ">View</th>
-
-
-
-
+                                                    <th class="align-middle text-center ">Purchased By</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

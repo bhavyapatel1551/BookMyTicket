@@ -13,15 +13,27 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class GoogleController extends Controller
 {
+    /**
+     * Redirect to Google sign-in link
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function loginwithgoogle()
     {
+        /**
+         * Check if the user is logged-in or not 
+         */
         if (Auth::check()) {
             return redirect(RouteServiceProvider::HOME);
         }
-        // redirect to Google sign-in link
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * Based on the email id it will check if the user is already registered or not
+     * If not registered then it will create a new user
+     * If registered then it will redirect to home page
+     * @return mixed|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function callbackFromGoogle()
     {
         if (Auth::check()) {
@@ -30,32 +42,36 @@ class GoogleController extends Controller
         try {
 
             $user = Socialite::driver('google')->user();
-            // Check if the user is already loged-in or not
+            /**
+             * Check if user is already logged-in or not
+             * if not then create new user into database
+             */
             $is_user = User::where('email', $user->getEmail())->first();
-
-            // if new user sign-in then create into database
             if (!$is_user) {
-                $saveUser = User::create([
+                User::create([
                     'name' => $user->getName(),
                     'email' => $user->getEmail(),
-                    'password' => Hash::make($user->getId() . ''), ////.$user->getId())
+                    'password' => Hash::make($user->getId() . ''),
                     'google_id' => $user->getId(),
                 ]);
                 // Redirect to Registartion Fees proccess
+                /**
+                 * Redirect to Registration Fees Process
+                 */
                 $redirectUrl = route('GoogleOTP', [
                     'email' => $user->getEmail(),
                     'name' => $user->getName()
                 ]);
                 return redirect($redirectUrl);
             } else {
-                // if user is already loged-in then it will get data from the database and login
-
-                $saveUser = User::where('email', $user->getEmail())->update([
-                    'google_id' => $user->getId(),
-                ]);
+                /**
+                 * If user is already Registered then it will get data from the database and login user
+                 */
                 $useremail = $user->getEmail();
                 $verify = User::where('email', $useremail)->first();
-                //if user's email is not verifed then it will sent the opt
+                /**
+                 * If user's email is not verifed then it will sent the otp
+                 */
                 if ($verify->email_verified_at ===  null) {
                     $redirectUrl = route('showOtpFormGoogle', [
                         'email' => $user->email,
@@ -64,9 +80,7 @@ class GoogleController extends Controller
 
                     return redirect($redirectUrl);
                 } else {
-                    // it will directly redirect to dashboard
                     $saveUser = User::where('email', $user->getEmail())->first();
-                    // if(Auth::attempt(['email' => $user->getEmail(), 'password' => $user->getName().'@'.$user->getId()])){
                     Auth::loginUsingId($saveUser->id);
                     return redirect()->route('dashboard');
                 }

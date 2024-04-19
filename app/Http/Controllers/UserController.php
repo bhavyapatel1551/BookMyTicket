@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    // Show the Admin dashboard for user management 
+    /**
+     * Show the Admin Dashboard for user management
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $user = Auth::user();
@@ -23,12 +26,15 @@ class UserController extends Controller
         }
     }
 
-    // show all the ticket details of the all the users.
+    /**
+     * Show all the ticket details of the all the users.
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function tickets($id)
     {
         $user = Auth::user();
         if ($user && $user->id === 0) {
-
             $username = User::where('id', $id)->first(["name"])->name;
             $events = Events::where('organizer_id', $id)->orderByDesc('created_at')->paginate(5);
             return view('Admin.viewEventsByUserId', compact('events', 'username'));
@@ -37,20 +43,32 @@ class UserController extends Controller
         }
     }
 
-
-    // Delete the any user.
+    /**
+     * Delete the any user
+     * @param mixed $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $hasEvents = Events::where('organizer_id', $id)->first();
+        /**
+         * If user has created any event then he can not be deleted by admin
+         */
         if ($hasEvents) {
             return redirect()->back()->with('error', 'The user has organized events and cannot be deleted.');
         }
+        /**
+         * If user has purchased any tickets then he cannot be deleted by admin
+         */
         $hasOrders = Order::where('user_id', $id)->first();
         if ($hasOrders) {
-            return redirect()->back()->with('error', 'The user has orders as an organizer and cannot be deleted.');
+            return redirect()->back()->with('error', 'The user has purchased ticket and cannot be deleted.');
         }
+        /**
+         * If the user has paid for the website then he can not be deleted by admin
+         */
         $donePayment = User::whereNotNull('email_verified_at');
-        if ($donePayment) {
+        if (!$donePayment) {
             return redirect()->back()->with('error', 'You can not delete this account because it has already paid!');
         } else {
             $user = User::findOrFail($id);
@@ -59,13 +77,17 @@ class UserController extends Controller
         }
     }
 
-    // Show purchased order to user and  admin.
+    /**
+     * Show Purchased order to user and admin
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function purchasedBy($id)
     {
         $organizer = Auth::user();
         $event = Events::find($id);
-        $id = $organizer->id;
-        if ($organizer && $event && $organizer->id === 0 || $event->organizer_id === $id) {
+        // $id = $organizer->id;
+        if ($organizer && $event && $organizer->id === 0 || $event->organizer_id === $organizer->id) {
             $purchases = Order::where('event_id', $id)->with('user')->get();
             return view('Admin.purchasedBy', compact('event', 'purchases'));
         } else {
@@ -73,7 +95,10 @@ class UserController extends Controller
         }
     }
 
-    // Show user users data to admin
+    /**
+     * Show user Statistics page to admin
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function UserStatistics()
     {
         $user_id =  Auth::user()->id;

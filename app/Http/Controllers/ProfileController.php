@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index()                                         // Show Profile Page of the user with his/her persnal info
+    /**
+     * Show Profile Page of the user with his/her persnal info
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index()
 
     {
         $user = User::find(Auth::id());
@@ -16,9 +20,17 @@ class ProfileController extends Controller
         return view('userProfile.UserProfile', compact('user'));
     }
 
-    public function update(Request $request)                       // Update the Persnal info of the user
+    /**
+     * Update the Pernnal info of the user
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
     {
-        $request->validate([                                        // validate the input field from the form
+        /**
+         * Validate the input field from the form
+         */
+        $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'location' => 'max:255',
@@ -29,10 +41,9 @@ class ProfileController extends Controller
             'email.required' => 'Email is required',
         ]);
 
-        $user = User::find(Auth::id());                              // Get the current Loged-in user's id
+        $user = User::find(Auth::id());
 
-
-        $user->update([                                               // Update into database
+        $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'location' => $request->location,
@@ -42,20 +53,35 @@ class ProfileController extends Controller
         return back()->with('success', 'Profile updated successfully.');
     }
 
-    public function showprofilephotoform()                          // Show Upload Profile Photo page
+    /**
+     * Show Upload Profile Photo page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function showprofilephotoform()
     {
 
         return view('userProfile.UpdateProfilePhoto');
     }
 
 
-    public function updateprofilephoto(Request $request)             // Upload the Profile Photo
+    /**
+     * Update Profile Photo
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function updateprofilephoto(Request $request)
     {
 
 
-        $data = $request->validate([                                   // Validate the image type and size of the image
+        /**
+         * Validate the image type and size of the image
+         */
+        $data = $request->validate([
             'photo' => 'mimes:jpeg,png,jpg,gif|max:10240',
         ]);
+        /**
+         * If the image is not null then store the image in the public folder and get the path of the image
+         */
         if ($request->hasFile('photo')) {
             $imagepath = $request->file('photo')->getClientOriginalName();
             $request->file('photo')->storeAs('pfp', $imagepath, 'public');
@@ -64,7 +90,7 @@ class ProfileController extends Controller
             $imagepath = null;
         }
 
-        $user = User::find(Auth::id());                              // get the current loged-in user's ud
+        $user = User::find(Auth::id());
         $user->update([
             'pfp' => $imagepath
         ]);

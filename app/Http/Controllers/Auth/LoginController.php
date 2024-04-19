@@ -37,38 +37,50 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-
+        /**
+         * Check for user if user not found then it will redirect back with error message.
+         */
         if (!$user) {
-            // User not found, redirect back with error message
             return back()->withErrors([
                 'message' => 'User with this email does not exist.',
             ])->withInput($request->only('email'));
         }
-        // if user is not verify then it will redirect to verify page.
+        /**
+         * If user is not verifed then it will redirect to verify page.
+         */
         if ($user->email_verified_at ===  null) {
-            // Store verification data in session for later use when user clicks on resend link or submit form
-            // Store verification data in session and redirect to enter OTP page
+            /**
+             * Store Verification data in session for later use when user clicks on resend link or submit form
+             * Genrate The random  number for opt and store in session
+             * Send the email to user with the random number
+             * Redirect to verify otp page
+             */
             $name = $user->name;
             $email = $request->input('email');
             $otp = rand(1000, 9999);
             session(['otp' => $otp]);
-
-            // get data from the session and sent the email to user to verify the user email.
             Session::put('email', $email);
             Session::put('otp', $otp);
             Session::put('name', $name);
             Mail::to($email)->send(new TestMail($otp, 'Sign-up OTP!'));
-            // atter sending the email it will redirect to the verifyotp page and add session progress on .
+            /**
+             * Add registration progress on session 
+             * redirect to verify opt 
+             * 
+             */
             Session::put('registration_in_progress', true);
-
             return redirect()->route('verifyOtp');
         }
         // if same user is trying to access the login page without verify and came form half way to registation prosess.
+        /**
+         * If same user is trying to access the login page without verify and came from half way to registration process then
+         * Clear the OTP attempt in session
+         * Redirect to verifyotp page
+         */
         if (Session::get('registration_in_progress') && $user) {
             $emailInSession = session('email');
 
             if ($emailInSession === $request->email) {
-                // Proceed to verify OTP
                 session(['otp_attempts' => 0]);
                 return redirect()->route('verifyOtp');
             }
@@ -77,22 +89,24 @@ class LoginController extends Controller
         $rememberMe = $request->rememberMe ? true : false;
 
         // if the user is verified then it will check for the password and login the user.
+        /**
+         * If user is verified then it will check for id and password and login the user
+         */
         if (Auth::attempt($credentials, $rememberMe)) {
             $request->session()->regenerate();
 
-            // Clear registration in progress only if the user is the same
+            /**
+             * Clear registration in progress if the user is the same
+             */
             if ($user && session('registration_in_progress') == $user->id) {
                 Session::forget('registration_in_progress');
             }
             if ($user->email_verified_at) {
-                // User's email is already verified, login and redirect to home
                 Auth::login($user);
 
                 return redirect()->intended('/dashboard');
             }
             if ($user->email_verified_at ==  null) {
-                // Store verification data in session for later use when user clicks on resend link or submit form
-                // Store verification data in session and redirect to enter OTP page
                 session(['email' => $request->email, 'registration_in_progress' => $user->id]);
 
                 return redirect()->route('verifyOtp');
@@ -109,8 +123,8 @@ class LoginController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * Logout the user
+     * Remove data from the session
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

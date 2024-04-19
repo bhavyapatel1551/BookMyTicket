@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function ShowAllTickets(Request $request)        // Show all the Ticket to user
+    /**
+     * Show all the Ticket to user
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function ShowAllTickets(Request $request)
     {
-        // Sort Ticket based on the option
+        /**
+         * Sort Ticket based on the option
+         */
         $sortBy = $request->query('sort_by');
         $sortBy = $sortBy ?: 'date_asc';
         $tickets = Events::query();
@@ -28,30 +35,42 @@ class TicketController extends Controller
                 $tickets->orderBy('price', 'desc');
                 break;
             default:
-                // Default sorting
                 $tickets->orderBy('updated_at', 'asc');
         }
-        // Search ticket 
+        // Search tic
+        /**
+         * Search Ticket based on Quaery string
+         */
         $searchTerm = $request->query('search');
         if ($searchTerm) {
             $tickets->where('name', 'like', '%' . $searchTerm . '%')
                 ->orWhere('venue', 'like', '%' . $searchTerm . '%')
                 ->orWhere('price', 'like', '%' . $searchTerm . '%');
         }
-        // Show all data based on user filtration
+        /**
+         * Show all data based on user Filtration
+         */
         $tickets = $tickets->where('quantity', '>', 0)->whereDate('date', '>', Carbon::today())->paginate(10);
         return view('dashboard', ['tickets' => $tickets]);
     }
 
 
-    // *** Currently pending
-    public function TicketInfo($id)     // Show  specific ticket info
+    /**
+     * Show Specifc Ticket Info
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function TicketInfo($id)
     {
         $ticket = Events::where('id', $id)->first();
         return view('tickets.TicketInfo', compact('ticket'));
     }
 
-    public function UserTicketOrder()       // Show list user's purchased order. 
+    /**
+     * Show list of user's purchesed order.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function UserTicketOrder()
     {
         return view('tickets.UserTicketOrder');
     }

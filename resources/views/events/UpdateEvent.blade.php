@@ -46,7 +46,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col-6 ">
-                                        <h5>Edit Your Event </h5>
+                                        <h5>Update Your Event </h5>
                                     </div>
                                     <div class="col-6 text-end">
                                         @if ($event->image)
@@ -61,7 +61,7 @@
 
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="name">Event Name</label>
+                                        <label for="name">*Event Name</label>
                                         <input type="text" name="name" id="name" class="form-control"
                                             value="{{ $event->name }}">
                                         @error('name')
@@ -69,7 +69,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="venue">Event Venue</label>
+                                        <label for="venue">*Event Venue</label>
                                         <input type="text" name="venue" id="venue" class="form-control"
                                             value="{{ $event->venue }}">
                                         @error('venue')
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="date">Event Date</label>
+                                        <label for="date">*Event Date</label>
                                         <input type="text" name="date" id="date" class="form-control"
                                             value="{{ $newDate }}">
                                         @error('date')
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="time">Event Time</label>
+                                            <label for="time">*Event Time</label>
                                             <input type="time" name="time" id="time" class="form-control"
                                                 value="{{ $newTime }}" />
                                         </div>
@@ -109,16 +109,16 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <label for="price">Event Price</label>
-                                        <input type="text" name="price" id="price" class="form-control"
+                                        <label for="price">*Event Price</label>
+                                        <input type="number" name="price" id="price" class="form-control"
                                             value="{{ $event->price }}">
                                         @error('price')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="quantity">Ticket Quantity</label>
-                                        <input type="text" name="quantity" id="quantity" class="form-control"
+                                        <label for="quantity">*Ticket Quantity</label>
+                                        <input type="number" name="quantity" id="quantity" class="form-control"
                                             value="{{ $event->quantity }}">
                                         @error('quantity')
                                             <span class="text-danger text-sm">{{ $message }}</span>
@@ -159,6 +159,7 @@
             // Initialize datepicker
             $('#date').datepicker({
                 showOtherMonths: true
+                minDate: new Date() // Disable previous dates
             });
 
             // Initialize timepicker

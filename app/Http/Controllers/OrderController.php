@@ -10,19 +10,28 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function UserPurchaseOrder()                                     // Show user's purchased ticket order list
+    /**
+     * Show user's purchesed ticket order list page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function UserPurchaseOrder()
     {
-        $user_id = Auth::id();                                              // get current user's info
-
+        $user_id = Auth::id();
         $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(10);
         return view('tickets.UserTicketOrder', compact('orders'));
     }
 
-    public function OrganizerOrderDetails()                                // show all Statistics related to organizer's events
+    /**
+     * Show Statistics Page to organizer's event
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function OrganizerOrderDetails()
     {
-        $user_id = Auth::id();                                             // Get current user's info
+        $user_id = Auth::id();
 
-        // Fetch all data like Related to sales and revenue
+        /**
+         * Fetch all data like Total/today's sales and revenue 
+         */
         $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate();
         $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
         $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
@@ -31,10 +40,13 @@ class OrderController extends Controller
         return view('events.EventStatistic', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
     }
 
-    public function TodaySales()                                          // Show today's sales page for organizer
+    /**
+     * Show today's sales page for organizer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function TodaySales()
     {
-        $user_id = Auth::id();                                           // get current user's info
-
+        $user_id = Auth::id();
         $orders = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->with('event', 'user')->orderByDesc('created_at')->paginate(10);
         $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
         $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
@@ -43,11 +55,18 @@ class OrderController extends Controller
         return view('events.Todaysale', compact('orders', 'Totalsale', 'Totalprice', 'Todaysale', 'Todayprice'));
     }
 
-    public function PurchasedTicket($id)                                // Show purchased ticket of user
+    /**
+     * Show purchesed ticket of user
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function PurchasedTicket($id)
     {
-        $user_id = Auth::id();                                          // get current user's info
+        $user_id = Auth::id();
         $orders = Order::where('id', $id)->first();
-        // if the ticket is purchased by authorized user then it will show ticket
+        /**
+         * If the ticket is purchesed by authorized user then it will show ticket
+         */
         $check = $orders->user_id == $user_id;
         if ($check) {
             $ticket = Order::where('id', $id)->with('event')->first();

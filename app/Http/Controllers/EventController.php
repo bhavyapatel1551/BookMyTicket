@@ -11,32 +11,51 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    public function ShowAllEvents()                         // Show event list created by the orgaizer
+    /**
+     * Show event list For Organizer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function ShowAllEvents()
     {
         $id = Auth::id();
         $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(10);
         return view('events.MyEvent', compact('events'));
     }
 
-    public function ShowCreateEventPage()                   //Show Create Event From
+    /**
+     * Show Create Event Form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function ShowCreateEventPage()
     {
         return view('events.CreateEvent');
     }
 
-    public function createEvent(Request $request)        //Store Event Data to the Database
+    /**
+     * Store Event Data to the Database
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createEvent(Request $request)
     {
 
-        $request->validate([                              // Validate input field from the form
+        /**
+         * Validate input field from the form
+         */
+        $request->validate([
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
             'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',           // validate if the the event date is aftre the today or not 
+            'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'about' => '',
             'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
-        // if the event has the image than it will store the image to the local folder in public/storage/event 
+        /**
+         * If the Event has the image then it will store the image to the loacl folder in public/storage/event
+         * otherwise store image path as null
+         */
         if ($request->hasFile('image')) {
             $imagepath = $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('event', $imagepath, 'public');
@@ -45,13 +64,14 @@ class EventController extends Controller
             $imagepath = null;
         }
 
-        $user = Auth::user();                                // get current user's data.
-
-        // change the date formate acoording to the database folder
+        $user = Auth::user();
+        /**
+         * Change the Date formaye according to Database Entry 
+         * then store data to datebase
+         */
         $date = Carbon::createFromFormat('m/d/Y', $request['date'], 'UTC')->format('Y-m-d');
         $organizer_id = $user->id;
-
-        Events::create([                                     // Store the data to database
+        Events::create([
             "name" => $request['name'],
             "venue" => $request['venue'],
             "date" => $date,
@@ -66,24 +86,42 @@ class EventController extends Controller
     }
 
 
-    public function ShowUpdateEventPage($id)        // Show Edit Event form
+    /**
+     * Show Edit Event Form
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function ShowUpdateEventPage($id)
     {
-        // find event data by event_id and get all data
+        /**
+         * Find Event data by event_id and get all data
+         */
         $event = Events::findOrFail($id);
         $date = $event->date;
         $time = $event->time;
-        // Change the formate of the date and time for the display inthe input box 
+        /**
+         * Change the formate of the date and time for the display in the input box
+         * Then show all info to edit form
+         */
         $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
         $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
-        // show all info related event to the edit form
         return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
     }
 
 
-    public function UpdateEvent($id, Request $request)      // Update Event data
+    /**
+     * Update Event Data
+     * @param mixed $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function UpdateEvent($id, Request $request)
     {
 
-        $request->validate([                                 // Validate the data from input field if the form
+        /**
+         * Validate the data from input field of  form
+         */
+        $request->validate([
             'name' => 'required|min:3',
             'venue' => 'required|min:3',
             'date' => 'required|date|after_or_equal:today',
@@ -93,7 +131,10 @@ class EventController extends Controller
             'about' => '',
             'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
         ]);
-        // if we change the event image then it will update into database otherwise it will keep it as old image
+        /**
+         * If we channge Event image then it will update into databse
+         * othewise it will keep it as old image 
+         */
         if ($request->hasFile('imageUpadte')) {
             $imagepath = $request->file('imageUpadte')->getClientOriginalName();
             $request->file('imageUpadte')->storeAs('event', $imagepath, 'public');
@@ -102,9 +143,11 @@ class EventController extends Controller
                 'image' => $imagepath,
             ]);
         }
-        // Change the formate of the date from the input box according to the database formate.
+        /**
+         * Change the formate of the data from the input box according the database formate.
+         * then update event data to datbase
+         */
         $date = Carbon::createFromFormat('m/d/Y', $request['date'])->format('Y-m-d');
-        // Update the event data to database
         Events::where('id', $id)->update([
             "name" => $request['name'],
             "venue" => $request['venue'],
@@ -118,10 +161,18 @@ class EventController extends Controller
     }
 
 
-    public function deleteEvent($id)                            // Delete the event 
+    /**
+     * Delete the Event
+     * @param mixed $id
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function deleteEvent($id)
     {
         $Order = Order::where('event_id', $id)->first();
-        // If the event is not sold out yet than we can delete that event otherwise we can not delete that event 
+        /**
+         * If any user has purchesed the ticket of that event then we can not delete that event
+         * otherwise we can delete that event.
+         */
         if ($Order) {
             return redirect('event')->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
         } else {

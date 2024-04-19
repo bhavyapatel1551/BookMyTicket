@@ -174,6 +174,7 @@ Route::get('/todaysales', [OrderController::class, 'TodaySales'])->name('TodaySa
 
 
 
+
 // Admin Route  -----------------------------------------------------------------------------------------------------------------
 
 // show user info to the admin

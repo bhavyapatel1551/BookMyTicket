@@ -12,22 +12,45 @@ use Illuminate\Support\Facades\Log;
 class CartController extends Controller
 {
 
-    public function ShowCart()                                          // Show cart page to user
+    /**
+     * Show Cart Page To user
+     */
+    public function ShowCart()
     {
-        // get the current user info
+        /**
+         * Get The Current user info
+         */
         $user = Auth::user();
 
-        // Check if the item in the cart it deleted by the organizer then it will automaticly delete from cart table
+        /**
+         * If the item in the cart deleted by the organizer then it will automaticly delete from cart table.
+         */
         Cart::where('user_id', $user->id)
             ->whereDoesntHave('event', function ($query) {
                 $query->whereNull('deleted_at');
             })->delete();
 
-        // Fetch the cart data of the user
+        $data = Cart::where('user_id', $user->id)->get();
+        foreach ($data as $d) {
+            $id = $d->event_id;
+            $event = Events::find($id);
+            if ($event) {
+                $d->update([
+                    'price' => $event->price,
+
+                ]);
+            }
+        }
+
+        /**
+         * Fetch The Cart Data of the user
+         */
         $cartItems = Cart::where('user_id', $user->id)
             ->with('event')->orderByDesc('updated_at')
             ->get();
-        // calculate total item , ticket , price of the whole cart 
+        /**
+         * Calculate total item, ticket, price of te whole cart.
+         */
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
         $Totalitem = Cart::where('user_id', $user->id)->count();
@@ -35,34 +58,41 @@ class CartController extends Controller
     }
 
 
-    public function AddtoCart($id)                                       // Add to cart table
+    /**
+     * Add Data to cart table
+     * @param mixed $id
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function AddtoCart($id)
     {
-        // get the current data of the user  who is trying to add into the cart.
         $user = Auth::user();
         $user_id = $user->id;
 
-        // Fetch all the data related to that event
+        /**
+         * Fetch all the data related to event
+         */
         $event = Events::findOrFail($id);
         $price = $event->price;
         $organizer_id = $event->organizer_id;
-
-        // Check if event has sufficient quantity of ticket if not then show message accordingly
-        if ($event->quantity <= 1) {
+        /**
+         * If event has sufficent quanityt of ticket if not then shhow message accordingly.
+         */
+        if ($event->quantity < 1) {
             return redirect()->back()->with('error', 'Insufficient quantity for Ticket : ' . $event->name);
         }
-
-        // Check if the ticket related that event is already in cart or not
+        /**
+         * Check if the ticket is already in cart or not.
+         * if the ticket is already in the cart then it will only increase the quantity of the ticket.
+         * if the ticket is new then it will create new entry for the ticket into cart.
+         */
         $cartItem = Cart::where('user_id', $user_id)
             ->where('event_id', $id)
             ->first();
-
-        // if the ticket is already in the cart then it will only increase the quantity of the ticket
         if ($cartItem) {
             $cartItem->increment('quantity');
             $cartItem->update([
                 'total_price' => $cartItem->quantity * $price,
             ]);
-            // if the ticket is new then it will create new entry for the ticket into cart
         } else {
             Cart::create([
                 'user_id' => $user_id,
@@ -78,27 +108,35 @@ class CartController extends Controller
 
 
 
-    public function paymentGateway()                                     // Redirect to payment gate for order
+    /**
+     * Redirect to Payment Gateway for order
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function paymentGateway()
     {
-        // Set your Stripe API key.
+        /**
+         * Set your Stripe API Key
+         */
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
-        // Get the current user's data
         $user = Auth::user();
         $email = $user->email;
-        // get total price , tickets and other info related to ticket
+        /**
+         * Get Total price, ticket and other info related to ticket
+         */
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
         $eventNames = Cart::where('user_id', $user->id)->with('event')->get();
-        $description = 'Purchase total  ' . $ticket . ' tickets for ';
-        // Show description about all ticket.
+        $description = 'Purchase total  ' . $ticket . " tickets";
         foreach ($eventNames as $eventName) {
-            $description .= $eventName->event->name . ' ' . $eventName->quantity . ' Tickets, ';
+            $description .= " | " . $eventName->event->name . ' ' . $eventName->quantity . ' Tickets, ';
         }
 
-        // Create a Payment Intent id for payment transition id 
+        /**
+         * Create a payment Intent id for payment transition id
+         */
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $SubTotal * 100,                                  // Convert Amount in cents
-            'currency' => 'INR',                                          //  Currency code
+            'amount' => $SubTotal * 100, // Convert Amount in cents
+            'currency' => 'INR', //  Currency code
             'description' => 'Payment for BookMyTicket.com',
             'metadata' => [
                 'user_id' => $user->id,
@@ -106,9 +144,11 @@ class CartController extends Controller
             ],
         ]);
 
-        // create payment gateway session for payent
+        /**
+         * Create Payment Gateway Session for Payment
+         */
         $paymentGateway = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],                          // mode of the payment
+            'payment_method_types' => ['card'], // mode of the payment
             'line_items' => [
                 [
                     'price_data' => [
@@ -117,29 +157,41 @@ class CartController extends Controller
                             'name' => 'BookMyTicket.com',
                             'description' => $description,
                         ],
-                        'unit_amount' => $SubTotal * 100,                // Convert to cents
+                        'unit_amount' => $SubTotal * 100, // Convert to cents
                     ],
                     'quantity' => 1,
                 ],
             ],
-            'customer_email' => $email,                                  // add customer's email id
-            'billing_address_collection' => 'required',                  // Request customer's blilling address
+            'customer_email' => $email, // add customer's email id
+            'billing_address_collection' => 'required', // Request customer's blilling address
             'mode' => 'payment',
             'success_url' => route('CheckOutOrder') . '?payment_intent=' . $paymentIntent->id,
-            'cancel_url' => route('cart'),                               // On cancel order it will redirect back to cart 
+            'cancel_url' => route('cart'), // On cancel order it will redirect back to cart 
         ]);
-        // it will redirect to stripe payment gateway url with payment intent id
+        /**
+         * It will redirect to stripe Payment Gateway url with payment intent id
+         */
         return redirect()->away($paymentGateway->url);
     }
 
 
-    public function CheckOutOrder(Request $request)                      // Place order after successfull payment
+    /**
+     *Place order after successfull Payment from Stripe .
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function CheckOutOrder(Request $request)
     {
 
-        $user = Auth::user();                                            //Get current user's data from authintication.
+        $user = Auth::user();
         $cartItems = Cart::where('user_id', $user->id)->get();
-        $paymentIntentId = $request->input('payment_intent');            // Retrieve the payment intent id from the request
-        // Create orders for each cart item
+        /**
+         * Retrieve the payment intent id from the reques.
+         */
+        $paymentIntentId = $request->input('payment_intent');
+        /**
+         * Create Order for each cart item and decrease the Quantity of the ticket 
+         */
         foreach ($cartItems as $item) {
             Events::where('id', $item->event_id)->decrement('quantity', $item->quantity);
             Order::create([
@@ -153,44 +205,59 @@ class CartController extends Controller
             ]);
         }
 
-        // After checkout it will empty the cart table
+        /**
+         * After the Checkout it will Empty the cart table 
+         */
         Cart::where('user_id', $user->id)->delete();
 
         return redirect('/cart')->with('success', 'Your Order is Placed !!');
     }
 
 
-    public function increaseQuantity($id)                                // Increase Quantity of the ticket.
+    /**
+     * Increase Quantity of th ticket.
+     * @param mixed $id
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
+    public function increaseQuantity($id)
     {
-        $user = Auth::user();                                            // Get the current user's info 
+        $user = Auth::user();
         $cart = Cart::where('id', $id)->first();
 
-        // Check if the event has sufficient quantity of ticket
+        /**
+         * Check if Event has sufficient quantity of ticket or not
+         * if it has then it will increase the qunaityt and price accordingly
+         * if it has insufficient quantity then it will show error message
+         */
         $event = Events::findOrFail($cart->event_id);
-        // if has then it will increase the quantity and price accordingly
         if ($event->quantity > $cart->quantity) {
             $cart->increment('quantity');
             $cart->update(['total_price' => $cart->quantity * $cart->price]);
-
             $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
             $ticket = Cart::where('user_id', $user->id)->sum('quantity');
-            // it will sent json data to through ajax request to web page
             return response()->json([
                 'quantity' => $cart->quantity,
                 'SubTotal' => '₹' . number_format($SubTotal),
                 'ticket' => number_format($ticket),
             ]);
-            // if Ticket has insufficient  quantity then show an error message.
         } else {
             return response()->json(['error' => 'Insufficient quantity for Ticket : ' . $event->name]);
         }
     }
-    public function decreaseQuantity($id)                               // Decrease the quanityt of the ticket
+    /**
+     * Decrease the quantity of the ticket.
+     * @param mixed $id
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
+    public function decreaseQuantity($id)
     {
-        $user = Auth::user();                                           // get current user's info
+        $user = Auth::user();
         $cart = Cart::where('id', $id)->first();
 
-        // If the quantity is less than 1 the it will delete the item from the cart
+        /**
+         * If the quantity is less than 1 then it will delete the item form the cart.
+         * otherwise it will decrease the qunatity of the item.
+         */
         if ($cart->quantity <= 1) {
             return response()->json(['delete' => true]);
         } else {
@@ -206,7 +273,12 @@ class CartController extends Controller
         }
     }
 
-    public function DeleteFromCart($id)                                 // Delete item form Cart
+    /**
+     * Delete item from Cart
+     * @param mixed $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function DeleteFromCart($id)
     {
         Cart::where("id", $id)->delete();
         return redirect()->back()->with("error", "Deleted from Cart!");

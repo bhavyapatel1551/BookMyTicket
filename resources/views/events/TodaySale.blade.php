@@ -13,7 +13,7 @@
                         <div class="card-body text-start p-4 w-100">
                             <h3 class="text-white mb-2">Book. Click. Enjoy 🔥</h3>
                             <p class="mb-4 font-weight-semibold">
-                                Create your own Evnets
+                                Create your own Event
                             </p>
                             <img src="{{ asset('eventmanage.png') }}" alt="Event"
                                 class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
@@ -84,7 +84,7 @@
                             <div class="d-sm-flex align-items-center">
                                 <div>
                                     <h6 class="font-weight-semibold text-lg mb-0">Today's Sales list</h6>
-                                    <p class="text-sm">See information about Today Sales list</p>
+                                    <p class="text-sm">Information about Today Sales list</p>
                                 </div>
 
                             </div>

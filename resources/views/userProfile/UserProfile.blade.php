@@ -85,7 +85,7 @@
                     <div class="col-10 ">
                         <div class="card " id="basic-info">
                             <div class="card-header">
-                                <h5>Basic Info</h5>
+                                <h5>Update Profile</h5>
                             </div>
                             <div class="pt-0 card-body">
                                 <div class="row">

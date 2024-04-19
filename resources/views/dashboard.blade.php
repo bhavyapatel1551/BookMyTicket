@@ -46,6 +46,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+
                     </div>
                 </div>
                 <link rel="stylesheet" href="{{ asset('assets/css/Ticketinfo.css') }}">
