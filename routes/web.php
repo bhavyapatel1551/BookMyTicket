@@ -55,7 +55,6 @@ Route::get('/logout', [LoginController::class, 'destroy'])->middleware('auth')->
 Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->middleware('guest')->name('password.email');
 
-// Show Reset Password Page 
 /**
  * Reset Password Routes 
  */
@@ -74,7 +73,7 @@ Route::get('/verify-otp-google', [RegisterController::class, 'GoogleOTP'])->name
  */
 Route::get('auth/google', [GoogleController::class, 'loginwithgoogle'])->name('login')->middleware('guest');
 Route::any('auth/google/callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback')->middleware('guest');
-
+Route::get('/GoogleOTP', [RegisterController::class, 'GoogleOTP'])->name('showOtpFormGoogle')->middleware('guest');
 /**
  * User Registration Fees Routes 
  */
@@ -143,11 +142,10 @@ Route::get('/eventDelete/{id}', [EventController::class, 'deleteEvent'])->name('
 Route::get('/dashboard', [TicketController::class, 'ShowAllTickets'])->name('dashboard')->middleware('auth');
 
 /**
- * Show Single Ticket Info
- * *** Currently Unavaible***
+ * Show Ticket Sent to Email 
+ *
  */
-Route::get('/ticket/{id}', [TicketController::class, 'TicketInfo'])->name('ticket.info')->middleware('auth');
-
+Route::get('/EmailTicket/{id}', [OrderController::class, 'EmailTicket'])->name('EmailTicket');
 
 
 // Show Cart Page 
@@ -207,7 +205,7 @@ Route::get('/todaysales', [OrderController::class, 'TodaySales'])->name('TodaySa
 
 
 /*
- * Admin MAnagement Related Routes --------------------------------------------------------------------------------------------  
+ * Admin Management Related Routes --------------------------------------------------------------------------------------------  
  */
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
 Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
@@ -225,6 +223,6 @@ Route::get('/mailform', function () {
     return view('mail.test');
 });
 
-Route::get('/test', function () {
-    return view('tickets.TicketInfo');
-});
+// Route::get('/test', function () {
+//     return view('tickets.TicketInfo');
+// });

@@ -75,4 +75,10 @@ class OrderController extends Controller
             abort(403, 'Unauthorized');
         }
     }
+
+    public function EmailTicket($id)
+    {
+        $ticket = Order::where('id', $id)->with('event')->first();
+        return view('tickets.PurchasedTicket', compact('ticket'));
+    }
 }

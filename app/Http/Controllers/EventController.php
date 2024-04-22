@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SentEmailForUpdatedEvent;
+use App\Events\SentEmailForUpdateEvent;
+use App\Jobs\Jobs;
+use App\Jobs\UpdateEventSentMail;
 use App\Models\Cart;
 use App\Models\Events;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
@@ -82,7 +87,7 @@ class EventController extends Controller
             "image" => $imagepath,
             'organizer_id' => $organizer_id,
         ]);
-        return redirect()->route("event")->with('success', 'Event created successfully!');
+        return redirect()->route("event")->with("success", "Event has been successfully created!");
     }
 
 
@@ -157,7 +162,9 @@ class EventController extends Controller
             "quantity" => $request['quantity'],
             "about" => $request['about'],
         ]);
-        return redirect()->route("event")->with('success', 'Event Updated successfully!');
+        // Jobs::dispatch($id);
+        UpdateEventSentMail::dispatch($id);
+        return redirect()->route("event")->with("success", "Event successfully updated!");
     }
 
 
@@ -174,7 +181,7 @@ class EventController extends Controller
          * otherwise we can delete that event.
          */
         if ($Order) {
-            return redirect('event')->with('error', 'Someone Has Purchesed Your Ticket You Can not Deleted it now!!');
+            return redirect('event')->with('error', 'This ticket cannot be deleted as it has already been purchased by someone.');
         } else {
             Events::where('id', $id)->delete();
             return redirect('event')->with('error', 'Event Deleted successfully!');

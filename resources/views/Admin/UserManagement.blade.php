@@ -37,9 +37,6 @@
                             <div class="row">
                                 <div class="col-6">
                                     <h5 class="">User Management</h5>
-                                    <p class="mb-0 text-sm">
-                                        Here you can manage your users.
-                                    </p>
                                 </div>
                                 {{-- Error/Success Message  --}}
                                 <div class="row justify-content-center">

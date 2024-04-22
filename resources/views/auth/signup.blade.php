@@ -47,7 +47,8 @@
                                         </div>
                                     </div>
                                     <div class="text-start position-absolute fixed-bottom ms-7">
-                                        <h6 class="text-white text-sm mb-5">Copyright © 2024 by bookmyticket.com</h6>
+                                        <h6 class="text-white text-sm mb-5">Copyright © {{ date('Y') }} by
+                                            bookmyticket.com</h6>
                                     </div>
                                 </div>
                             </div>

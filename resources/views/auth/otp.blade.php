@@ -5,9 +5,37 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OTP Verification Page</title>
+
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <script src="otp.js"></script>
+
+
     </head>
+    <style>
+        /* Bootstrap-style alert */
+        .bootstrap-alert {
+            /* Example styles for error alert */
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+        }
+
+        /* Custom success alert */
+        .bootstrap-alert-success {
+            /* Example styles for success alert */
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+        }
+    </style>
     <style>
         #resendBtn[disabled] {
             background-color: #ddd;
@@ -33,15 +61,13 @@
                                 <p class="text-[15px] text-slate-500">Enter the 4-digit verification code that was sent
                                     to your Email id.</p>
                             </header>
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                            @if (Session::has('error'))
+                                <div class="bootstrap-alert">{{ Session::get('error') }}</div>
                             @endif
+                            @if (Session::has('message'))
+                                <div class="bootstrap-alert-success">{{ Session::get('message') }}</div>
+                            @endif
+
                             <div>Number of OTP attempts: {{ session('otp_attempts') }}</div>
                             <form action="" id="otp-form" method="post">
                                 {{ session('otp') }}
@@ -97,12 +123,15 @@
                     resendButton.disabled = true;
                     resendMsg.innerText = 'You can resend OTP after ' + timer + ' seconds.';
                     setTimeout(startTimer, 1000);
+
                 } else {
                     resendMsg.innerText = '';
                     resendButton.disabled = false; // Enable the button
                 }
             }
+
             startTimer();
+
             resendButton.addEventListener('click', function() {
                 if (!resendButton.disabled) {
                     resendButton.disabled = true;

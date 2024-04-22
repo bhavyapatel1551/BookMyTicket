@@ -121,36 +121,39 @@
                                     </div>
                                     <div class="col-6">
                                         <label for="phone">Phone</label>
-                                        <input type="text" name="phone" id="phone" placeholder="733456987"
-                                            value="{{ old('phone', auth()->user()->phone) }}" class="form-control">
-                                        @error('phone')
-                                            <span class="text-danger text-sm">{{ $message }}</span>
-                                        @enderror
+                                        <div class="form-group">
+                                            <input type="text" id="mobile_code" class="js-states form-control"
+                                                name='phone' value="{{ old('location', auth()->user()->phone) }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row p-2">
-                                    <label for="about">About me</label>
-                                    <textarea name="aboutyou" id="aboutyou" rows="3" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
-                                    @error('aboutyou')
+                                    @error('phone')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="row mb-0">
-                                    <div class="col-10">
-                                        <button type="submit"
-                                            class="btn btn-outline-success btn-sm float-end">Submit</button>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" class="btn btn-outline-danger btn-sm float-start"
-                                            onclick="window.location.href='{{ route('user.profile') }}'">Cancel</button>
-                                    </div>
+                            </div>
+                            <div class="row ps-4 pe-4">
+                                <label for="about">About me</label>
+                                <textarea name="aboutyou" id="aboutyou" rows="3" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
+                                @error('aboutyou')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="row mb-0">
+                                <div class="col-10">
+                                    <button type="submit"
+                                        class="btn btn-outline-success btn-sm float-end">Submit</button>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-outline-danger btn-sm float-start"
+                                        onclick="window.location.href='{{ route('user.profile') }}'">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-            {{-- End of User's Info Update Form  --}}
+        </div>
+        </form>
+        {{-- End of User's Info Update Form  --}}
         </div>
         <x-app.footer />
         </div>

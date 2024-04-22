@@ -50,7 +50,7 @@ class ProfileController extends Controller
             'phone' => $request->phone,
             'about' => $request->aboutyou,
         ]);
-        return back()->with('success', 'Profile updated successfully.');
+        return back()->with("success", "Profile updated successfully!");
     }
 
     /**
@@ -94,6 +94,6 @@ class ProfileController extends Controller
         $user->update([
             'pfp' => $imagepath
         ]);
-        return redirect('/user/profile')->with('success', 'Photo uploaded!!');
+        return redirect('/user/profile')->with("success", "Photo uploaded successfully!");
     }
 }

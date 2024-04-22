@@ -17,7 +17,6 @@
                     @endif
                 </a>
                 <span class="nav-link-text ms-1 text-white">{{ auth()->user()->name }}</span>
-                <span class="nav-link-text ms-1 text-white">{{ auth()->user()->email }}</span>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
@@ -63,7 +62,7 @@
                     <a class="nav-link" href="{{ route('users-management') }}">
                         <div
                             class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-list-check"></i>
+                            <i class=" fas fa-users"></i>
                         </div>
                         <span class="nav-link-text ms-1">Manage User</span>
                     </a>

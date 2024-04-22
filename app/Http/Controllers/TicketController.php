@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -59,10 +60,10 @@ class TicketController extends Controller
      * @param mixed $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function TicketInfo($id)
+    public function EmailTicket($id)
     {
-        $ticket = Events::where('id', $id)->first();
-        return view('tickets.TicketInfo', compact('ticket'));
+        $ticket = Order::where('id', $id)->with('event')->first();
+        return view('tickets.EmailTicket', compact('ticket'));
     }
 
     /**

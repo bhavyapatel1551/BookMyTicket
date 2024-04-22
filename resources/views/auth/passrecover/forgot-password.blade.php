@@ -43,8 +43,8 @@
                                                 value="{{ old('email') }}" required autofocus>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="my-4 mb-2 btn btn-dark btn-lg w-100">Email
-                                                password reset link</button>
+                                            <button type="submit" class="my-4 mb-2 btn btn-dark btn-lg w-100">Sent
+                                                Email</button>
                                         </div>
                                     </form>
                                 </div>
@@ -56,10 +56,11 @@
                                     style="background-image:url('../assets/img/image-sign-in.jpg')">
                                     <div
                                         class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4">
-                                        <h2 class="mt-3 text-dark font-weight-bold">Enter our global community of
-                                            developers.</h2>
-                                        <h6 class="text-dark text-sm mt-5">Copyright © 2022 Corporate UI Design System
-                                            by Creative Tim.</h6>
+                                        <h2 class="mt-3 text-dark font-weight-bold">Book My Tickets</h2>
+                                        <p class="mb-0">Book. Click. Enjoy.</p>
+                                        <h6 class="text-dark text-sm mt-5">Copyright © {{ date('Y') }} by
+                                            bookmyticket.com
+                                        </h6>
                                     </div>
                                 </div>
                             </div>

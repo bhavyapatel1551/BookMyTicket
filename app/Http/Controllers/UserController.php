@@ -55,25 +55,25 @@ class UserController extends Controller
          * If user has created any event then he can not be deleted by admin
          */
         if ($hasEvents) {
-            return redirect()->back()->with('error', 'The user has organized events and cannot be deleted.');
+            return redirect()->back()->with('error', 'This user cannot be deleted because they have organized events.');
         }
         /**
          * If user has purchased any tickets then he cannot be deleted by admin
          */
         $hasOrders = Order::where('user_id', $id)->first();
         if ($hasOrders) {
-            return redirect()->back()->with('error', 'The user has purchased ticket and cannot be deleted.');
+            return redirect()->back()->with('error', 'This user cannot be deleted because they have purchased tickets.');
         }
         /**
          * If the user has paid for the website then he can not be deleted by admin
          */
         $donePayment = User::whereNotNull('email_verified_at');
         if (!$donePayment) {
-            return redirect()->back()->with('error', 'You can not delete this account because it has already paid!');
+            return redirect()->back()->with('error', 'You cannot delete this account because it has an active subscription.');
         } else {
             $user = User::findOrFail($id);
             $user->delete();
-            return redirect()->back()->with('success', 'User Deleted Succefully.');
+            return redirect()->back()->with('success', 'User deleted successfully.');
         }
     }
 

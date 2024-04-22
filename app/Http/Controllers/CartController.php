@@ -81,7 +81,7 @@ class CartController extends Controller
          * If event has sufficent quanityt of ticket if not then shhow message accordingly.
          */
         if ($event->quantity < 1) {
-            return redirect()->back()->with('error', 'Insufficient quantity for Ticket : ' . $event->name);
+            return redirect()->back()->with('error', "The quantity for ticket '{$event->name}' is insufficient.");
         }
         /**
          * Check if the ticket is already in cart or not.
@@ -106,7 +106,7 @@ class CartController extends Controller
                 'total_price' => $price,
             ]);
         }
-        return redirect('dashboard')->with('success', 'Added to Cart!');
+        return redirect('dashboard')->with('success', "Item successfully added to your cart!");
     }
 
 
@@ -213,7 +213,7 @@ class CartController extends Controller
          */
         Cart::where('user_id', $user->id)->delete();
 
-        return redirect('/cart')->with('success', 'Your Order is Placed !!');
+        return redirect('/cart')->with('success', "Your order has been successfully placed!");
     }
 
 
@@ -244,7 +244,7 @@ class CartController extends Controller
                 'ticket' => number_format($ticket),
             ]);
         } else {
-            return response()->json(['error' => 'Insufficient quantity for Ticket : ' . $event->name]);
+            return response()->json(['error' => 'Ticket quantity for ' . $event->name . ' is insufficient.']);
         }
     }
     /**
@@ -284,6 +284,6 @@ class CartController extends Controller
     public function DeleteFromCart($id)
     {
         Cart::where("id", $id)->delete();
-        return redirect()->back()->with("error", "Deleted from Cart!");
+        return redirect()->back()->with("error", "Item removed frome cart!");
     }
 }

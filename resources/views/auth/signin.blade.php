@@ -91,7 +91,8 @@
                                         class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4">
                                         <h2 class="mt-3 text-dark font-weight-bold">Book My Tickets</h2>
                                         <p class="mb-0">Book. Click. Enjoy.</p>
-                                        <h6 class="text-dark text-sm mt-5">Copyright © 2024 by bookmyticket.com
+                                        <h6 class="text-dark text-sm mt-5">Copyright © {{ date('Y') }} by
+                                            bookmyticket.com
                                         </h6>
                                     </div>
                                 </div>
