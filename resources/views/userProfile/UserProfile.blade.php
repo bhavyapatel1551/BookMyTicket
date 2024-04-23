@@ -1,5 +1,7 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css'>
+
         <style>
             .edit-icon {
                 position: absolute;
@@ -120,23 +122,26 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="phone">Phone</label>
-                                        <div class="form-group">
-                                            <input type="text" id="mobile_code" class="js-states form-control"
-                                                name='phone' value="{{ old('location', auth()->user()->phone) }}">
-                                        </div>
+                                        <label for="phone">Phone Number</label>
+                                        <br>
+                                        <input type="text" id="mobile_code" class="form-control"
+                                            value="{{ old('location', auth()->user()->phone) }}"
+                                            placeholder="Phone Number" name="phone">
+
+                                        @error('phone')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('phone')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="row ps-4 pe-4">
-                                <label for="about">About me</label>
-                                <textarea name="aboutyou" id="aboutyou" rows="3" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
-                                @error('aboutyou')
-                                    <span class="text-danger text-sm">{{ $message }}</span>
-                                @enderror
+                                <div class="col-12">
+                                    <label for="about">About me</label>
+                                    <textarea name="aboutyou" id="aboutyou" rows="3" class="form-control">{{ old('about', auth()->user()->about) }}</textarea>
+                                    @error('aboutyou')
+                                        <span class="text-danger text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row mb-0">
                                 <div class="col-10">
@@ -157,5 +162,9 @@
         </div>
         <x-app.footer />
         </div>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/gh/linuxguist/countries@main/script.js"></script>
+
     </main>
 </x-app-layout>
