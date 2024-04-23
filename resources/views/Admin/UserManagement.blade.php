@@ -63,22 +63,26 @@
                                 <thead>
                                     <tr>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            ID</th>
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
+                                            <a href="{{ route('users-management', ['sort_by' => 'id']) }}"
+                                                class="text-dark " style="text-decoration: none">ID</a>
+                                        </th>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
                                             Photo</th>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary ">
-                                            Name</th>
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
+                                            <a href="{{ route('users-management', ['sort_by' => 'name']) }}"
+                                                class="text-dark " style="text-decoration: none">name</a>
+                                        </th>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
                                             Email</th>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
                                             Creation Date</th>
                                         <th
-                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
+                                            class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-dark">
                                             Action</th>
                                     </tr>
                                 </thead>

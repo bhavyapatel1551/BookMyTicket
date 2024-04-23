@@ -79,14 +79,29 @@
                                         <table class="table align-items-center mb-0 w-100">
                                             <thead class="bg-gray-100">
                                                 <tr>
-                                                    <th class="align-middle ps-5 ">Name</th>
-                                                    <th class="align-middle text-center ">Vanue</th>
-                                                    <th class="align-middle text-center ">Time</th>
-                                                    <th class="align-middle text-center ">Date</th>
-                                                    <th class="align-middle text-center ">Price</th>
-                                                    <th class="align-middle text-center ">Ticket Left</th>
+                                                    <th class="align-middle ps-5"><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('event', ['sort_by' => 'name']) }}">name</a>
+                                                    </th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('event', ['sort_by' => 'venue']) }}">venue</a>
+                                                    </th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('event', ['sort_by' => 'time']) }}">time</a>
+                                                    </th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('event', ['sort_by' => 'date']) }}">date</a>
+                                                    </th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('event', ['sort_by' => 'price']) }}">price</a>
+                                                    </th>
+                                                    <th class="align-middle text-center ">Quantity</th>
                                                     <th class="align-middle text-center ">Action</th>
-                                                    <th class="align-middle text-center ">Purchased By</th>
+                                                    <th class="align-middle text-center ">View</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

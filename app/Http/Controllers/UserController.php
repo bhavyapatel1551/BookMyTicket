@@ -15,11 +15,20 @@ class UserController extends Controller
      * Show the Admin Dashboard for user management
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user && $user->id === 0) {
             $users = User::paginate(10);
+            $sortBy = $request->query('sort_by');
+            switch ($sortBy) {
+                case 'id':
+                    $users = User::orderBy('id', 'asc')->paginate(10);
+                    break;
+                case 'name':
+                    $users = User::orderBy('name', 'asc')->paginate(10);
+                    break;
+            }
             return view('Admin.UserManagement', compact('users'));
         } else {
             abort(403, 'Unauthorized');

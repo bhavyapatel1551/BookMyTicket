@@ -20,10 +20,46 @@ class EventController extends Controller
      * Show event list For Organizer
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function ShowAllEvents()
+    public function ShowAllEvents(Request $request)
     {
         $id = Auth::id();
-        $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(10);
+        $sortBy = $request->query('sort_by');
+
+        // Default sorting if no option is selected
+        $sortBy = $sortBy ?: 'name';
+        $sortBy = $sortBy ?: 'venue';
+        $sortBy = $sortBy ?: 'time';
+        $sortBy = $sortBy ?: 'date';
+        $sortBy = $sortBy ?: 'price';
+        $sortBy = $sortBy ?: 'action';
+        // $sortBy = $sortBy ?: 'date_asc';
+        // $sortBy = $sortBy ?: 'alpha_asc';
+
+        $events = Events::query();
+
+
+        switch ($sortBy) {
+            case 'name':
+                $events->orderBy('name', 'asc');
+                break;
+            case 'venue':
+                $events->orderBy('venue', 'asc');
+                break;
+            case 'time':
+                $events->orderBy('time', 'asc');
+                break;
+            case 'date':
+                $events->orderBy('date', 'asc');
+                break;
+            case 'price':
+                $events->orderBy('price', 'asc');
+                break;
+            default:
+                // Default sorting
+                $events->orderBy('updated_at', 'desc');
+        }
+        $events = $events->where('organizer_id', $id)->paginate(10);
+        // $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(5);
         return view('events.MyEvent', compact('events'));
     }
 

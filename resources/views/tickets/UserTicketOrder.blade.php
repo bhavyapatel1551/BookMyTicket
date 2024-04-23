@@ -44,11 +44,17 @@
                                             <thead class="bg-gray-100">
                                                 <tr>
                                                     <th class="align-middle text-center  ">Name</th>
-                                                    <th class="align-middle text-center ">Vanue</th>
+                                                    <th class="align-middle text-center ">Venue</th>
                                                     <th class="align-middle text-center ">Time</th>
                                                     <th class="align-middle text-center ">Date</th>
-                                                    <th class="align-middle text-center ">Price</th>
-                                                    <th class="align-middle text-center ">Quantity</th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('userPurchaseOrder', ['sort_by' => 'price']) }}">Price</a>
+                                                    </th>
+                                                    <th class="align-middle text-center "><a class="text-dark "
+                                                            style="text-decoration: none"
+                                                            href="{{ route('userPurchaseOrder', ['sort_by' => 'quantity']) }}">Quantity</a>
+                                                    </th>
                                                     <th class="align-middle text-center ">Purchase Time</th>
                                                     <th class="align-middle text-center ">View</th>
                                                 </tr>

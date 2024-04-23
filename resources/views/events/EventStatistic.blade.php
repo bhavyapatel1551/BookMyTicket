@@ -98,10 +98,17 @@
                                         <thead class="bg-gray-100">
                                             <tr>
                                                 <th class="align-middle ps-5 ">Customer Name</th>
-                                                <th class="align-middle  ps-4   ">Event Name</th>
-                                                <th class="align-middle text-center ">Price</th>
-                                                <th class="align-middle text-center ">Quantity</th>
+                                                <th class="align-middle ">Event Name</th>
+                                                <th class="align-middle text-center "><a class="text-dark "
+                                                        style="text-decoration: none"
+                                                        href="{{ route('OrganizerOrderDetails', ['sort_by' => 'price']) }}">Price</a>
+                                                </th>
+                                                <th class="align-middle text-center "><a class="text-dark "
+                                                        style="text-decoration: none"
+                                                        href="{{ route('OrganizerOrderDetails', ['sort_by' => 'quantity']) }}">Quantity</a>
+                                                </th>
                                                 <th class="align-middle text-center ">Purchase Date</th>
+                                                {{-- <th class="align-middle text-center ">View</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>

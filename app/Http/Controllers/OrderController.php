@@ -14,25 +14,90 @@ class OrderController extends Controller
      * Show user's purchesed ticket order list page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function UserPurchaseOrder()
+    public function UserPurchaseOrder(Request $request)
     {
         $user_id = Auth::id();
-        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(10);
+        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(5);
+        $sortBy = $request->query('sort_by');
+        switch ($sortBy) {
+                // case 'name':
+                //     $orders = Order::where('user_id', $user_id)
+                //         ->with(['event' => function ($query) {
+                //             $query->orderBy('name', 'asc');
+                //         }])
+                //         ->paginate(5);
+                //     break;
+                // case 'venue':
+                //     $orders = Order::where('user_id', $user_id)
+                //         ->with(['event' => function ($query) {
+                //             $query->orderBy('venue', 'asc');
+                //         }])
+                //         ->paginate(5);
+                //     break;
+                // case 'time':
+                //     $orders = Order::where('user_id', $user_id)
+                //         ->with(['event' => function ($query) {
+                //             $query->orderBy('time', 'asc');
+                //         }])
+                //         ->paginate(5);
+                //     break;
+                // case 'date':
+                //     $orders = Order::where('user_id', $user_id)
+                //         ->with(['event' => function ($query) {
+                //             $query->orderBy('date', 'asc');
+                //         }])
+                //         ->paginate(5);
+                //     break;
+            case 'price':
+                $orders = Order::where('user_id', $user_id)->orderBy('price', 'asc')
+                    ->paginate(5);
+                break;
+            case 'quantity':
+                $orders = Order::where('user_id', $user_id)->orderBy('quantity', 'asc')
+                    ->paginate(5);
+                break;
+            default:
+                $orders = Order::where('user_id', $user_id)->orderByDesc('created_at')->paginate(5);
+        }
         return view('tickets.UserTicketOrder', compact('orders'));
     }
-
     /**
      * Show Statistics Page to organizer's event
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function OrganizerOrderDetails()
+    public function OrganizerOrderDetails(Request $request)
     {
         $user_id = Auth::id();
-
-        /**
-         * Fetch all data like Total/today's sales and revenue 
-         */
-        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate();
+        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate(5);
+        $sortBy = $request->query('sort_by');
+        switch ($sortBy) {
+                // case 'event_name':
+                //     $orders = Order::where('organizer_id', $user_id)
+                //         ->with(['event' => function ($query) {
+                //             $query->orderBy('name', 'asc');
+                //         }])
+                //         ->with('user')
+                //         // ->orderByDesc('created_at')
+                //         ->paginate(5);
+                //     break;
+                // case 'customer_name':
+                //     $orders = Order::where('organizer_id', $user_id)
+                //         ->with(['user' => function ($query) {
+                //             $query->orderBy('name', 'asc');
+                //         }])
+                //         ->with('event')
+                //         // ->orderByDesc('created_at')
+                //         ->paginate(5);
+                //     break;
+            case 'quantity':
+                $orders = Order::where('organizer_id', $user_id)->orderBy('quantity', 'asc')->paginate(5);
+                break;
+            case 'price':
+                $orders = Order::where('organizer_id', $user_id)->orderBy('price', 'asc')->paginate(5);
+                break;
+            default:
+                $orders = Order::where('organizer_id', $user_id)->orderByDesc('created_at')->paginate(5);
+        }
         $Totalsale = Order::where('organizer_id', $user_id)->sum('quantity');
         $Todaysale = Order::where('organizer_id', $user_id)->whereDate('created_at', Carbon::today())->sum('quantity');
         $Totalprice = Order::where('organizer_id', $user_id)->sum('total_price');
