@@ -34,7 +34,7 @@ class ProfileController extends Controller
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'location' => 'max:255',
-            'phone' => 'numeric|digits:10',
+            'phone' => 'numeric',
             'aboutyou' => 'max:255',
         ], [
             'name.required' => 'Name is required',

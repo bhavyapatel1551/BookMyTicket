@@ -94,7 +94,7 @@
                             <div class="pt-0 card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="name">Name</label>
+                                        <label for="name">Name *</label>
                                         <input type="text" name="name" id="name"
                                             value="{{ old('name', auth()->user()->name) }}" class="form-control">
                                         @error('name')
@@ -102,7 +102,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email *</label>
                                         <input type="email" name="email" id="email"
                                             value="{{ old('email', auth()->user()->email) }}" class="form-control">
                                         @error('email')
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="location">Location</label>
+                                        <label for="location">Location *</label>
                                         <input type="text" name="location" id="location"
                                             placeholder="Gujarat, India"
                                             value="{{ old('location', auth()->user()->location) }}"
@@ -122,7 +122,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="phone">Phone Number</label>
+                                        <label for="phone">Phone Number *</label>
                                         <br>
                                         <input type="text" id="mobile_code" class="form-control"
                                             value="{{ old('location', auth()->user()->phone) }}"
@@ -162,6 +162,9 @@
         </div>
         <x-app.footer />
         </div>
+        <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js'></script>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js'></script>
         <script src="https://cdn.jsdelivr.net/gh/linuxguist/countries@main/script.js"></script>

@@ -50,7 +50,7 @@
                             <div class="pt-0 card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="name">*Event Name</label>
+                                        <label for="name">Event Name *</label>
                                         <input type="text" name="name" id="name" class="form-control"
                                             value="{{ old('name') }}">
                                         @error('name')
@@ -58,7 +58,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="venue">*Event Venue</label>
+                                        <label for="venue">Event Venue *</label>
                                         <input type="text" name="venue" id="venue" class="form-control"
                                             value="{{ old('venue') }}">
                                         @error('venue')
@@ -69,7 +69,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="date">*Event Date</label>
+                                            <label for="date">Event Date *</label>
                                             <input type="text" name="date" id="date" class="form-control"
                                                 value="{{ old('date') }}">
                                         </div>
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="time">*Event Time</label>
+                                            <label for="time">Event Time *</label>
                                             <input type="time" name="time" id="time" class="form-control"
                                                 value="{{ old('time') }}" />
                                         </div>
@@ -90,15 +90,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <label for="image">*Event Photo</label>
+                                        <label for="image">Event Photo *</label>
                                         <input type="file" name="image" id="image" class="form-control"
-                                            value="{{ old('image') }}" accept="image/*">
+                                            value="{{ old('image') }}" accept="image/">
                                         @error('image')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="price">*Event Price</label>
+                                        <label for="price">Event Price *</label>
                                         <input type="number" name="price" id="price" class="form-control"
                                             value="{{ old('price') }}">
                                         @error('price')
@@ -106,8 +106,8 @@
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="quantity">*Ticket Quantity</label>
-                                        <input type="number" name="quantity" id="quantity" class="form-control"
+                                        <label for="quantity">Ticket Quantity *</label>
+                                        <input type="text" name="quantity" id="quantity" class="form-control"
                                             value="{{ old('quantity') }}">
                                         @error('quantity')
                                             <span class="text-danger text-sm">{{ $message }}</span>
@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="row p-2">
-                                    <label for="about">Event Description</label>
+                                    <label for="about">Event Description </label>
                                     <textarea name="about" id="about" rows="3" class="form-control">{{ old('about') }}</textarea>
                                     @error('about')
                                         <span class="text-danger text-sm">{{ $message }}</span>
@@ -142,7 +142,9 @@
         <x-app.footer />
         </div>
     </main>
-
+    <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js'></script>
     <script>
         // jQuery for DatePicker 
         $(document).ready(function() {

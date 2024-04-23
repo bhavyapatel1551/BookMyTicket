@@ -62,7 +62,7 @@
                             <div class="pt-0 card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="name">*Event Name</label>
+                                        <label for="name">Event Name *</label>
                                         <input type="text" name="name" id="name" class="form-control"
                                             value="{{ $event->name }}">
                                         @error('name')
@@ -70,7 +70,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="venue">*Event Venue</label>
+                                        <label for="venue">Event Venue *</label>
                                         <input type="text" name="venue" id="venue" class="form-control"
                                             value="{{ $event->venue }}">
                                         @error('venue')
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="date">*Event Date</label>
+                                        <label for="date">Event Date *</label>
                                         <input type="text" name="date" id="date" class="form-control"
                                             value="{{ $newDate }}">
                                         @error('date')
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="cs-form">
-                                            <label for="time">*Event Time</label>
+                                            <label for="time">Event Time *</label>
                                             <input type="time" name="time" id="time" class="form-control"
                                                 value="{{ $newTime }}" />
                                         </div>
@@ -103,13 +103,13 @@
                                     <div class="col-4">
                                         <label for="image">Event Photo</label>
                                         <input type="file" name="imageUpadte" id="imageUpadte" class="form-control"
-                                            value="{{ $event->image }}" accept="image/*">
+                                            value="{{ $event->image }}" accept="image/">
                                         @error('image')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="price">*Event Price</label>
+                                        <label for="price">Event Price *</label>
                                         <input type="number" name="price" id="price" class="form-control"
                                             value="{{ $event->price }}">
                                         @error('price')
@@ -117,7 +117,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label for="quantity">*Ticket Quantity</label>
+                                        <label for="quantity">Ticket Quantity</label>
                                         <input type="number" name="quantity" id="quantity" class="form-control"
                                             value="{{ $event->quantity }}">
                                         @error('quantity')
@@ -153,6 +153,9 @@
         <x-app.footer />
         </div>
     </main>
+    <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js'></script>
     <script>
         // jQueary for DatePicker 
         $(document).ready(function() {

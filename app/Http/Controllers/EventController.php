@@ -31,7 +31,6 @@ class EventController extends Controller
         $sortBy = $sortBy ?: 'time';
         $sortBy = $sortBy ?: 'date';
         $sortBy = $sortBy ?: 'price';
-        $sortBy = $sortBy ?: 'action';
         // $sortBy = $sortBy ?: 'date_asc';
         // $sortBy = $sortBy ?: 'alpha_asc';
 
@@ -83,16 +82,24 @@ class EventController extends Controller
         /**
          * Validate input field from the form
          */
-        $request->validate([
-            'name' => 'required|min:3',
-            'venue' => 'required|min:3',
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
-            'price' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'about' => '',
-            'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|min:3',
+                'venue' => 'required|min:3',
+                'date' => 'required|date|after_or_equal:today',
+                'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
+                'price' => 'required|numeric',
+                'quantity' => 'required|numeric',
+                'about' => '',
+                'image' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
+            ],
+            [
+                'name.required' => 'Event Name is Required',
+                'name.min' => 'Event Name Must be More than 3 character',
+                'image.mimes' => 'Event Image type must be jpeg,png,jpg,gif,avif.',
+                'image.max' => 'Event Image size must be less than 10MB',
+            ]
+        );
         /**
          * If the Event has the image then it will store the image to the loacl folder in public/storage/event
          * otherwise store image path as null
@@ -162,16 +169,24 @@ class EventController extends Controller
         /**
          * Validate the data from input field of  form
          */
-        $request->validate([
-            'name' => 'required|min:3',
-            'venue' => 'required|min:3',
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',
-            'price' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'about' => '',
-            'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|min:3',
+                'venue' => 'required|min:3',
+                'date' => 'required|date|after_or_equal:today',
+                'time' => 'required|date_format:H:i',
+                'price' => 'required|numeric',
+                'quantity' => 'required|numeric',
+                'about' => '',
+                'imageUpadte' => 'mimes:jpeg,png,jpg,gif,avif|max:10240',
+            ],
+            [
+                'name.required' => 'Event Name is Required',
+                'name.min' => 'Event Name Must be More than 3 character',
+                'image.mimes' => 'Event Image type must be jpeg,png,jpg,gif,avif.',
+                'image.max' => 'Event Image size must be less than 10MB',
+            ]
+        );
         /**
          * If we channge Event image then it will update into databse
          * othewise it will keep it as old image 

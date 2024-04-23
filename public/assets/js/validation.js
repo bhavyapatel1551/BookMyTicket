@@ -22,10 +22,6 @@ $(document).ready(function () {
             venue: {
                 required: true,
             },
-            image: {
-                required: true,
-                // accept: "jpeg|jpg|png|gif|avif",
-            },
             price: {
                 required: true,
                 number: true,
@@ -36,8 +32,9 @@ $(document).ready(function () {
             time: {
                 required: true,
             },
-            about: {
+            quantity: {
                 required: true,
+                digits: true,
             },
             aboutyou: {
                 maxlength: 255,
@@ -74,10 +71,6 @@ $(document).ready(function () {
             venue: {
                 required: "Event Venue is required",
             },
-            image: {
-                required: "Event photo is required",
-                // accept: "File must be an image type",
-            },
             price: {
                 required: "Event Price is required",
                 number: "Please enter a valid price",
@@ -88,8 +81,9 @@ $(document).ready(function () {
             time: {
                 required: "Event Time is required",
             },
-            about: {
-                required: "Event Description is required",
+            quantity: {
+                required: "Event Quantity is Required",
+                digits: "Please enter a valid Quantity",
             },
             aboutyou: {
                 required: "Your Description is limited up to 255 character",
