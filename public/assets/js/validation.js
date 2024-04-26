@@ -36,6 +36,9 @@ $(document).ready(function () {
                 required: true,
                 digits: true,
             },
+            image: {
+                accept: "image/*",
+            },
             aboutyou: {
                 maxlength: 255,
             },
@@ -84,6 +87,9 @@ $(document).ready(function () {
             quantity: {
                 required: "Event Quantity is Required",
                 digits: "Please enter a valid Quantity",
+            },
+            image: {
+                accept: "Please select a valid image file (JPEG, PNG, GIF, etc).",
             },
             aboutyou: {
                 required: "Your Description is limited up to 255 character",

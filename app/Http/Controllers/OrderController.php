@@ -68,7 +68,7 @@ class OrderController extends Controller
     public function OrganizerOrderDetails(Request $request)
     {
         $user_id = Auth::id();
-        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('created_at')->paginate(5);
+        $orders = Order::where('organizer_id', $user_id)->with('event', 'user')->orderByDesc('updated_at')->paginate(5);
         $sortBy = $request->query('sort_by');
         switch ($sortBy) {
                 // case 'event_name':

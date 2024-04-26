@@ -57,7 +57,7 @@ class EventController extends Controller
                 // Default sorting
                 $events->orderBy('updated_at', 'desc');
         }
-        $events = $events->where('organizer_id', $id)->paginate(10);
+        $events = $events->where('organizer_id', $id)->orderByDesc('created_at')->paginate(10);
         // $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(5);
         return view('events.MyEvent', compact('events'));
     }
@@ -117,7 +117,7 @@ class EventController extends Controller
          * Change the Date formaye according to Database Entry 
          * then store data to datebase
          */
-        $date = Carbon::createFromFormat('m/d/Y', $request['date'], 'UTC')->format('Y-m-d');
+        $date = Carbon::createFromFormat('Y-m-d', $request['date'], 'UTC')->format('Y-m-d');
         $organizer_id = $user->id;
         Events::create([
             "name" => $request['name'],
@@ -152,7 +152,7 @@ class EventController extends Controller
          * Then show all info to edit form
          */
         $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
-        $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
+        $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
         return view('events.UpdateEvent', compact('event', 'newTime', 'newDate'));
     }
 
@@ -203,7 +203,7 @@ class EventController extends Controller
          * Change the formate of the data from the input box according the database formate.
          * then update event data to datbase
          */
-        $date = Carbon::createFromFormat('m/d/Y', $request['date'])->format('Y-m-d');
+        $date = Carbon::createFromFormat('Y-m-d', $request['date'])->format('Y-m-d');
         Events::where('id', $id)->update([
             "name" => $request['name'],
             "venue" => $request['venue'],
