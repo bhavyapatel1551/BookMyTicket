@@ -17,13 +17,11 @@ class CartController extends Controller
      */
     public function ShowCart()
     {
-        /**
-         * Get The Current user info
-         */
         $user = Auth::user();
 
         /**
-         * If the item in the cart deleted by the organizer then it will automaticly delete from cart table.
+         * Check if the ticket in the cart is deleted or not
+         * if the ticket is deleted then it will remove from the cart
          */
         Cart::where('user_id', $user->id)
             ->whereDoesntHave('event', function ($query) {
@@ -31,7 +29,7 @@ class CartController extends Controller
             })->delete();
 
         /**
-         * Update the data from event table to cart table
+         * Update the cart data from the event table incase of the Event Updation 
          */
         $data = Cart::where('user_id', $user->id)->get();
         foreach ($data as $d) {
@@ -44,16 +42,12 @@ class CartController extends Controller
                 ]);
             }
         }
-
         /**
-         * Fetch The Cart Data of the user
+         * Fetch the cart data from the database along with Totalitem , tickets, SubTotal.
          */
         $cartItems = Cart::where('user_id', $user->id)
             ->with('event')->orderByDesc('updated_at')
             ->get();
-        /**
-         * Calculate total item, ticket, price of te whole cart.
-         */
         $SubTotal = Cart::where('user_id', $user->id)->sum('total_price');
         $ticket = Cart::where('user_id', $user->id)->sum('quantity');
         $Totalitem = Cart::where('user_id', $user->id)->count();
@@ -84,9 +78,9 @@ class CartController extends Controller
             return redirect()->back()->with('error', "The quantity for ticket '{$event->name}' is insufficient.");
         }
         /**
-         * Check if the ticket is already in cart or not.
-         * if the ticket is already in the cart then it will only increase the quantity of the ticket.
-         * if the ticket is new then it will create new entry for the ticket into cart.
+         * Check if the item is already in the cart or not
+         * if item is already in the cart then it will only increase the quantity of the ticket
+         * if item is new then it will create the new entry in the cart.
          */
         $cartItem = Cart::where('user_id', $user_id)
             ->where('event_id', $id)
@@ -228,9 +222,9 @@ class CartController extends Controller
         $cart = Cart::where('id', $id)->first();
 
         /**
-         * Check if Event has sufficient quantity of ticket or not
-         * if it has then it will increase the qunaityt and price accordingly
-         * if it has insufficient quantity then it will show error message
+         * Check if the ticket has sufficeint quantity or not
+         * if ticket has sufficeint quantity then it will increase the Ticket quantity
+         * if ticket has insufficient quantity then it will return error message
          */
         $event = Events::findOrFail($cart->event_id);
         if ($event->quantity > $cart->quantity) {
@@ -258,8 +252,9 @@ class CartController extends Controller
         $cart = Cart::where('id', $id)->first();
 
         /**
-         * If the quantity is less than 1 then it will delete the item form the cart.
-         * otherwise it will decrease the qunatity of the item.
+         * Check if the cart ticket quantity is less than 1 or not
+         * if it will get less then 1 then it will delete the cart item
+         * else it will decrease the cart item quantity.
          */
         if ($cart->quantity <= 1) {
             return response()->json(['delete' => true]);

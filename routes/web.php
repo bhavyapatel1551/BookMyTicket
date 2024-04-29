@@ -73,7 +73,7 @@ Route::get('/verify-otp-google', [RegisterController::class, 'GoogleOTP'])->name
  */
 Route::get('auth/google', [GoogleController::class, 'loginwithgoogle'])->name('login')->middleware('guest');
 Route::any('auth/google/callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback')->middleware('guest');
-Route::get('/GoogleOTP', [RegisterController::class, 'GoogleOTP'])->name('showOtpFormGoogle')->middleware('guest');
+Route::get('/GoogleOTP', [RegisterController::class, 'GoogleOTP'])->name('showotpFormGoogle')->middleware('guest');
 /**
  * User Registration Fees Routes 
  */
@@ -103,7 +103,7 @@ Route::prefix('user')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile')->middleware('auth');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('user.update')->middleware('auth');
 
-    Route::get('/PhotoUpdate', [ProfileController::class, 'showprofilephotoform'])->name('user.PhotoUpdate')->middleware('auth');
+    Route::get('/PhotoUpdate', [ProfileController::class, 'showprofilephotoform'])->name('user.Photoupdate')->middleware('auth');
     Route::put('/PhotoUpdate', [ProfileController::class, 'updateprofilephoto'])->name('user.PhotoUpdate')->middleware('auth');
 });
 
@@ -118,13 +118,13 @@ Route::get('/event', [EventController::class, 'ShowAllEvents'])->name('event')->
 /**
  * Create Event Routes
  */
-Route::get('/event/create', [EventController::class, 'ShowCreateEventPage'])->name('event.create')->middleware('auth');
+Route::get('/event/create', [EventController::class, 'ShowCreateEventPage'])->name('event.Create')->middleware('auth');
 Route::post('/event/create', [EventController::class, 'createEvent'])->name('event.create')->middleware('auth');
 
 /**
  * Update Event Routes
  */
-Route::get('/eventUpdate/{id}', [EventController::class, 'ShowUpdateEventPage'])->name('events.update')->middleware('auth');
+Route::get('/eventUpdate/{id}', [EventController::class, 'ShowUpdateEventPage'])->name('events.Update')->middleware('auth');
 Route::post('/eventUpdate/{id}', [EventController::class, 'UpdateEvent'])->name('events.update')->middleware('auth');
 
 /**
@@ -209,6 +209,9 @@ Route::get('/todaysales', [OrderController::class, 'TodaySales'])->name('TodaySa
  */
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
 Route::get('/userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+/**
+ * View All Event, Event Created by , Ticket Purchased by Details from users
+ */
 Route::get('/viewEventsByUserId/{id}', [UserController::class, 'tickets'])->name('ticket-management')->middleware('auth');
 Route::get('/purchasedBy/{id}', [UserController::class, 'purchasedBy'])->name('purchasedBy')->middleware('auth');
 Route::get('/UserDetails', [UserController::class, 'UserStatistics'])->name('UserStatistics')->middleware('auth');

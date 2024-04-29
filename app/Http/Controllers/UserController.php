@@ -45,7 +45,7 @@ class UserController extends Controller
         $user = Auth::user();
         if ($user && $user->id === 0) {
             $username = User::where('id', $id)->first(["name"])->name;
-            $events = Events::where('organizer_id', $id)->orderByDesc('created_at')->paginate(5);
+            $events = Events::where('organizer_id', $id)->orderByDesc('created_at')->paginate(10);
             return view('Admin.viewEventsByUserId', compact('events', 'username'));
         } else {
             abort(403, 'Unauthorized');

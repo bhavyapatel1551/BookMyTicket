@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function UserPurchaseOrder(Request $request)
     {
         $user_id = Auth::id();
-        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(5);
+        $orders = Order::where('user_id', $user_id)->with('event')->orderByDesc('created_at')->paginate(10);
         $sortBy = $request->query('sort_by');
         switch ($sortBy) {
                 // case 'name':
@@ -50,14 +50,14 @@ class OrderController extends Controller
                 //     break;
             case 'price':
                 $orders = Order::where('user_id', $user_id)->orderBy('price', 'asc')
-                    ->paginate(5);
+                    ->paginate(10);
                 break;
             case 'quantity':
                 $orders = Order::where('user_id', $user_id)->orderBy('quantity', 'asc')
-                    ->paginate(5);
+                    ->paginate(10);
                 break;
             default:
-                $orders = Order::where('user_id', $user_id)->orderByDesc('created_at')->paginate(5);
+                $orders = Order::where('user_id', $user_id)->orderByDesc('created_at')->paginate(10);
         }
         return view('tickets.UserTicketOrder', compact('orders'));
     }
@@ -141,6 +141,11 @@ class OrderController extends Controller
         }
     }
 
+    /**
+     * Show Ticket info send to  user email
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function EmailTicket($id)
     {
         $ticket = Order::where('id', $id)->with('event')->first();

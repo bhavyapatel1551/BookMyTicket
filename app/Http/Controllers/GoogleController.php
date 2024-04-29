@@ -43,8 +43,8 @@ class GoogleController extends Controller
 
             $user = Socialite::driver('google')->user();
             /**
-             * Check if user is already logged-in or not
-             * if not then create new user into database
+             * Check if the user is already logged-in or not based on that it will fetch data from the database
+             * if user is not registered then it will create the new user and login the user
              */
             $is_user = User::where('email', $user->getEmail())->first();
             if (!$is_user) {
@@ -54,9 +54,8 @@ class GoogleController extends Controller
                     'password' => Hash::make($user->getId() . ''),
                     'google_id' => $user->getId(),
                 ]);
-                // Redirect to Registartion Fees proccess
                 /**
-                 * Redirect to Registration Fees Process
+                 * Redirect to Registration Process
                  */
                 $redirectUrl = route('GoogleOTP', [
                     'email' => $user->getEmail(),
@@ -65,12 +64,13 @@ class GoogleController extends Controller
                 return redirect($redirectUrl);
             } else {
                 /**
-                 * If user is already Registered then it will get data from the database and login user
+                 * If the user is already regitered then it will fetch the data from the database based on the google
+                 * then login the user 
                  */
                 $useremail = $user->getEmail();
                 $verify = User::where('email', $useremail)->first();
                 /**
-                 * If user's email is not verifed then it will sent the otp
+                 * If user is already logged-in but not verified then it will redirect to the OtP Varification page 
                  */
                 if ($verify->email_verified_at ===  null) {
                     $redirectUrl = route('showOtpFormGoogle', [

@@ -18,7 +18,7 @@
                                 Check all the Events and choose the best.
                             </p>
                             <img src="{{ asset('createEvent.png') }}" alt="Event"
-                                class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
+                                class="position-absolute top-0 end-1 w-15 mt-3 me-3 mb-0 max-width-250  d-sm-block d-none" />
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                     <div class="col-6 text-end">
                                         @if ($event->image)
                                             <img src="{{ asset('storage/' . $event->image) }}"
-                                                class="img-fluid rounded-3" alt="Shopping item" style="width: 80px;">
+                                                class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
                                         @endif
                                     </div>
                                 </div>

@@ -122,7 +122,7 @@
                                                     @else
                                                         <img src="{{ asset('profileimg.png') }}"
                                                             alt="Default Profile Photo"
-                                                            class="w-15 h-15 object-fit-cover border-radius-lg shadow-sm"
+                                                            class="w-8 object-fit-cover border-radius-lg shadow-sm"
                                                             id="preview">
                                                     @endif
                                                 </div>

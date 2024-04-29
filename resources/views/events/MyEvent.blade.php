@@ -25,7 +25,7 @@
                                     </button>
                                 </a>
                                 <img src="{{ asset('eventmanage.png') }}" alt="Event"
-                                    class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
+                                    class="position-absolute  top-0 end-1 w-30 mt-2 mb-0 max-width-250 mt-0 d-sm-block d-none" />
                             </div>
                         </div>
                     </div>

@@ -14,8 +14,8 @@
                             <p class="mb-4 font-weight-semibold">
                                 Create your own Event
                             </p>
-                            <img src="{{ asset('eventmanage.png') }}" alt="Event"
-                                class="position-absolute top-0 end-1 w-30 mb-0 max-width-250 mt-0 d-sm-block d-none" />
+                            <img src="{{ asset('EventStatisics.png') }}" alt="Event"
+                                class="position-absolute top-0 end-1 mt-3 w-15 mb-0 max-width-250 mt-0 d-sm-block d-none" />
                         </div>
                     </div>
                 </div>

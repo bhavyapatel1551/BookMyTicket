@@ -25,7 +25,7 @@
                                     </button>
                                 </a>
                                 <img src="{{ asset('event.png') }}" alt="Event" id="Dashboardheaderimg"
-                                    class="position-absolute top-0 end-1 w-28 mb-0 max-width-250  d-sm-block d-none" />
+                                    class="position-absolute top-0 end-1 w-25 mb-0 max-width-250 mt-4  d-sm-block d-none">
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                 const url = new URL(window.location.href);
                 url.searchParams.set('search', searchTerm);
                 window.location.href = url.toString();
-            }, 700); // Wait for 2 seconds before updating the URL
+            }, 700);
         });
     </script>
 </x-app-layout>

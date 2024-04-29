@@ -25,7 +25,6 @@ class EventController extends Controller
         $id = Auth::id();
         $sortBy = $request->query('sort_by');
 
-        // Default sorting if no option is selected
         $sortBy = $sortBy ?: 'name';
         $sortBy = $sortBy ?: 'venue';
         $sortBy = $sortBy ?: 'time';
@@ -54,10 +53,9 @@ class EventController extends Controller
                 $events->orderBy('price', 'asc');
                 break;
             default:
-                // Default sorting
                 $events->orderBy('updated_at', 'desc');
         }
-        $events = $events->where('organizer_id', $id)->orderByDesc('created_at')->paginate(10);
+        $events = $events->where('organizer_id', $id)->orderByDesc('updated_at')->paginate(10);
         // $events = Events::where('organizer_id', $id)->orderByDesc('updated_at')->paginate(5);
         return view('events.MyEvent', compact('events'));
     }
@@ -87,7 +85,7 @@ class EventController extends Controller
                 'name' => 'required|min:3',
                 'venue' => 'required|min:3',
                 'date' => 'required|date|after_or_equal:today',
-                'time' => 'required|date_format:H:i', // validate if the the event date is aftre the today or not 
+                'time' => 'required|date_format:H:i',
                 'price' => 'required|numeric',
                 'quantity' => 'required|numeric',
                 'about' => '',
@@ -101,8 +99,8 @@ class EventController extends Controller
             ]
         );
         /**
-         * If the Event has the image then it will store the image to the loacl folder in public/storage/event
-         * otherwise store image path as null
+         * If the Event has the image then it will store the image to the local folder in public/storage/event
+         * Otherwise it will image as null 
          */
         if ($request->hasFile('image')) {
             $imagepath = $request->file('image')->getClientOriginalName();
@@ -114,8 +112,7 @@ class EventController extends Controller
 
         $user = Auth::user();
         /**
-         * Change the Date formaye according to Database Entry 
-         * then store data to datebase
+         * Change the date format according to database.
          */
         $date = Carbon::createFromFormat('Y-m-d', $request['date'], 'UTC')->format('Y-m-d');
         $organizer_id = $user->id;
@@ -142,14 +139,13 @@ class EventController extends Controller
     public function ShowUpdateEventPage($id)
     {
         /**
-         * Find Event data by event_id and get all data
+         * Fetch the Event details by event id 
          */
         $event = Events::findOrFail($id);
         $date = $event->date;
         $time = $event->time;
         /**
-         * Change the formate of the date and time for the display in the input box
-         * Then show all info to edit form
+         * Change the date formate according the datepicker field
          */
         $newTime = Carbon::createFromFormat('H:i:s', $time)->format('H:i');
         $newDate = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
@@ -188,8 +184,8 @@ class EventController extends Controller
             ]
         );
         /**
-         * If we channge Event image then it will update into databse
-         * othewise it will keep it as old image 
+         * If we upload the new image then it will update the image path in database
+         * otherwise it will keep old image as it is
          */
         if ($request->hasFile('imageUpadte')) {
             $imagepath = $request->file('imageUpadte')->getClientOriginalName();
@@ -200,8 +196,7 @@ class EventController extends Controller
             ]);
         }
         /**
-         * Change the formate of the data from the input box according the database formate.
-         * then update event data to datbase
+         * Change the date formate according to the datepicker field
          */
         $date = Carbon::createFromFormat('Y-m-d', $request['date'])->format('Y-m-d');
         Events::where('id', $id)->update([
@@ -213,7 +208,6 @@ class EventController extends Controller
             "quantity" => $request['quantity'],
             "about" => $request['about'],
         ]);
-        // Jobs::dispatch($id);
         UpdateEventSentMail::dispatch($id);
         return redirect()->route("event")->with("success", "Event successfully updated!");
     }
@@ -228,8 +222,7 @@ class EventController extends Controller
     {
         $Order = Order::where('event_id', $id)->first();
         /**
-         * If any user has purchesed the ticket of that event then we can not delete that event
-         * otherwise we can delete that event.
+         * If any user has purchase this Event ticket then user can not delete that event
          */
         if ($Order) {
             return redirect('event')->with('error', 'This ticket cannot be deleted as it has already been purchased by someone.');

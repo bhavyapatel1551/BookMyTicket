@@ -23,23 +23,22 @@ class UpdateEventSentMail implements ShouldQueue
     {
         $this->id = $id;
     }
-
     /**
      * Execute the job.
      */
     public function handle(): void
     {
         /**
-         * Get the event id from the argument of construct
-         * Get the user id from the order table
-         * Get user id from usrr table
+         * Get the Event id from the cunstructor 
+         * Get the user id from order table
+         * Get the user id from the user table by Order data
          */
         $user_id = Order::where('event_id', $this->id)->pluck('user_id');
         $user_ids = User::whereIn('id', $user_id)->pluck('id')->unique();
 
         /**
-         * Find user info from user table and sent email notification to each user.
-         * Get order id , user name and event id along with notification to sent email.
+         * Get the user info from user table
+         * Send the notification to the user 
          */
         foreach ($user_ids as $userId) {
             $user = User::find($userId);
